@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding", "FluentExtensions\FluentCoding.csproj", "{F1A23610-F3A7-499B-9D49-38EBB869C0CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCodingTest", "FluentExtensionsTest\FluentCodingTest.csproj", "{3FB4FED0-CDC7-4B34-AAFE-6FC587C5BF94}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1A23610-F3A7-499B-9D49-38EBB869C0CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1A23610-F3A7-499B-9D49-38EBB869C0CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1A23610-F3A7-499B-9D49-38EBB869C0CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1A23610-F3A7-499B-9D49-38EBB869C0CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FB4FED0-CDC7-4B34-AAFE-6FC587C5BF94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FB4FED0-CDC7-4B34-AAFE-6FC587C5BF94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FB4FED0-CDC7-4B34-AAFE-6FC587C5BF94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FB4FED0-CDC7-4B34-AAFE-6FC587C5BF94}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8A7085D5-209E-4903-994F-923B7EFA6EA4}
+	EndGlobalSection
+EndGlobal

@@ -9,5 +9,8 @@ namespace FluentExtensions
 
         public static T Or<T>(this T _, T orReplacement, Func<T, bool> chooseRightWhen)
             => _.Or(orReplacement, leftHasPriorityWhenNotDefault: !chooseRightWhen(_));
+
+        public static T Or<T>(this T _, T orReplacement, Func<bool> chooseRightWhen)
+            => _.Or(orReplacement, leftHasPriorityWhenNotDefault: !chooseRightWhen());
     }
 }

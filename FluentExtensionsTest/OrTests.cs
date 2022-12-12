@@ -2,7 +2,7 @@ using FluentAssertions;
 using FluentExtensions;
 using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
 using System.Diagnostics.CodeAnalysis;
-using UsefulExtensionsTest.TestTypes;
+
 
 namespace FluentCodingTest
 {

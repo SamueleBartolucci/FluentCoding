@@ -3,9 +3,8 @@
 namespace FluentExtensions
 {
     public static class IsNullOrDefaultExtensions
-    {
-        public static bool IsNullOrDefault<T>(this T @this)
-            => @this.IsNullOrDefault(true);
+    {        
+        public static bool IsNullOrDefault<T>(this T @this) => @this.IsNullOrDefault(true);
         public static bool IsNullOrDefault<T>(this T @this, bool trimWhenString)
         {
             // deal with normal scenarios

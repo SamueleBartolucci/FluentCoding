@@ -8,14 +8,14 @@ namespace FluentCodingTest.When
     [ExcludeFromCodeCoverage]
     public class WheDoTest
     {
-        static WhenDo<T> WhenTest<T>(T obj, bool isTrue) => obj.When<T>(isTrue);
+        static WhenDo<T> WhenContext<T>(T obj, bool isTrue) => obj.When<T>(isTrue);
         
         
         [TestCase(true)]
         [TestCase(false)]
         public void ThenDo_Func_T_T(bool trueCondition)
         {
-            WhenTest(Test.T, trueCondition)
+            WhenContext(Test.T, trueCondition)
                 .ThenDo((_) => Test.TDone)                
                 .Should().Be(trueCondition ? Test.TDone : Test.T);
         }
@@ -24,7 +24,7 @@ namespace FluentCodingTest.When
         [TestCase(false)]
         public void ThenDo_TrueAndFalse_Func_T_T(bool trueCondition)
         {
-            WhenTest(Test.T, trueCondition)
+            WhenContext(Test.T, trueCondition)
                 .ThenDo((_) => Test.TDone, (_) => Test.TNotDone)
                 .Should().Be(trueCondition ? Test.TDone : Test.TNotDone);
         }
@@ -33,18 +33,16 @@ namespace FluentCodingTest.When
         [TestCase(false)]
         public void ThenDo_Action_T(bool trueCondition)
         {
-            WhenTest(Test.T, trueCondition)
+            WhenContext(Test.T, trueCondition)
                 .ThenDo(_ => _.DescType = Test.Done)                
                 .Should().BeEquivalentTo(trueCondition ? Test.TDone : Test.T);
-
-
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void ThenDo_TrueAndFalse_Action_T_T(bool trueCondition)
         {
-            WhenTest(Test.T, trueCondition)
+            WhenContext(Test.T, trueCondition)
                 .ThenDo(_ => _.DescType = Test.Done, _ => _.DescType = Test.NotDone)
                 .Should().BeEquivalentTo(trueCondition ? Test.TDone : Test.TNotDone);
         }
@@ -52,7 +50,7 @@ namespace FluentCodingTest.When
         [TestCase(true)]
         [TestCase(false)]
         public void ThenMap_T_K(bool trueCondition) => 
-            WhenTest(Test.T, trueCondition)
+            WhenContext(Test.T, trueCondition)
                 .ThenMap((_) => Test.KDone, (_) => Test.KNotDone)            
                 .Should().BeEquivalentTo(trueCondition ? Test.KDone : Test.KNotDone);
 
@@ -60,7 +58,7 @@ namespace FluentCodingTest.When
         [TestCase(false)]
         public void ThenWhenTrue(bool trueCondition)
         {
-            WhenTest(Test.T, trueCondition)
+            WhenContext(Test.T, trueCondition)
                 .ThenMap((_) => Test.KDone, (_) => Test.KNotDone)
                 .Should().BeEquivalentTo(trueCondition ? Test.KDone : Test.KNotDone);
         }

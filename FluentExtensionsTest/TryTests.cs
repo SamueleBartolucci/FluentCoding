@@ -2,7 +2,7 @@ using FluentAssertions;
 using FluentExtensions;
 using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
 using System.Diagnostics.CodeAnalysis;
-using UsefulExtensionsTest.TestTypes;
+
 
 namespace FluentCodingTest
 {
@@ -16,7 +16,7 @@ namespace FluentCodingTest
             var tryResult = Test.T.Try
                 (
                     (_) => Test.TRight,
-                    (e) => Test.EException
+                    (_, e) => Test.EException
                  );
             tryResult.Result.Should().BeEquivalentTo(Test.TRight);
             tryResult.Error.Should().BeNull();
@@ -29,7 +29,7 @@ namespace FluentCodingTest
             var tryResult = Test.T.Try
                 (
                     (_) => Test.GetDefault<TypeT>().DescType,
-                    (e) => Test.EException
+                    (_, e) => Test.EException
                  );
             tryResult.Result.Should().BeNull();
             tryResult.Error.Should().BeEquivalentTo(Test.EException);

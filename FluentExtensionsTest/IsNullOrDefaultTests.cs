@@ -1,7 +1,6 @@
 using FluentAssertions;
 using FluentExtensions;
 using System.Diagnostics.CodeAnalysis;
-using UsefulExtensionsTest.TestTypes;
 
 namespace FluentCodingTest
 {

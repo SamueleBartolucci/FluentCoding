@@ -1,4 +1,4 @@
-﻿using FluentExtensions.Context;
+﻿using FluentCoding.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,12 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace FluentExtensions
+namespace FluentCoding
 {
-    public class TryCatch<S, R> : WhenDo<S>
+    public class TryCatch<S, R> : WhenAnd<S>
     {
         internal TryCatch() : base() { }
-
 
         public R Result { get; set; }
         public Exception Error { get; set; }

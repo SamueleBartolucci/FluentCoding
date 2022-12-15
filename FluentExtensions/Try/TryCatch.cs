@@ -8,7 +8,7 @@ using System.Xml.Linq;
 
 namespace FluentCoding
 {
-    public class TryCatch<S, R, E> : WhenAnd<S>
+    public class TryCatch<S, R, E> : BaseContext<S>
     {
         internal TryCatch() : base() { }
 

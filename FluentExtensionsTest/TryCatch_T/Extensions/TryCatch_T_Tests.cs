@@ -25,7 +25,7 @@ namespace FluentCodingTest
         [Test]
         public void Try_Fail()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.GetDefault<TypeK>().DescType.Do(_ => "never reach this"));
+            var tryCatch = Test.TNotDone.Try(_ => Test.GetException<TypeK>());
 
             tryCatch.IsSuccesful.Should().BeFalse();
             tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
@@ -46,11 +46,11 @@ namespace FluentCodingTest
         [Test]
         public void TryOnError_Fail()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.GetDefault<TypeK>().DescType.Do(_ => "never reach this"), 
+            var tryCatch = Test.TNotDone.Try(_ => Test.GetException<TypeK>(), 
                                              (s, e) => string.Concat(s.DescType, "_", e.Message));
 
             tryCatch.Result.Should().BeNull();
-            tryCatch.Error.Should().StartWith(Test.TNotDone.DescType + "_Object");
+            tryCatch.Error.Should().StartWith(Test.TNotDone.DescType + "_Exception");
             tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
         }
 
@@ -64,7 +64,7 @@ namespace FluentCodingTest
         [Test]
         public void TryWrap_Fail()
         {
-            var result = Test.TNotDone.TryWrap(_ => Test.GetDefault<TypeK>().DescType.Do(_ => "never reach this"), (s, e) => Test.Left);
+            var result = Test.TNotDone.TryWrap(_ => Test.GetException<string>(), (s, e) => Test.Left);
             result.Should().Be(Test.Left);
         }
     }

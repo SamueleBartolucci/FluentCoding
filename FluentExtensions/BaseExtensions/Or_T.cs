@@ -7,6 +7,9 @@ namespace FluentCoding
         public static T Or<T>(this T leftValue, T orRightValue, bool chooseRight = false)
             => (leftValue.IsNullOrDefault() || chooseRight) ? orRightValue : leftValue;
 
+        public static T Or<T>(this T _, T orReplacement, Func<T, T, bool> chooseRightWhen)
+            => _.Or(orReplacement, chooseRightWhen(_, orReplacement));
+
         public static T Or<T>(this T _, T orReplacement, Func<T, bool> chooseRightWhen)
             => _.Or(orReplacement, chooseRightWhen(_));
 

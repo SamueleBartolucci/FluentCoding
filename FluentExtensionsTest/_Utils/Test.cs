@@ -34,7 +34,8 @@ namespace FluentCodingTest
         public static TypeK K => GetTypeK();
 
 
-        public static T GetDefault<T>() => default;
+        public static T GetDefault<T>() => default(T);
+        public static T GetException<T>() => throw new Exception();
 
 
         public static Exception EException = new Exception();

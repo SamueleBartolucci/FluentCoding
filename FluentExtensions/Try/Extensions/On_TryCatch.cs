@@ -8,8 +8,11 @@ using System.Xml.Linq;
 namespace FluentCoding
 {
     public static class On_TryCatch
-    {        
-        public static (TRES Success, TryCatch<S, R> TryCatch) OnSuccess<S, R, TRES>(this TryCatch<S, R> _, Func<R, TRES> whenOk) => (whenOk(_.Result), _);
-        public static (TryCatch<S, R> TryCatch, TERR Fail) OnFail<S, R, TERR>(this TryCatch<S, R> _, Func<S, Exception, TERR> whenException) => (_, whenException(_.Subject, _.Error));
+    {
+        public static (TRES Success, TryCatch<S, R, E> TryCatch) OnSuccess<S, R, E, TRES>(this TryCatch<S, R, E> _, Func<R, TRES> whenOk)
+            => (_.IsSuccesful ? whenOk(_.Result) : default(TRES), _);
+
+        public static (TERR Fail, TryCatch<S, R, E> TryCatch) OnFail<S, R, E, TERR>(this TryCatch<S, R, E> _, Func<S, E, TERR> whenException)
+            => (!_.IsSuccesful ? whenException(_.Subject, _.Error) : default(TERR), _);
     }
 }

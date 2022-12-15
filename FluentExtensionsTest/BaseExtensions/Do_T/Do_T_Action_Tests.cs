@@ -12,12 +12,22 @@ namespace FluentCodingTest.Do_T
     {
 
         [Test]
-        public void Do_Action_Object()
+        public void Do_Action_ObjectField()
         {
             var preDo = Test.T;
             var postDo = preDo.Do(_ => _.DescType = Test.Done);
             postDo.DescType.Should().Be(Test.Done);
+            postDo.Should().BeEquivalentTo(Test.TDone);            
             preDo.Should().BeSameAs(postDo);
+        }
+
+        [Test]
+        public void Do_Action_ObjectFieldValue()
+        {
+            var preDo = Test.TNotDone;
+            var postDo = preDo.DescType.Do(_ => _.Concat(Test.Done));
+            postDo.Should().NotBe(Test.NotDone+Test.Done);
+            preDo.DescType.Should().BeEquivalentTo(postDo);
         }
 
         [Test]
@@ -32,7 +42,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_StringEmpty()
         {
             string preDo = string.Empty;
-            var postDo = preDo.Do((_) => _ = Test.Done);
+            var postDo = preDo.Do(_ => _.Concat(Test.Done));
             postDo.Should().Be(string.Empty);
 
         }
@@ -40,8 +50,11 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_String()
         {
             string preDo = "notDone";
-            var postDo = preDo.Do((_) => _ = Test.Done);
-            postDo.Should().Be(Test.Done);
+            var postDo = preDo.Do(_ => _.Concat(Test.Done));
+            postDo.Should().Be(preDo);            
         }
+
+
+      
     }
 }

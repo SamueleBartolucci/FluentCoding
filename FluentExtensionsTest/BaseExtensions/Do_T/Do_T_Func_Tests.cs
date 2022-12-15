@@ -27,6 +27,7 @@ namespace FluentCodingTest.Do_T
             preDo.Should().Be(string.Empty);
 
         }
+
         [Test]
         public void Do_Func_String()
         {
@@ -35,6 +36,7 @@ namespace FluentCodingTest.Do_T
             postDo.Should().Be(Test.Done);
             preDo.Should().NotBeSameAs(postDo);
         }
+
 
         [Test]
         public void Do_Func_Enum()

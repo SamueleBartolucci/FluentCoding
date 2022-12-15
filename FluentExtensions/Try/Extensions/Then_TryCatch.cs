@@ -10,6 +10,7 @@ namespace FluentCoding
     public static class Then_TryCatch
     {
 
-        public static (TRES Success, TERR Fail) Then<S, R, TRES, TERR>(this TryCatch<S, R> _, Func<R, TRES> whenOk, Func<S, Exception, TERR> whenOnException) => (whenOk(_.Result), whenOnException(_.Subject, _.Error));        
+        public static (TRES Success, TERR Fail) Then<S, R, E, TRES, TERR>(this TryCatch<S, R, E> _, Func<R, TRES> whenOk, Func<S, E, TERR> whenOnException) 
+            => (whenOk(_.Result), whenOnException(_.Subject, _.Error));      
     }
 }

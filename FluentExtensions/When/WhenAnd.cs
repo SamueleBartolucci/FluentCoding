@@ -9,7 +9,7 @@ using System.Xml.Linq;
 
 namespace FluentCoding
 {
-    public class WhenAnd<T> : BaseContext<T>
+    public class WhenAnd<T> : When<T>
     {
         internal WhenAnd() : base() { }
         internal WhenAnd(WhenAnd<T> whenOr) : base() 

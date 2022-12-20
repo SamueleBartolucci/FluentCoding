@@ -27,5 +27,22 @@ namespace FluentCodingTest
             then.Fail.Should().BeOfType<Exception>();
         }
 
+
+        [Test]
+        public void TryCatch_Success_ThenMap()
+        {
+            var then = Test.TNotDone.Try(_ => Test.KRight)
+                .ThenMap(_ => Test.Done, (s, e) => Test.NotDone)
+                .Should().Be(Test.Done);
+        }
+
+        [Test]
+        public void TryCatch_Fail_ThenMap()
+        {
+            var then = Test.TNotDone.Try(_ => Test.GetException<TypeK>())
+                .ThenMap(_ => Test.Done, (s, e) => Test.NotDone)
+                .Should().Be(Test.NotDone);
+        }
+
     }
 }

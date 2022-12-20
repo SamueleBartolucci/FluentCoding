@@ -55,16 +55,16 @@ namespace FluentCodingTest
         }
 
         [Test]
-        public void TryWrap_Success()
+        public void TryThen_Success()
         {
-            var result = Test.TNotDone.TryWrap(_ => Test.Right, (s, e) => Test.Left);
+            var result = Test.TNotDone.TryThen(_ => Test.Right, (s, e) => Test.Left);
             result.Should().Be(Test.Right);
         }
 
         [Test]
-        public void TryWrap_Fail()
+        public void TryThen_Fail()
         {
-            var result = Test.TNotDone.TryWrap(_ => Test.GetException<string>(), (s, e) => Test.Left);
+            var result = Test.TNotDone.TryThen(_ => Test.GetException<string>(), (s, e) => Test.Left);
             result.Should().Be(Test.Left);
         }
     }

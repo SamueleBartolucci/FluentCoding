@@ -11,7 +11,7 @@ on:
 
 jobs:
   publish: 
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -20,7 +20,7 @@ jobs:
         dotnet-version: '7.0.x'
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
       env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}        
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Restore dependencies
       run: dotnet restore      
     - name: Build
@@ -28,5 +28,7 @@ jobs:
     - name: Create the package
       run: dotnet pack --configuration Release
     - name: Publish the package to GPR
-      run: dotnet nuget push **/*.nupkg
+      run: dotnet nuget push **/*.nupkg -k ${GITHUB_TOKEN}  
+      env:      
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   

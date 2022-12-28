@@ -21,9 +21,9 @@ jobs:
       with:
         dotnet-version: 7.0.x
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
-#      env:
-#        NUGET_AUTH_TOKEN: ${{ github.token }}
-#        NUGET_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      env:
+        NUGET_AUTH_TOKEN: ${{ github.token }}
+
    
     - name: Create package
       run: |

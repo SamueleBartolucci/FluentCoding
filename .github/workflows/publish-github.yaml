@@ -2,12 +2,13 @@ name: Publish Github
 
 on: 
   workflow_dispatch:
-    inputs:
-      version:
-        description: 'package version'
-        required: true
-        default: '1.0.0'
-        type: string
+#    inputs:
+#      version:
+#        description: 'package version'
+#        required: true
+#        default: '1.0.0'
+#        type: string
+
 jobs:
   publish: 
     runs-on: ubuntu-latest
@@ -30,4 +31,4 @@ jobs:
         dotnet pack --configuration Release
     - name: Publish the package to GitHub Package Registry
       run: |
-        dotnet nuget push "**/*.nupkg" --skip-duplicate --api-key ${{ secrets.GITHUB_TOKEN }}
+        dotnet nuget push "**/*.nupkg" --skip-duplicate --api-key ${{ secrets.PUSH_NUGET_PACKAGE_TKN }}

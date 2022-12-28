@@ -11,7 +11,7 @@ on:
 
 jobs:
   publish: 
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
     - name: Checkout
@@ -23,12 +23,14 @@ jobs:
         dotnet-version: 7.0.x
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
       env:
-        NUGET_AUTH_TOKEN: ${{ github.token }}
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}    
+#       NUGET_AUTH_TOKEN: ${{ github.token }}
 
    
     - name: Create package
-      run: |
-        dotnet pack --configuration Release
+      run: |       
+        dotnet pack -c Release -o out
     - name: Publish the package to GitHub Package Registry
       run: |
-        dotnet nuget push "**/*.nupkg" --skip-duplicate --api-key ${{ secrets.PUSH_NUGET_PACKAGE_TKN }}
+        echo ${{ github.repository_owner }}
+        dotnet nuget push "**/*.nupkg" --skip-duplicate --no-symbols true

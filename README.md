@@ -46,7 +46,43 @@ Identity people3 = ReadFromDataBase(...);
 Identity people4 = ReadFromDataBase(...);
 
 people1.EqualsTo(people2, EqualityCheck);
+
 people1.EqualsToAny(EqualityCheck, people2, people3, people4);
 "XX".EqualsToAny("YY", "TT", "XX", "VV"); //when no specified an equality check, the framework Equals is used
+```
+
+```csharp
+bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;ma è acceso?
+
+Tesla tesla = new Tesla() { ... };
+Ferrari ferrari = new Ferrari() { ... };
+Ferrari ferrari2 = new Ferrari() { ... };
+Ferrari ferrari3 = new Ferrari() { ... };
+
+tesla.EquivalentTo(ferrari, (t, f) => t.PlateNumber == f.PlateNumber);
+
+tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari2, ferrari3);
+```
+
+# IsNullOrDefault
+
+Handy shorthand method to check if something is null or default
+
+```csharp
+string.Empty.IsNullOrDefault(); //true
+null.IsNullOrDefault(); //true
+" ".IsNullOrDefault(); //true
+" ".IsNullOrDefault(false); //false
+objectInstance.IsNullOrDefault(); //false
+
+public enum TestEnum { Enum1, Enum2 }
+TestEnum.Enum1.IsNullOrDefault(); //true
+TestEnum.Enum2.IsNullOrDefault(); //false
+
+
+public static Func<bool> NullFunc = null;
+public static Func<bool> NotNullFunc = () => true;
+NullFunc.IsNullOrDefault(); //true
+NotNullFunc.IsNullOrDefault(); //false
 ```
 

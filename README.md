@@ -1,6 +1,7 @@
 # FluentCoding
 
 Set of functionalities to extend linq with more fluent capabilities
+This functionalities can be combined together to fluently manipulate an object
 
 # Or
 
@@ -161,7 +162,6 @@ people.Switch
 ```
 
 # When
-`Draft`
 Apply one or more checks on the subjects and then apply and Action or a Function only when all the checks are satisfied
 
 ## When base class
@@ -244,3 +244,114 @@ var ferrari = car.When(c => c.Type == "Ferrari")
 
 
 # TryCatch
+`Draft`
+Inline wrap methods for the Try{}Catch{}
+
+# Try base class
+Try to do something and return a context with all the information
+
+```csharp
+Car LoadCarData(string licensPlate)
+{
+ //[...] do something
+ return car; 
+}
+
+var tryResult = "xxxxx".Try(LoadCarData);
+tryResult.IsSuccesful; //true or false
+tryResult.Subject; //the input string licensePlace
+tryResult.Result; //the Car object loader
+tryResult.Error; //the Exception raised when loading the car data
+```
+
+```csharp
+Car LoadCarData(string licensePlate)
+{
+ //[...] do something
+ return car; 
+}
+
+CustomError ManageException(String licensePlate, Exception e) => new CustomError(e.Messge, licensePlate);
+
+var tryResult = "carLicensePlate".Try(LoadCarData, ManageException);
+tryResult.IsSuccesful; //true or false
+tryResult.Subject; //the input string licensePlace
+tryResult.Result; //the Car object loader
+tryResult.Error; //the CustomError returned by ManageException
+```
+
+# Try.OnSuccess or Try.OnFail
+Try to do something and when ok do something else
+```csharp
+Car LoadCarData(string licensPlate)
+{
+ //[...] do something
+ return car; 
+}
+List<CarComponent> DisassembleCar(Car car)
+{
+ //[...] do something
+ return carComponents; 
+}
+
+(var Components, var tryCatchContext) = "xxxxx".Try(LoadCarData)
+                                               .OnSuccess(DisassembleCar);                       
+Components; //the disassembled car components ONLY WHEN no exception occurred, default of List<CarComponent> otherwise
+tryCatchContext; //the TryCatch class from the previous example, ALWAYS returned
+```
+```csharp
+Car LoadCarData(string licensPlate)
+{
+ //[...] do something
+ return car; 
+}
+CustomError ManageException(String licensePlate, Exception e) => new CustomError(e.Messge, licensePlate);
+
+List<Car> availableCar = new List<Car>();
+
+(var error, var tryCatchContext) = "xxxxx".Try(plate => availableCar.Add(LoadCarData(plate))
+                                          .OnFail(ManageException);
+                       
+error; //the CustomError ONLY WHEN and exception occurred, default of CustomError otherwise
+tryCatchContext; //the TryCatch class from the previous example, ALWAYS returned
+```
+
+# Try.Then
+Try to do something and then manage the success or the fail result
+```csharp
+Car LoadCarData(string licensPlate)
+{
+ //[...] do something
+ return car; 
+}
+bool AddCarToStock(Car car) 
+{
+ //[...] do something
+ return true; 
+}
+bool TraceCarError(string plate, Exception e) 
+{
+ //[...] do something
+ return true; 
+}
+
+CustomError ManageException(String licensePlate, Exception e) => new CustomError(e.Messge, licensePlate);
+
+"xxxxx".Try(LoadCarData)
+       .Then(AddCarToStock, TraceCarError);                       
+```
+
+# TryThen
+Try to do something or manage the exception, the output type can differ from the subject input type
+```csharp
+Diagnostic RunDiagnostic(Car car)
+{
+ //[...] do something
+ return Diagnostic.Succesful; 
+}
+
+var car = LoadCarData(...);
+
+var diagnosticResult =
+car.TryThen(RunDiagnostic, (c, ex) => Diagnostic.Failed);
+```

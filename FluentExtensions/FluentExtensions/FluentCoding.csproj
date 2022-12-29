@@ -12,7 +12,15 @@
     <PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
     <RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
     <PackageReleaseNotes>first release</PackageReleaseNotes>
+
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 <!--
   <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
 	  <PackageReference Include="System.ValueTuple" Version="4.5.0" />

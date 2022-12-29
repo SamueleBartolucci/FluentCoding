@@ -18,24 +18,10 @@ namespace FluentCodingTest.Do_T
             preDo.Should().NotBeSameAs(postDo);
         }
 
-        private TypeT UpdateIdentity(TypeT identity)
-        { 
-            return identity;
-        }
-
-
-        [Test]
-        public void Do_Func_Object2()
-        {
-            TypeT preDo = Test.T;
-            var postDo = preDo.Do(UpdateIdentity);
-            postDo.DescType.Should().Be(Test.Done);
-            preDo.Should().NotBeSameAs(postDo);
-        }
 
         [Test]
         public void Do_Func_StringEmpty()
-        {
+        {            
             string preDo = string.Empty;
             var postDo = preDo.Do((_) => Test.Done);
             postDo.Should().Be(string.Empty);

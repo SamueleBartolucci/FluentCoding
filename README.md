@@ -1,11 +1,8 @@
 # FluentCoding
 
-Set of basic functionalities to extend linq with more fluent capabilities
+Set of functionalities to extend linq with more fluent capabilities
 
-# `Base Extensions`
-Basic functionalities available to any Type T
-
-## Or
+# Or
 
 Choose when pick the right object based on a predicate.
 By default Left when not default
@@ -16,7 +13,7 @@ var validData = object1.Or(object2, (subject)=> !subject.IsStillValid);
 var mostRecentData = dataSource1.Or(dataSource2, (subject, orValue)=> orValue.LastUpdateTime > subject.LastUpdateTime);
 ```
 
-## Do
+# Do
 
 Update an object and return the object itself via Action or Function
 
@@ -35,7 +32,7 @@ var identitiesList = new List<Identity>();
 identitiesList.Add(identity.Do(UpdateIdentity));
 ```
 
-## Equals
+# Equals
 
 Expand the equality functions: `EqualsTo`, `EqualsToAny`, `EquivalentTo`, `EquivalentToAny`
 
@@ -68,7 +65,7 @@ tesla.EquivalentTo(ferrari, (t, f) => t.PlateNumber == f.PlateNumber);
 tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari2, ferrari3);
 ```
 
-## IsNullOrDefault
+# IsNullOrDefault
 
 Handy shorthand method to check if something is null or default
 
@@ -91,7 +88,7 @@ NullFunc.IsNullOrDefault(); //true
 NotNullFunc.IsNullOrDefault(); //false
 ```
 
-## Is
+# Is
 
 Apply a boolean predicate to an object and obtain the preticate result along with the subject.
 Can be combined with other functions from this library in a fluent way
@@ -106,7 +103,7 @@ if(result.IsSatisfied)
 ```
 
 
-## Map
+# Map
 
 Convert a Type into another one
 ```csharp
@@ -131,7 +128,7 @@ var sw = ferrari.Map(ConvertToTesla)
                 .Map(ExtractSoftware);
 ```
 
-## Switch 
+# Switch 
 
 Fluent version of the switch case: `Switch`, `SwitchMap`
 
@@ -141,6 +138,7 @@ Identity people = new Identity() { ... };
 Identity ApiGetPeople(string pincode) { ... return people; }
 Identity ApiGetPeopleAddress(people) { ... return peopleAddress; }
 
+var updatedPeople =
 people.Switch
 (
     p => p,
@@ -161,3 +159,88 @@ people.Switch
     (p => p.YearsOld > 18  &&  p.YearsOld < 60 , p => Enum.Adult)
 );
 ```
+
+# When
+`Draft`
+Apply one or more checks on the subjects and then apply and Action or a Function only when all the checks are satisfied
+
+## When base class
+```csharp
+var car = LoadCarData(...);
+
+When<Car> result = car.When(c => c.Type == "Ferrari");
+
+result.IsSuccess; // the predicate result
+result.Subject; //the predicate subject
+```
+
+
+## When.Then
+```csharp
+var car = LoadCarData(...);
+c.Insurance = InsuranceType.LowBudget;
+
+car.When(c => c.Type == "Ferrari")   
+   .Then(c => c.Insurance = InsuranceType.Luxury);
+```
+
+
+
+## When.Or.Then
+```csharp
+var car = LoadCarData(...);
+c.Insurance = InsuranceType.LowBudget;
+
+car.When(c => c.Type == "Ferrari")
+   .OrWhen(c => c.Type == "Lamborghini")
+   .Then(c => c.Insurance = InsuranceType.Luxury);
+```
+
+## When.Or.And.Then
+```csharp
+var car = LoadCarData(...);
+c.Insurance = InsuranceType.LowBudget;
+
+car.When(c => c.Type == "Ferrari")
+   .OrWhen(c => c.Type == "Lamborghini")
+   .AndWhen(c => c.MarketPrice >= 180000)
+   .Then(c => c.Insurance = InsuranceType.Luxury);
+```
+
+## When.ThenMap only when True
+```csharp
+var car = LoadCarData(...);
+Ferrari ConvertToFerrari(Car car) 
+{
+ //[...] do something
+ return ferrari; 
+}
+
+//when
+(Ferrari ferrari, Car subject) = car.When(c => c.Type == "Ferrari")      
+                                    .ThenMap(ConvertToFerrari);
+```
+
+
+## When.ThenMap when True or When False
+```csharp
+var car = LoadCarData(...);
+Ferrari ConvertToFerrari(Car car) 
+{
+ //[...] do something
+ return ferrari; 
+}
+
+Ferrari CreateNewFerrari(Car car)
+{
+ //[...] do something
+ return newFerrari; 
+}
+
+//when
+var ferrari = car.When(c => c.Type == "Ferrari")      
+                 .ThenMap(ConvertToFerrari, CreateNewFerrari);
+```
+
+
+# TryCatch

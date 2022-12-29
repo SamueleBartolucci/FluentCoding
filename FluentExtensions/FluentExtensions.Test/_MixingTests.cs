@@ -28,17 +28,17 @@ namespace FluentCodingTest
             subject.When(_ => _.Equals(Test.Left))
                 .OrWhen(_ => _.Equals(Test.Right))
                 .Then(_ => Test.Done)
-                .TryThen(_ => _, (s, e) => Test.NotDone)
+                .TryTo(_ => _, (s, e) => Test.NotDone)
                 .Should().Be(subject.EqualsToAny(Test.Left, Test.Right) ? Test.Done : "not-ok");
         }
 
         [Test]
-        public void When_OrWhen_Then_TryThen_Or_Exception()
+        public void When_OrWhen_Then_TryTo_Or_Exception()
         {
             "".When(_ => _.Equals(Test.Left))
                 .AndWhen(_ => _.Equals(Test.Right))
                 .Then(_ => Test.Done)
-                .TryThen(_ => Test.Done.Or(Test.GetException<string>(), _.Equals(Test.Done)), (s, e) => Test.NotDone)
+                .TryTo(_ => Test.Done.Or(Test.GetException<string>(), _.Equals(Test.Done)), (s, e) => Test.NotDone)
                 .Should().Be(Test.NotDone);
         }
 

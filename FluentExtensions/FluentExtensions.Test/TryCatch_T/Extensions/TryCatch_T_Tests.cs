@@ -55,16 +55,16 @@ namespace FluentCodingTest
         }
 
         [Test]
-        public void TryThen_Success()
+        public void TryTo_Success()
         {
-            var result = Test.TNotDone.TryThen(_ => Test.Right, (s, e) => Test.Left);
+            var result = Test.TNotDone.TryTo(_ => Test.Right, (s, e) => Test.Left);
             result.Should().Be(Test.Right);
         }
 
         [Test]
-        public void TryThen_Fail()
+        public void TryTo_Fail()
         {
-            var result = Test.TNotDone.TryThen(_ => Test.GetException<string>(), (s, e) => Test.Left);
+            var result = Test.TNotDone.TryTo(_ => Test.GetException<string>(), (s, e) => Test.Left);
             result.Should().Be(Test.Left);
         }
     }

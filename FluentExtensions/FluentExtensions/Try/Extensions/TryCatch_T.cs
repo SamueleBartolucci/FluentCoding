@@ -15,7 +15,7 @@ namespace FluentCoding
             new TryCatch<S, R, E>() { Subject = _ }
             .Try(tryTo, onError);
 
-        public static R TryThen<S, R>(this S _, Func<S, R> tryTo, Func<S, Exception, R> onError) =>
+        public static R TryTo<S, R>(this S _, Func<S, R> tryTo, Func<S, Exception, R> onError) =>
            _.Try(tryTo, onError)
             .Map(tryCatch => tryCatch.IsSuccesful? tryCatch.Result : tryCatch.Error);
     }

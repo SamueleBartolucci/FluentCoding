@@ -3,6 +3,7 @@ using FluentCoding;
 
 using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
 using System.Diagnostics.CodeAnalysis;
+using System.Security.Principal;
 
 
 namespace FluentCodingTest.Equals_T
@@ -19,7 +20,8 @@ namespace FluentCodingTest.Equals_T
         [Test]
         public void EqualsTo_False() =>
             Test.TLeft.EqualsTo(Test.TRight, (a, b) => a.DescType == b.DescType)
-            .Should().BeFalse();
+        .Should().BeFalse();
+
 
 
         [Test]
@@ -41,7 +43,9 @@ namespace FluentCodingTest.Equals_T
         public void EqualsToAny_Object_True() =>
             Test.T.EqualsToAny((l, r) => l.DescType == r.DescType, Test.T, Test.T)
             .Should().BeTrue();
-              
+
+
+        
         [Test]
         public void EqualsToAny_Enum_False() =>
             TestEnum.Enum1.EqualsToAny(TestEnum.Enum2, TestEnum.Enum2)

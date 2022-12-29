@@ -10,7 +10,6 @@ namespace FluentCodingTest.Do_T
     [ExcludeFromCodeCoverage]
     public class Do_T_Action_Tests
     {
-
         [Test]
         public void Do_Action_ObjectField()
         {

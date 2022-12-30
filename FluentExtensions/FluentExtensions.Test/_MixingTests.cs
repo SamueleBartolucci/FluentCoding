@@ -1,5 +1,7 @@
 using FluentAssertions;
 using FluentCoding;
+using FluentCoding.Try;
+using FluentCoding.When;
 using NUnit.Framework;
 using System.Diagnostics.CodeAnalysis;
 

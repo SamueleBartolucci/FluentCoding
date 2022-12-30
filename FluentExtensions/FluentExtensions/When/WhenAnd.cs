@@ -9,6 +9,10 @@ using System.Xml.Linq;
 
 namespace FluentCoding
 {
+    /// <summary>
+    /// When->Then class. Run the 'Then' logic only if the 'When' and all the 'AndWhen' are true
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class WhenAnd<T> : When<T>
     {
         internal WhenAnd() : base() { }
@@ -18,9 +22,10 @@ namespace FluentCoding
             Subject = whenOr.Subject; 
         }
 
-        public WhenAnd<T> AndWhen(Func<T, bool> andCondition) => this.AndWhen(andCondition(Subject));//this.Do(_ => _.IsSuccesful &= and(_.Subject));
-        public WhenAnd<T> AndWhen(Func<bool> andCondition) => this.AndWhen(andCondition());//this.Do(_ => _.IsSuccesful &= and());
-        public WhenAnd<T> AndWhen(bool andCondition) => this.Or(new WhenAnd<T>(this), this is WhenOr<T>).Do(_ => _.IsSuccesful &= andCondition);
+        public WhenAnd<T> AndWhen(Func<T, bool> andCondition) => AndWhen(andCondition(Subject));
+        public WhenAnd<T> AndWhen(Func<bool> andCondition) => AndWhen(andCondition());
+        public WhenAnd<T> AndWhen(bool andCondition) => this.Or(new WhenAnd<T>(this), this is WhenOr<T>)
+                                                            .Do(_ => _.IsSuccesful &= andCondition);
 
     }
 }

@@ -1,4 +1,9 @@
-﻿namespace FluentCoding.String
+﻿using FluentCoding.When;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace FluentCoding.String
 {
     public static class Prepend
     {

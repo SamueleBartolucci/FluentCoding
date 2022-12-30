@@ -9,6 +9,10 @@ using System.Xml.Linq;
 
 namespace FluentCoding
 {
+    /// <summary>
+    /// When->Then class. Run the 'Then' logic only if the 'When' is true
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class When<T> : BaseContext<T>
     {
         internal When() : base() { }

@@ -28,7 +28,8 @@ jobs:
     - name: Create the package
       run: dotnet pack --configuration Release
     - name: Publish the package to GPR
-      run: dotnet nuget push **/*.nupkg -k ${GITHUB_TOKEN}  
+      run: dotnet nuget push **/*.nupkg -k ${GITHUB_TOKEN} -s ${SOURCE_URL} --skip-duplicate
       env:      
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SOURCE_URL: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
   

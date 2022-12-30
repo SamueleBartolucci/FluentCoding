@@ -39,7 +39,7 @@ Expand the equality functions: `EqualsTo`, `EqualsToAny`, `EquivalentTo`, `Equiv
 
 ### EqualsTo
 ```csharp
-bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;
+bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;ma è acceso?
 
 Identity people1 = ReadFromDataBase(...);
 Identity people2 = ReadFromDataBase(...);
@@ -54,7 +54,7 @@ people1.EqualsToAny(EqualityCheck, people2, people3, people4);
 
 ### EquivalentTo
 ```csharp
-bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;
+bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;ma è acceso?
 
 Tesla tesla = new Tesla() { ... };
 Ferrari ferrari = new Ferrari() { ... };
@@ -247,9 +247,7 @@ var ferrari = car.When(c => c.Type == "Ferrari")
 `Draft`
 Inline wrap methods for the Try{}Catch{}
 
-
 ## Try base class
-
 Try to do something and return a context with all the information
 
 ```csharp
@@ -283,7 +281,6 @@ tryResult.Error; //the CustomError returned by ManageException
 ```
 
 ## Try.OnSuccess or Try.OnFail
-
 Try to do something and when ok do something else
 ```csharp
 Car LoadCarData(string licensPlate)
@@ -319,9 +316,7 @@ error; //the CustomError ONLY WHEN and exception occurred, default of CustomErro
 tryCatchContext; //the TryCatch class from the previous example, ALWAYS returned
 ```
 
-
 ## Try.Then
-
 Try to do something and then manage the success or the fail result
 ```csharp
 Car LoadCarData(string licensPlate)
@@ -351,4 +346,3 @@ Try to do something or manage the exception, the output type can differ from the
 ```csharp
 var date = "2022-12-29".TryTo(DateTime.Parse, (c, ex) => DateTime.MinValue);
 ```
-

@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net48</TargetFrameworks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <Version>1.0.1</Version>
+    <Title>Expand linq fluent methods with some useful constructs for developing code</Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Authors>Samuele Bartolucci</Authors>
+    <Description>Add new Linq style functionalities to help the develop process</Description>
+    <PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
+    <PackageReleaseNotes>first release</PackageReleaseNotes>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+<!--
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+	  <PackageReference Include="System.ValueTuple" Version="4.5.0" />
+  </ItemGroup>
+  -->
+
+</Project>

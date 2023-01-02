@@ -13,16 +13,17 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.Test", "Fluent
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.String.Test", "FluentExtensions.String\FluentExtensions.String.Test\FluentCoding.String.Test.csproj", "{6E64CAA4-3041-4CE1-BEE9-0F6935B1DC15}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_readme", "_readme", "{40141769-B236-4E52-AA6B-50CD279231B9}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionFiles", "_SolutionFiles", "{40141769-B236-4E52-AA6B-50CD279231B9}"
 	ProjectSection(SolutionItems) = preProject
+		fluent.snk = fluent.snk
 		FluentExtensions\FluentExtensions\.Docs\LICENSE.txt = FluentExtensions\FluentExtensions\.Docs\LICENSE.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enum", "Enum", "{3F7424E4-937A-42D3-9682-6E5E92B0D51A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentCoding.Enum", "FluentExtensions.Enum\FluentExtensions.Enum\FluentCoding.Enum.csproj", "{54A26A4C-FBA7-43DB-9BF5-2E5093447AEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.Enum", "FluentExtensions.Enum\FluentExtensions.Enum\FluentCoding.Enum.csproj", "{54A26A4C-FBA7-43DB-9BF5-2E5093447AEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentCoding.Enum.Test", "FluentExtensions.Enum\FluentExtensions.Enum.Test\FluentCoding.Enum.Test.csproj", "{44919D40-375C-46FA-BF57-E85D955BEFED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.Enum.Test", "FluentExtensions.Enum\FluentExtensions.Enum.Test\FluentCoding.Enum.Test.csproj", "{44919D40-375C-46FA-BF57-E85D955BEFED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

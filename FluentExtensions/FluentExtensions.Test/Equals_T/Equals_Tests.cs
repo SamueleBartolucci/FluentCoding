@@ -2,6 +2,7 @@ using FluentAssertions;
 using FluentCoding;
 
 using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Principal;
 
@@ -9,7 +10,7 @@ using System.Security.Principal;
 namespace FluentCodingTest.Equals_T
 {
     [ExcludeFromCodeCoverage]
-    public class Equals_Tests
+    public class ForEach_Tests
     {
 
         [Test]

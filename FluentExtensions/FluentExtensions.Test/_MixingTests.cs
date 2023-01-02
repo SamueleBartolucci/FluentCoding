@@ -3,6 +3,8 @@ using FluentCoding;
 using FluentCoding.Try;
 using FluentCoding.When;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 
@@ -68,7 +70,7 @@ namespace FluentCodingTest
         public void Or_DoWhen_Satisfy()
         {
             Test.TRight.Or(Test.TLeft)
-                .When(_ => _.DescType == Test.Left).Then((Action<TypeT>)(_ => _.DescType = Test.Done))
+                .When(_ => _.DescType == Test.Left).Then(_ => _.DescType = Test.Done)
                 .Is(_ => _.DescType == Test.Right)
                 .IsSatisfied.Should().BeTrue();
         }

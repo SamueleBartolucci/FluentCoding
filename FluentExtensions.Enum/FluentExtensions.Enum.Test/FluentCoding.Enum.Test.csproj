@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FluentExtensions.Enum\FluentExtensions.Enum.csproj" />
+    <ProjectReference Include="..\FluentExtensions.Enum\FluentCoding.Enum.csproj" />
   </ItemGroup>
 
 </Project>

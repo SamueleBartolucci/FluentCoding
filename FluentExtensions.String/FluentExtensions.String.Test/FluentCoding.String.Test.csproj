@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FluentExtensions.String\FluentExtensions.String.csproj" />
+    <ProjectReference Include="..\FluentExtensions.String\FluentCoding.String.csproj" />
   </ItemGroup>
 
 </Project>

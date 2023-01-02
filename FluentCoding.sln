@@ -5,13 +5,13 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "String", "String", "{54EEB024-F3C7-45EB-A2DF-A03626E13481}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentExtensions.String", "FluentExtensions.String\FluentExtensions.String\FluentExtensions.String.csproj", "{E2891C7C-3C77-4211-A13F-9E2B5267FA61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.String", "FluentExtensions.String\FluentExtensions.String\FluentCoding.String.csproj", "{E2891C7C-3C77-4211-A13F-9E2B5267FA61}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding", "FluentExtensions\FluentExtensions\FluentCoding.csproj", "{4F8CD69A-1575-4D32-A973-59D99CC690E2}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.Test", "FluentExtensions\FluentExtensions.Test\FluentCoding.Test.csproj", "{57CCD467-DDFF-42C3-8438-DDFC54426C32}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentExtensions.String.Test", "FluentExtensions.String\FluentExtensions.String.Test\FluentExtensions.String.Test.csproj", "{6E64CAA4-3041-4CE1-BEE9-0F6935B1DC15}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.String.Test", "FluentExtensions.String\FluentExtensions.String.Test\FluentCoding.String.Test.csproj", "{6E64CAA4-3041-4CE1-BEE9-0F6935B1DC15}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_readme", "_readme", "{40141769-B236-4E52-AA6B-50CD279231B9}"
 	ProjectSection(SolutionItems) = preProject
@@ -20,9 +20,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_readme", "_readme", "{4014
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enum", "Enum", "{3F7424E4-937A-42D3-9682-6E5E92B0D51A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentExtensions.Enum", "FluentExtensions.Enum\FluentExtensions.Enum\FluentExtensions.Enum.csproj", "{54A26A4C-FBA7-43DB-9BF5-2E5093447AEF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentCoding.Enum", "FluentExtensions.Enum\FluentExtensions.Enum\FluentCoding.Enum.csproj", "{54A26A4C-FBA7-43DB-9BF5-2E5093447AEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentExtensions.Enum.Test", "FluentExtensions.Enum\FluentExtensions.Enum.Test\FluentExtensions.Enum.Test.csproj", "{44919D40-375C-46FA-BF57-E85D955BEFED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentCoding.Enum.Test", "FluentExtensions.Enum\FluentExtensions.Enum.Test\FluentCoding.Enum.Test.csproj", "{44919D40-375C-46FA-BF57-E85D955BEFED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

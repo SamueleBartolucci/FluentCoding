@@ -20,10 +20,10 @@ jobs:
         dotnet-version: 7.0.x
         
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore -f --no-cache
       
     - name: Build
-      run: dotnet build --no-restore 
+      run: dotnet build
       
     - name: Test
       run: dotnet test --no-build --verbosity normal /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov

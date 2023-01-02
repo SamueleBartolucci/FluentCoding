@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.String.Test", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_readme", "_readme", "{40141769-B236-4E52-AA6B-50CD279231B9}"
 	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
+		FluentExtensions\FluentExtensions\.Docs\LICENSE.txt = FluentExtensions\FluentExtensions\.Docs\LICENSE.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enum", "Enum", "{3F7424E4-937A-42D3-9682-6E5E92B0D51A}"

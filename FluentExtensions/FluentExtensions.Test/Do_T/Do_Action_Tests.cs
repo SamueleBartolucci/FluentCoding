@@ -2,7 +2,7 @@ using FluentAssertions;
 using FluentCoding;
 using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
-
+using System.Linq;
 
 namespace FluentCodingTest.Do_T
 {
@@ -19,11 +19,16 @@ namespace FluentCodingTest.Do_T
             preDo.Should().BeSameAs(postDo);
         }
 
+        private void MergeAction(string string1, string string2)
+        {
+            string1 = string1 + string2;
+        }
+
         [Test]
         public void Do_Action_ObjectFieldValue()
         {
             var preDo = Test.TNotDone;
-            var postDo = preDo.DescType.Do(_ => _.Concat(Test.Done));
+            var postDo = preDo.DescType.Do(_ => MergeAction(_, Test.Done));
             postDo.Should().NotBe(Test.NotDone+Test.Done);
             preDo.DescType.Should().BeEquivalentTo(postDo);
         }
@@ -32,7 +37,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_Null()
         {
             TypeT preDo = null;
-            var postDo = preDo.Do((_) => _.DescType = Test.Done);
+            var postDo = preDo.Do(_ => _.DescType = Test.Done);
             postDo.Should().Be(null);
         }
 

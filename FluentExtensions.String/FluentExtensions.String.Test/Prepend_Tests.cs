@@ -1,6 +1,8 @@
 using FluentAssertions;
 using FluentCoding;
 using FluentCoding.String;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace FluentExtensions.String.Test
 {

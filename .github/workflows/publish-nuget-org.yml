@@ -1,16 +1,12 @@
 name: Publish to nuget.org
 
-on:
-  push:
-    tags:
-      - 'v*.*.*'
+on: 
+  workflow_dispatch:
 
 jobs:
-
-  push: 
-
+  publish: 
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout
       uses: actions/checkout@main

@@ -18,13 +18,15 @@ jobs:
         source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
       env:
         NUGET_AUTH_TOKEN: ${{ github.token }}
-        
+   
     - name: Restore dependencies
-      run: dotnet restore --no-cache      
+      run: dotnet restore      
       
     - name: Build
       run: dotnet build
       
-    - name: Publish the package to nuget repository
-      run: |
-        dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PUSH_TO_NUGET_ORG }} --skip-duplicate
+    - name: Publish the package to GPR
+      run: dotnet nuget push **/*.nupkg -k ${NUGETORG_TOKEN} -s ${SOURCE_URL} --skip-duplicate
+      env:      
+        NUGETORG_TOKEN: ${{ secrets.PUSH_TO_NUGET_ORG }}
+        SOURCE_URL: https://api.nuget.org/v3/index.json

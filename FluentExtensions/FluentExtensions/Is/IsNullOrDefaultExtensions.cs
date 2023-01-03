@@ -3,36 +3,45 @@
 namespace FluentCoding
 {
     public static class IsNullOrDefaultExtensions
-    {        
-        public static bool IsNullOrDefault<T>(this T @this) => @this.IsNullOrDefault(true);
-        public static bool IsNullOrDefault<T>(this T @this, bool trimWhenString)
+    {
+
+        public static bool IsNullOrEquivalent<T>(this T @this, Action<IsNullOptions> setupCustomOptions = null)
+        {
+            var nullCheckOptions = new IsNullOptions();
+            if(setupCustomOptions != null) 
+                setupCustomOptions(nullCheckOptions);
+
+            return @this.IsNullOrEquivalent(nullCheckOptions);
+        }
+
+        public static bool IsNullOrEquivalent<T>(this T @this, IsNullOptions nullCheckOptions)
         {
             // deal with normal scenarios
             if (@this == null)
                 return true;
 
-            //avoid to return true when is the first enum value
-            if (@this is Enum)
-                return false;
-
             //deal with strings
             if (typeof(T).IsEquivalentTo(typeof(string)))
-                return trimWhenString ? 
-                        string.IsNullOrEmpty((@this as string).Trim()) : 
-                        string.IsNullOrEmpty(@this as string);
+            {
 
-            if (object.Equals(@this, default(T)))
-                return true;
+                if (nullCheckOptions.EmptyOrWhiteSpacesIsNull)
+                    return string.IsNullOrWhiteSpace(@this as string);
 
-            // deal with non-null nullables
-            Type methodType = typeof(T);
-            if (Nullable.GetUnderlyingType(methodType) != null)
+                if (nullCheckOptions.EmptyStringIsNull)
+                    return string.IsNullOrEmpty(@this as string);
+
                 return false;
+            }
 
-            // deal with boxed value types
-            Type argumentType = @this.GetType();
-            if (argumentType.IsValueType && argumentType != methodType)
-                return Activator.CreateInstance(@this.GetType()).Equals(@this);
+            //// deal with non-null nullables
+            //Type methodType = typeof(T);            
+            //if (Nullable.GetUnderlyingType(methodType) != null)
+            //    return false;
+
+            //// deal with boxed value types
+            //Type argumentType = @this.GetType();
+            //if (argumentType.IsValueType && argumentType != methodType)
+            //    return Activator.CreateInstance(@this.GetType()).Equals(@this);
 
             return false;
         }

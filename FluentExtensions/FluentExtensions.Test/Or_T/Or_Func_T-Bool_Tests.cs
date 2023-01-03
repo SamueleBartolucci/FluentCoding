@@ -29,7 +29,7 @@ namespace FluentCodingTest.Or_T
         [Test]
         public void Or_StringSpaces_Right()
             => " ".Or(Test.Right, (s) => false)
-                .Should().Be(Test.Right);
+                .Should().Be(" ");
 
         [Test]
         public void Or_Null_Right()

@@ -1,7 +1,9 @@
 # FluentCoding
 
 Set of functionalities to extend linq with more fluent capabilities
-This functionalities can be combined together to fluently manipulate an object
+This functionalities can be combined together to fluently manipulate an object:
+
+#### `ForEach`, `When`, `Or`, `Is`, `Try`, `Do`, `Equals`, `Map`, `Switch`
 
 # Or
 
@@ -19,8 +21,12 @@ var mostRecentData = dataSource1.Or(dataSource2, (subject, orValue)=> orValue.La
 Update an object and return the object itself via Action or Function
 
 ```csharp
-identity.Do(_ => _.Name = "John")
-        .Do(_ => _.Surname = "Smith");
+identity.Do(_ => _.Name = "John");
+
+//or
+
+identity.Do(_ => _.Name = "John",
+            _ => _.Surname = "Smith");
 ```
 ```csharp
 private TypeT UpdateIdentity(TypeT identity)
@@ -37,9 +43,9 @@ identitiesList.Add(identity.Do(UpdateIdentity));
 
 Expand the equality functions: `EqualsTo`, `EqualsToAny`, `EquivalentTo`, `EquivalentToAny`
 
-### EqualsTo
+### EqualsTo - EqualsToAny
 ```csharp
-bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;
+bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;ma è acceso?
 
 Identity people1 = ReadFromDataBase(...);
 Identity people2 = ReadFromDataBase(...);
@@ -52,9 +58,9 @@ people1.EqualsToAny(EqualityCheck, people2, people3, people4);
 "XX".EqualsToAny("YY", "TT", "XX", "VV"); //when no specified an equality check, the framework Equals is used
 ```
 
-### EquivalentTo
+### EquivalentTo - EquivalentToAny
 ```csharp
-bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;
+bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;ma è acceso?
 
 Tesla tesla = new Tesla() { ... };
 Ferrari ferrari = new Ferrari() { ... };
@@ -66,27 +72,39 @@ tesla.EquivalentTo(ferrari, (t, f) => t.PlateNumber == f.PlateNumber);
 tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari2, ferrari3);
 ```
 
-# IsNullOrDefault
+# IsNullOrEquivalent
 
-Handy shorthand method to check if something is null or default
+Handy shorthand method to check if something is null or an equivalent state
+Expose a way to specify more option to check fo null or equivalent state.
+Via action on a 'IsNullOptions' object, or submitting an 'IsNullOptions' object
 
 ```csharp
-string.Empty.IsNullOrDefault(); //true
-null.IsNullOrDefault(); //true
-" ".IsNullOrDefault(); //true
-" ".IsNullOrDefault(false); //false
-objectInstance.IsNullOrDefault(); //false
+string.Empty.IsNullOrEquivalent(); //true
+null.IsNullOrEquivalent(); //true
+" ".IsNullOrEquivalent(); //false
+objectInstance.IsNullOrEquivalent(); //false
 ```
+
+```csharp
+"".IsNullOrEquivalent(_ => _.EmptyStringIsNull = false); //false
+" ".IsNullOrEquivalent(_ => _.EmptyOrWhiteSpacesIsNull = false); //false
+
+var options = new IsNullOptions() { EmptyStringIsNull = false,  EmptyOrWhiteSpacesIsNull = false;};
+"".IsNullOrEquivalent(options); //false
+" ".IsNullOrEquivalent(options); //false
+
+```
+
 ```csharp
 public enum TestEnum { Enum1, Enum2 }
-TestEnum.Enum1.IsNullOrDefault(); //true
-TestEnum.Enum2.IsNullOrDefault(); //false
+TestEnum.Enum1.IsNullOrEquivalent(); //False
+TestEnum.Enum2.IsNullOrEquivalent(); //False
 ```
 ```csharp
 public static Func<bool> NullFunc = null;
 public static Func<bool> NotNullFunc = () => true;
-NullFunc.IsNullOrDefault(); //true
-NotNullFunc.IsNullOrDefault(); //false
+NullFunc.IsNullOrEquivalent(); //true
+NotNullFunc.IsNullOrEquivalent(); //false
 ```
 
 # Is
@@ -184,6 +202,17 @@ car.When(c => c.Type == "Ferrari")
    .Then(c => c.Insurance = InsuranceType.Luxury);
 ```
 
+## When.ThenAnd
+Concatenate more Then on the subject 
+```csharp
+var car = LoadCarData(...);
+c.Insurance = InsuranceType.LowBudget;
+
+car.When(c => c.Type == "Ferrari")   
+   .ThenAnd(c => c.Insurance = InsuranceType.Luxury)
+   .ThenAnd(c => c.Color = "Red")
+   .Then(c => c.Available = true)
+```
 
 
 ## When.Or.Then
@@ -244,12 +273,9 @@ var ferrari = car.When(c => c.Type == "Ferrari")
 
 
 # TryCatch
-`Draft`
 Inline wrap methods for the Try{}Catch{}
 
-
 ## Try base class
-
 Try to do something and return a context with all the information
 
 ```csharp
@@ -283,7 +309,6 @@ tryResult.Error; //the CustomError returned by ManageException
 ```
 
 ## Try.OnSuccess or Try.OnFail
-
 Try to do something and when ok do something else
 ```csharp
 Car LoadCarData(string licensPlate)
@@ -319,9 +344,7 @@ error; //the CustomError ONLY WHEN and exception occurred, default of CustomErro
 tryCatchContext; //the TryCatch class from the previous example, ALWAYS returned
 ```
 
-
 ## Try.Then
-
 Try to do something and then manage the success or the fail result
 ```csharp
 Car LoadCarData(string licensPlate)
@@ -352,3 +375,19 @@ Try to do something or manage the exception, the output type can differ from the
 var date = "2022-12-29".TryTo(DateTime.Parse, (c, ex) => DateTime.MinValue);
 ```
 
+# ForEach
+Expand the ForEach function to all the IEnumerable types
+
+## Action
+```csharp
+int[] original = { 1, 2, 3 };
+var reworked = new List<string>();
+original.ForEach(_ => reworked.Add(_.ToString()));
+```
+
+## Function: 
+Return a new IEnumerable with the result of the function applied to each item
+```csharp
+int[] original = { 1, 2, 3 };
+IEnumerable<string> reworked = original.ForEach(_ => _.ToString());
+```

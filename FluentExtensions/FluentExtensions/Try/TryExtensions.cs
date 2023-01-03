@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace FluentCoding.Try
+namespace FluentCoding
 {
     public static class TryExtensions
     {

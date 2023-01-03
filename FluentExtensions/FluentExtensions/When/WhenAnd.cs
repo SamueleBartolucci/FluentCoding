@@ -1,5 +1,4 @@
 ﻿
-using FluentCoding.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +23,7 @@ namespace FluentCoding
 
         public WhenAnd<T> AndWhen(Func<T, bool> andCondition) => AndWhen(andCondition(Subject));
         public WhenAnd<T> AndWhen(Func<bool> andCondition) => AndWhen(andCondition());
-        public WhenAnd<T> AndWhen(bool andCondition) => this.Or(new WhenAnd<T>(this), this is WhenOr<T>)
+        public WhenAnd<T> AndWhen(bool andCondition) =>  ((this is WhenOr<T>)? new WhenAnd<T>(this) : this)
                                                             .Do(_ => _.IsSuccesful &= andCondition);
 
     }

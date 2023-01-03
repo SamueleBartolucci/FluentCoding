@@ -22,10 +22,15 @@ namespace FluentCodingTest.ForEach_T
             empty.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.T));
         }
 
-
+        public void ciao()
+        {
+            int[] original = { 1, 2, 3 };
+            IEnumerable<string> reworked = original.ForEach(_ => _.ToString());
+        }
         [Test]
         public void ForEach_Func()
         {
+
             TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
             List<TypeK> empty = new List<TypeK>();
 

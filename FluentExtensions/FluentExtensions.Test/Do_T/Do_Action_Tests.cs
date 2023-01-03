@@ -1,6 +1,7 @@
 using FluentAssertions;
 using FluentCoding;
 using NUnit.Framework.Internal;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
@@ -57,7 +58,24 @@ namespace FluentCodingTest.Do_T
             postDo.Should().Be(preDo);            
         }
 
+        [Test]
+        public void Do_Actions()
+        {
+            string preDo = "notDone";
+            List<string> output = new List<string>();
+            var postDo = preDo.Do(_ => output.Add(_ +"1"),
+                                  _ => output.Add(_ + "2"),
+                                  _ => output.Add(_ + "3"));
 
-      
+            postDo.Should().Be(preDo);
+            output.Should().HaveCount(3);
+            output[0].Should().Be(preDo + "1");
+            output[1].Should().Be(preDo + "2");
+            output[2].Should().Be(preDo + "3");
+        }
+
+
+
+
     }
 }

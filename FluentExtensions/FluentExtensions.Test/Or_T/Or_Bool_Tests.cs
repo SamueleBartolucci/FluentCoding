@@ -2,6 +2,8 @@ using FluentAssertions;
 using FluentCoding;
 
 using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 
@@ -29,7 +31,7 @@ namespace FluentCodingTest.Or_T
         [Test]
         public void Or_StringSpaces_Right()
             => " ".Or(Test.Right)
-                .Should().Be(Test.Right);
+                .Should().Be(" ");
 
         [Test]
         public void Or_Null_Right()

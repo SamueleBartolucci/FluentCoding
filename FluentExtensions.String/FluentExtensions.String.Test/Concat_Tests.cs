@@ -18,6 +18,22 @@ namespace FluentExtensions.String.Test
         [TestCase("INPUT", "LEFTVALUE", null)]
         [TestCase("INPUT", null, "RIGHTVALUE")]
         [TestCase("INPUT", null, null)]
+        public void ConcatWhenWithValue_SubjectIsStringWithValue(string input, string leftValue, string rightValue)
+        {
+            var expectedResult = leftValue + input + rightValue;
+
+            var result = input.ConcatWhenWithValue(leftValue, rightValue);
+            result.Should().Be(expectedResult);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.Null);
+            result.Should().Be(expectedResult);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmpty); 
+            result.Should().Be(expectedResult);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            result.Should().Be(expectedResult);
+        }
 
         [TestCase("", "LEFTVALUE", "RIGHTVALUE")]
         [TestCase("", "LEFTVALUE", "")]
@@ -31,6 +47,22 @@ namespace FluentExtensions.String.Test
         [TestCase("", "LEFTVALUE", null)]
         [TestCase("", null, "RIGHTVALUE")]
         [TestCase("", null, null)]
+        public void ConcatWhenWithValue_SubjectIsEmptyStrings(string input, string leftValue, string rightValue)
+        {
+            var expectedResult = leftValue + input + rightValue;
+
+            var result = input.ConcatWhenWithValue(leftValue, rightValue);
+            result.Should().Be(input);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.Null);
+            result.Should().Be(expectedResult);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmpty);
+            result.Should().Be(input);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            result.Should().Be(input);
+        }
 
         [TestCase(" ", "LEFTVALUE", "RIGHTVALUE")]
         [TestCase(" ", "LEFTVALUE", "")]
@@ -44,6 +76,23 @@ namespace FluentExtensions.String.Test
         [TestCase(" ", "LEFTVALUE", null)]
         [TestCase(" ", null, "RIGHTVALUE")]
         [TestCase(" ", null, null)]
+        public void ConcatWhenWithValue_SubjectIsWhiteSpaceStrings(string input, string leftValue, string rightValue)
+        {
+            var expectedResult = leftValue + input + rightValue;
+
+            var result = input.ConcatWhenWithValue(leftValue, rightValue);
+            result.Should().Be(expectedResult);
+
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.Null);
+            result.Should().Be(expectedResult);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmpty);
+            result.Should().Be(expectedResult);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            result.Should().Be(input);
+        }
 
         [TestCase(null, "LEFTVALUE", "RIGHTVALUE")]
         [TestCase(null, "LEFTVALUE", "")]
@@ -58,74 +107,20 @@ namespace FluentExtensions.String.Test
         [TestCase(null, null, "RIGHTVALUE")]
         [TestCase(null, null, null)]
         public void ConcatWhenWithValue_Trim_Tests(string input, string leftValue, string rightValue)
-        {            
-            var result = input.ConcatWhenWithValue(leftValue, rightValue, true);
-            if (input.IsNullOrDefault())
-                result.Should().BeNullOrWhiteSpace(); 
-            else
-                result.Should().Be(leftValue.Or("") +input+ rightValue.Or(""));
+        {
+            var result = input.ConcatWhenWithValue(leftValue, rightValue);
+            result.Should().Be(input);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.Null);
+            result.Should().Be(input);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmpty);
+            result.Should().Be(input);
+
+            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            result.Should().Be(input);
         }
 
-
-        [TestCase("INPUT", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase("INPUT", "LEFTVALUE", "")]
-        [TestCase("INPUT", "", "RIGHTVALUE")]
-        [TestCase("INPUT", "", "")]
-        [TestCase("INPUT", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase("INPUT", "LEFTVALUE", " ")]
-        [TestCase("INPUT", " ", "RIGHTVALUE")]
-        [TestCase("INPUT", " ", " ")]
-        [TestCase("INPUT", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase("INPUT", "LEFTVALUE", null)]
-        [TestCase("INPUT", null, "RIGHTVALUE")]
-        [TestCase("INPUT", null, null)]
-
-        [TestCase("", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase("", "LEFTVALUE", "")]
-        [TestCase("", "", "RIGHTVALUE")]
-        [TestCase("", "", "")]
-        [TestCase("", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase("", "LEFTVALUE", " ")]
-        [TestCase("", " ", "RIGHTVALUE")]
-        [TestCase("", " ", " ")]
-        [TestCase("", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase("", "LEFTVALUE", null)]
-        [TestCase("", null, "RIGHTVALUE")]
-        [TestCase("", null, null)]
-
-        [TestCase(" ", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase(" ", "LEFTVALUE", "")]
-        [TestCase(" ", "", "RIGHTVALUE")]
-        [TestCase(" ", "", "")]
-        [TestCase(" ", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase(" ", "LEFTVALUE", " ")]
-        [TestCase(" ", " ", "RIGHTVALUE")]
-        [TestCase(" ", " ", " ")]
-        [TestCase(" ", "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase(" ", "LEFTVALUE", null)]
-        [TestCase(" ", null, "RIGHTVALUE")]
-        [TestCase(" ", null, null)]
-
-        [TestCase(null, "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase(null, "LEFTVALUE", "")]
-        [TestCase(null, "", "RIGHTVALUE")]
-        [TestCase(null, "", "")]
-        [TestCase(null, "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase(null, "LEFTVALUE", " ")]
-        [TestCase(null, " ", "RIGHTVALUE")]
-        [TestCase(null, " ", " ")]
-        [TestCase(null, "LEFTVALUE", "RIGHTVALUE")]
-        [TestCase(null, "LEFTVALUE", null)]
-        [TestCase(null, null, "RIGHTVALUE")]
-        [TestCase(null, null, null)]
-        public void ConcatWhenWithValue_NoTrim_Tests(string input, string leftValue, string rightValue)
-        {            
-            var result = input.ConcatWhenWithValue(leftValue, rightValue, false);
-            if (input.IsNullOrDefault())
-                result.Should().BeNullOrWhiteSpace();
-            else
-                result.Should().Be(leftValue+ input + rightValue);
-        }
 
         [TestCase("RIGHTVALUE", "LEFTVALUE")]
         [TestCase("", "LEFTVALUE")]
@@ -135,7 +130,7 @@ namespace FluentExtensions.String.Test
         public void ConcatRightToWhenWithValue(string rightValue, string leftValue)
         {
             var result = rightValue.ConcatRightToWhenWithValue(leftValue);
-            if (rightValue.IsNullOrDefault())
+            if (string.IsNullOrEmpty(rightValue))
                 result.Should().BeNullOrWhiteSpace();
             else
                 result.Should().Be(leftValue + rightValue);
@@ -146,13 +141,13 @@ namespace FluentExtensions.String.Test
         [TestCase(" ", "LEFTVALUE")]
         [TestCase(null, "LEFTVALUE")]
         [TestCase("RIGHTVALUE", " ")]
-        public void ConcatRightToWhenWithValue_EnableTrim(string rightValue, string leftValue)
+        public void ConcatRightToWhenWithValue_WhiteSpacesAsEmpty(string rightValue, string leftValue)
         {
-            var result = rightValue.ConcatRightToWhenWithValue(leftValue, true);
-            if (rightValue.IsNullOrDefault())
+            var result = rightValue.ConcatRightToWhenWithValue(leftValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            if (string.IsNullOrWhiteSpace(rightValue))
                 result.Should().BeNullOrWhiteSpace();
             else
-                result.Should().Be(leftValue.Or("") + rightValue);
+                result.Should().Be(leftValue + rightValue);
         }
 
         [TestCase("LEFTVALUE", "RIGHTVALUE")]
@@ -163,7 +158,7 @@ namespace FluentExtensions.String.Test
         public void ConcatLeftToWhenWithValue(string leftValue, string rightValue)
         {
             var result = leftValue.ConcatLeftToWhenWithValue(rightValue);
-            if (leftValue.IsNullOrDefault())
+            if (string.IsNullOrEmpty(leftValue))
                 result.Should().BeNullOrWhiteSpace();
             else
                 result.Should().Be(leftValue + rightValue);
@@ -174,13 +169,13 @@ namespace FluentExtensions.String.Test
         [TestCase(" ", "RIGHTVALUE")]
         [TestCase(null, "RIGHTVALUE")]
         [TestCase("LEFTVALUE", " ")]
-        public void ConcatLeftToWhenWithValue_EnableTrim(string leftValue, string rightValue)
+        public void ConcatLeftToWhenWithValue_WhiteSpacesAsEmpty(string leftValue, string rightValue)
         {
-            var result = leftValue.ConcatLeftToWhenWithValue(rightValue, true);
-            if (leftValue.IsNullOrDefault())
+            var result = leftValue.ConcatLeftToWhenWithValue(rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            if (string.IsNullOrWhiteSpace(leftValue))
                 result.Should().BeNullOrWhiteSpace();
             else
-                result.Should().Be(leftValue + rightValue.Or(""));
+                result.Should().Be(leftValue + rightValue);
         }
 
         [TestCase("RIGHTVALUE", "APPENDVALUE1;APPENDVALUE2;APPENDVALUE3;APPENDVALUE4")]
@@ -192,8 +187,8 @@ namespace FluentExtensions.String.Test
             var testList = values.Split(";");
             var result = rightValue.ConcatRightToAll(testList);
 
-            if (rightValue.IsNullOrDefault())
-                result.Should().AllSatisfy(_ => _.IsNullOrDefault());
+            if (rightValue.IsNullOrEquivalent())
+                result.Should().AllSatisfy(_ => _.IsNullOrEquivalent());
             else
             {
                 result.Should().AllSatisfy(_ =>
@@ -212,8 +207,8 @@ namespace FluentExtensions.String.Test
         {
             var testList = values.Split(";");
             var result = rightValue.ConcatRightToAll(testList, separator);
-            if (rightValue.IsNullOrDefault())
-                result.Should().AllSatisfy(_ => _.IsNullOrDefault());
+            if (rightValue.IsNullOrEquivalent())
+                result.Should().AllSatisfy(_ => _.IsNullOrEquivalent());
             else
             {
                 result.Should().AllSatisfy(_ =>
@@ -234,8 +229,8 @@ namespace FluentExtensions.String.Test
             var testList = values.Split(";");
             var result = leftValue.ConcatLeftToAll(testList);
 
-            if (leftValue.IsNullOrDefault())
-                result.Should().AllSatisfy(_ => _.IsNullOrDefault());
+            if (leftValue.IsNullOrEquivalent())
+                result.Should().AllSatisfy(_ => _.IsNullOrEquivalent());
             else
             {
                 result.Should().AllSatisfy(_ =>
@@ -254,8 +249,8 @@ namespace FluentExtensions.String.Test
         {
             var testList = values.Split(";");
             var result = leftValue.ConcatLeftToAll(testList, separator);
-            if (leftValue.IsNullOrDefault())
-                result.Should().AllSatisfy(_ => _.IsNullOrDefault());
+            if (leftValue.IsNullOrEquivalent())
+                result.Should().AllSatisfy(_ => _.IsNullOrEquivalent());
             else
             {
                 result.Should().AllSatisfy(_ =>

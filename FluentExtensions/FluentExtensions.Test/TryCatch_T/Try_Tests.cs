@@ -1,5 +1,5 @@
 using FluentAssertions;
-using FluentCoding.Try;
+using FluentCoding;
 using FluentCodingTest;
 using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;

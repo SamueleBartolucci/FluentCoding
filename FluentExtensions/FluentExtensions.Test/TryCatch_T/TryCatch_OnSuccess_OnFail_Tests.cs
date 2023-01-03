@@ -1,6 +1,6 @@
 using FluentAssertions;
 using FluentCoding;
-using FluentCoding.Try;
+
 using FluentCodingTest;
 using NUnit.Framework.Internal;
 using System;

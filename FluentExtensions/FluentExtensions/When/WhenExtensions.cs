@@ -1,7 +1,7 @@
 ﻿using System;
 
-namespace FluentCoding.When
-{
+namespace FluentCoding
+{ 
     public static class When_T
     {
 

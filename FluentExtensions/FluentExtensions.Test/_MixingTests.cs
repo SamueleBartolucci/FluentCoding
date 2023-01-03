@@ -1,7 +1,5 @@
 using FluentAssertions;
 using FluentCoding;
-using FluentCoding.Try;
-using FluentCoding.When;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -99,7 +97,7 @@ namespace FluentCodingTest
                 Test.TLeft.Try(_ => Test.TDone, (_, e) => e)
                 .Then
                 (
-                   _ => _.Is(__ => !__.IsNullOrDefault() && __.DescType == Test.NotDone)
+                   _ => _.Is(__ => !__.IsNullOrEquivalent() && __.DescType == Test.NotDone)
                             .When(_ => _.IsSatisfied)
                             .ThenMap(_ => Test.TDone, _ => Test.TNotDone),
                    (_, e) => Test.EException
@@ -163,7 +161,7 @@ namespace FluentCodingTest
                   .Then(_ => _.DescType = Test.NotDone)
                   .When(_ => _ is TypeK)
                   .Then(_ => _.DescType = Test.Done)
-                  .When(_ => !_.IsNullOrDefault())
+                  .When(_ => !_.IsNullOrEquivalent())
                   .Then(_ => _.DescType += " NOT NULL")
                   .Map(_ => _.DescType)
                   .Should().Be(Test.Done + " NOT NULL");

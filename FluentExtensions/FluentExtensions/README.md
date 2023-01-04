@@ -19,6 +19,7 @@ var mostRecentData = dataSource1.Or(dataSource2, (subject, orValue)=> orValue.La
 # Do
 
 Update an object and return the object itself via Action or Function
+When the Do subject is null it just return the subject
 
 ```csharp
 identity.Do(_ => _.Name = "John");
@@ -42,8 +43,10 @@ identitiesList.Add(identity.Do(UpdateIdentity));
 # Equals
 
 Expand the equality functions: `EqualsTo`, `EqualsToAny`, `EquivalentTo`, `EquivalentToAny`
+When the subject is null it return false
 
 ### EqualsTo - EqualsToAny
+
 ```csharp
 bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;ma è acceso?
 
@@ -87,7 +90,9 @@ objectInstance.IsNullOrEquivalent(); //false
 
 ```csharp
 "".IsNullOrEquivalent(_ => _.EmptyStringIsNull = false); //false
-" ".IsNullOrEquivalent(_ => _.EmptyOrWhiteSpacesIsNull = false); //false
+"".IsNullOrEquivalent(_ => _.EmptyStringIsNull = true); //true
+"  ".IsNullOrEquivalent(_ => _.EmptyOrWhiteSpacesIsNull = false); //false
+"  ".IsNullOrEquivalent(_ => _.EmptyOrWhiteSpacesIsNull = true); //true
 
 var options = new IsNullOptions() { EmptyStringIsNull = false,  EmptyOrWhiteSpacesIsNull = false;};
 "".IsNullOrEquivalent(options); //false

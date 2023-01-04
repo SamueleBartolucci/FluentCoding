@@ -6,19 +6,18 @@ namespace FluentCoding.String
     
     public static class Concat
     {
-        /// <summary>
+        /// <summary>        
         /// When the input is not null or default, is merged with the left and right values
         /// Left or Right when only whitespaces are trimmed
         /// </summary>
-        /// <param name="_"></param>
+        /// <param name="subject"></param>
         /// <param name="appendLeft"></param>
         /// <param name="appendRight"></param>
+        /// <param name="subjectOptions"></param>
         /// <returns></returns>
-        public static string ConcatWhenWithValue(this string _, string appendLeft, string appendRight, IsNullWhen subjectOptions = IsNullWhen.NullOrEmpty)
+        public static string ConcatWhenWithValue(this string subject, string appendLeft, string appendRight, StringIsNullWhenEnum subjectOptions = StringIsNullWhenEnum.NullOrEmpty)
         {
-            var optn = subjectOptions.ToNullOptions();
-
-            return _.When(!_.IsNullOrEquivalent(optn))
+            return subject.When(!subject.IsNullOrEquivalent(_ => _.StringIsNullWhen = subjectOptions))
                     .Then(sbj => string.Concat(appendLeft, sbj, appendRight));
         }
 
@@ -33,36 +32,40 @@ namespace FluentCoding.String
         /// <param name="_"></param>
         /// <param name="rightStrings"></param>
         /// <param name="optionalSeparator"></param>
+        /// <param name="subjectOptions"></param>
         /// <returns></returns>
-        public static IEnumerable<string> ConcatLeftToAll(this string _, IEnumerable<string> rightStrings, string optionalSeparator = "", IsNullWhen subjectOptions = IsNullWhen.NullOrEmpty)
+        public static IEnumerable<string> ConcatLeftToAll(this string _, IEnumerable<string> rightStrings, string optionalSeparator = "", StringIsNullWhenEnum subjectOptions = StringIsNullWhenEnum.NullOrEmpty)
            => rightStrings.Select(rightString => _.ConcatWhenWithValue(string.Empty, $"{optionalSeparator}{rightString}", subjectOptions));
 
         /// <summary>
-        ///  When the subject is not null or default, append the subject string at the end of each string from the domain
+        /// When the subject is not null or default, append the subject string at the end of each string from the domain
         /// </summary>
         /// <param name="_"></param>
         /// <param name="leftStrings"></param>
         /// <param name="optionalSeparator"></param>
+        /// <param name="subjectOptions"></param>
         /// <returns></returns>
-        public static IEnumerable<string> ConcatRightToAll(this string _, IEnumerable<string> leftStrings, string optionalSeparator = "", IsNullWhen subjectOptions = IsNullWhen.NullOrEmpty)
+        public static IEnumerable<string> ConcatRightToAll(this string _, IEnumerable<string> leftStrings, string optionalSeparator = "", StringIsNullWhenEnum subjectOptions = StringIsNullWhenEnum.NullOrEmpty)
            => leftStrings.Select(leftString => _.ConcatWhenWithValue($"{leftString}{optionalSeparator}", string.Empty, subjectOptions));
 
         /// <summary>
-        /// When the subject is not null or default, append the subject on the right of the specified string
+        /// When the subject is not null or default, append the subject string at the end of each string from the domain
         /// </summary>
         /// <param name="_"></param>
         /// <param name="leftString"></param>
+        /// <param name="subjectOptions"></param>
         /// <returns></returns>
-        public static string ConcatRightToWhenWithValue(this string _, string leftString, IsNullWhen subjectOptions = IsNullWhen.NullOrEmpty)
+        public static string ConcatRightToWhenWithValue(this string _, string leftString, StringIsNullWhenEnum subjectOptions = StringIsNullWhenEnum.NullOrEmpty)
             => _.ConcatWhenWithValue(leftString, string.Empty, subjectOptions);
 
         /// <summary>
         /// When the subject is not null or default, append the subject on the left of the specified string
         /// </summary>
-        /// <param name="_"></param>
-        /// <param name="appendAfter"></param>
+        /// <param name="s"></param>
+        /// <param name="rightString"></param>
+        /// <param name="subjectOptions"></param>
         /// <returns></returns>
-        public static string ConcatLeftToWhenWithValue(this string s, string rightString, IsNullWhen subjectOptions = IsNullWhen.NullOrEmpty)
+        public static string ConcatLeftToWhenWithValue(this string s, string rightString, StringIsNullWhenEnum subjectOptions = StringIsNullWhenEnum.NullOrEmpty)
             => s.ConcatWhenWithValue(string.Empty, rightString, subjectOptions);
     }
 }

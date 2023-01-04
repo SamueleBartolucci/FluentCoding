@@ -13,7 +13,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Func_Object()
         {
             TypeT preDo = Test.T;
-            var postDo = preDo.Do((_) => new TypeT() { DescType = Test.Done });
+            var postDo = preDo.Do(_ => new TypeT() { DescType = Test.Done });
             postDo.DescType.Should().Be(Test.Done);
             preDo.Should().NotBeSameAs(postDo);
         }
@@ -23,8 +23,8 @@ namespace FluentCodingTest.Do_T
         public void Do_Func_StringEmpty()
         {            
             string preDo = string.Empty;
-            var postDo = preDo.Do((_) => Test.Done);
-            postDo.Should().Be(string.Empty);
+            var postDo = preDo.Do(_ => Test.Done);
+            postDo.Should().Be(Test.Done);
             preDo.Should().Be(string.Empty);
 
         }

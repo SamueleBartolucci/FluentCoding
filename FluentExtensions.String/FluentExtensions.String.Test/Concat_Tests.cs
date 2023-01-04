@@ -25,13 +25,13 @@ namespace FluentExtensions.String.Test
             var result = input.ConcatWhenWithValue(leftValue, rightValue);
             result.Should().Be(expectedResult);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.Null);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.Null);
             result.Should().Be(expectedResult);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmpty); 
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmpty); 
             result.Should().Be(expectedResult);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
             result.Should().Be(expectedResult);
         }
 
@@ -54,13 +54,13 @@ namespace FluentExtensions.String.Test
             var result = input.ConcatWhenWithValue(leftValue, rightValue);
             result.Should().Be(input);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.Null);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.Null);
             result.Should().Be(expectedResult);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmpty);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmpty);
             result.Should().Be(input);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
             result.Should().Be(input);
         }
 
@@ -84,13 +84,13 @@ namespace FluentExtensions.String.Test
             result.Should().Be(expectedResult);
 
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.Null);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.Null);
             result.Should().Be(expectedResult);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmpty);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmpty);
             result.Should().Be(expectedResult);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
             result.Should().Be(input);
         }
 
@@ -111,13 +111,13 @@ namespace FluentExtensions.String.Test
             var result = input.ConcatWhenWithValue(leftValue, rightValue);
             result.Should().Be(input);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.Null);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.Null);
             result.Should().Be(input);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmpty);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmpty);
             result.Should().Be(input);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
             result.Should().Be(input);
         }
 
@@ -143,7 +143,7 @@ namespace FluentExtensions.String.Test
         [TestCase("RIGHTVALUE", " ")]
         public void ConcatRightToWhenWithValue_WhiteSpacesAsEmpty(string rightValue, string leftValue)
         {
-            var result = rightValue.ConcatRightToWhenWithValue(leftValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            var result = rightValue.ConcatRightToWhenWithValue(leftValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
             if (string.IsNullOrWhiteSpace(rightValue))
                 result.Should().BeNullOrWhiteSpace();
             else
@@ -171,7 +171,7 @@ namespace FluentExtensions.String.Test
         [TestCase("LEFTVALUE", " ")]
         public void ConcatLeftToWhenWithValue_WhiteSpacesAsEmpty(string leftValue, string rightValue)
         {
-            var result = leftValue.ConcatLeftToWhenWithValue(rightValue, IsNullWhen.NullOrEmptyOrWhiteSpaces);
+            var result = leftValue.ConcatLeftToWhenWithValue(rightValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
             if (string.IsNullOrWhiteSpace(leftValue))
                 result.Should().BeNullOrWhiteSpace();
             else

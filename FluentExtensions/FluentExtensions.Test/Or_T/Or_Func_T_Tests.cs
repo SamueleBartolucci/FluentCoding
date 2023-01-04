@@ -24,7 +24,7 @@ namespace FluentCodingTest.Or_T
         [Test]
         public void Or_StringEmpty_Right()
             => string.Empty.Or(Test.Right, (s) => false)
-                .Should().Be(Test.Right);
+                .Should().Be(string.Empty);
 
         [Test]
         public void Or_StringSpaces_Right()

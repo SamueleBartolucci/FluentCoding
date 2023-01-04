@@ -8,8 +8,13 @@ namespace FluentCoding
 {
     public class IsNullOptions
     {
-        public bool EmptyStringIsNull { get; set; } = true;
-        public bool EmptyOrWhiteSpacesIsNull { get; set; } = false;
+        public static IsNullOptions StringIsNullWhenNull => new IsNullOptions() { StringIsNullWhen = StringIsNullWhenEnum.Null };
+        public static IsNullOptions StringIsNullWhenNullOrEmpty => new IsNullOptions() { StringIsNullWhen = StringIsNullWhenEnum.NullOrEmpty };
+        public static IsNullOptions StringIsNullWhenNullOrEmptyOrWhiteSpaces => new IsNullOptions() { StringIsNullWhen = StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces };
+
+
+
+        public StringIsNullWhenEnum StringIsNullWhen { get; set; } = StringIsNullWhenEnum.NullOrEmpty;
         //to do: add more option for further types like 'first enum is null', 0 is null etc
     }
 }

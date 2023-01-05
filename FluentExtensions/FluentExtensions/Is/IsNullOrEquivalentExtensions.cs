@@ -2,7 +2,7 @@
 
 namespace FluentCoding
 {
-    public static class IsNullOrDefaultExtensions
+    public static class IsNullOrEquivalentExtensions
     {
         /// <summary>
         /// Check if an object is null or an equivalent state

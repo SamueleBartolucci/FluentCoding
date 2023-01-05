@@ -32,7 +32,7 @@ namespace FluentCoding
 
         /// <summary>
         /// Choose between the left or the right value.
-        /// Pick left when not null or empty and chooseRightWhen() is false
+        /// Pick left when not null or empty and chooseRightWhen(leftValue) is false
         /// white spaces strings only are considered nullOrDefault
         /// </summary>
         /// <typeparam name="T"></typeparam>

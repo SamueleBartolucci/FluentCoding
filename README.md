@@ -8,18 +8,36 @@ This functionalities can be combined together to fluently manipulate an object:
 # Or
 
 Choose when pick the right object based on a predicate.
-By default Left when not default
+By default Left when not null
 
+### Or
 ```csharp
 var currentAddress = object.AddressDomicile.Or(object.AddressResidence);
 var validData = object1.Or(object2, (subject)=> !subject.IsStillValid);
 var mostRecentData = dataSource1.Or(dataSource2, (subject, orValue)=> orValue.LastUpdateTime > subject.LastUpdateTime);
 ```
 
+###  OrIsEmpty 
+(for strings)
+```csharp
+string newAddress = null; //left string is null
+string oldAddress = "address-value";
+newAddress.Or(oldAddress); // return oldAddress
+newAddress.OrIsEmpty(oldAddress); // return oldAddress
+
+string newAddress = ""; //left string is empty
+string oldAddress = "address-value";
+newAddress.Or(oldAddress); // return newAddress !!
+newAddress.Or(oldAddress, newAddr => string.IsNullOrEmpty(newAddr)); // return oldAddress
+newAddress.OrIsEmpty(oldAddress); // return oldAddress
+```
+
+
 # Do
 
-Update an object and return the object itself via Action or Function
+When the Do subject is null it just return the subject
 
+`Action` Apply the Action to the subject and the return the subject
 ```csharp
 identity.Do(_ => _.Name = "John");
 
@@ -28,6 +46,7 @@ identity.Do(_ => _.Name = "John");
 identity.Do(_ => _.Name = "John",
             _ => _.Surname = "Smith");
 ```
+`Func` Apply the Func to the subject and the return the Func result
 ```csharp
 private TypeT UpdateIdentity(TypeT identity)
 { 
@@ -43,9 +62,12 @@ identitiesList.Add(identity.Do(UpdateIdentity));
 
 Expand the equality functions: `EqualsTo`, `EqualsToAny`, `EquivalentTo`, `EquivalentToAny`
 
+When the subject is null it return false
+
 ### EqualsTo - EqualsToAny
+
 ```csharp
-bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;ma è acceso?
+bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;
 
 Identity people1 = ReadFromDataBase(...);
 Identity people2 = ReadFromDataBase(...);
@@ -60,7 +82,7 @@ people1.EqualsToAny(EqualityCheck, people2, people3, people4);
 
 ### EquivalentTo - EquivalentToAny
 ```csharp
-bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;ma è acceso?
+bool EqualityCheck(Identity p1, Identity p2) => p1.Pincode == p1.Pincode;
 
 Tesla tesla = new Tesla() { ... };
 Ferrari ferrari = new Ferrari() { ... };
@@ -86,13 +108,18 @@ objectInstance.IsNullOrEquivalent(); //false
 ```
 
 ```csharp
-"".IsNullOrEquivalent(_ => _.EmptyStringIsNull = false); //false
-" ".IsNullOrEquivalent(_ => _.EmptyOrWhiteSpacesIsNull = false); //false
+"".IsNullOrEquivalent(_ => _.StringIsNullWhen = StringIsNullWhenEnum.Null); //false
+"".IsNullOrEquivalent(_ => _.StringIsNullWhen = StringIsNullWhenEnum.NullOrEmpty); //true
+"  ".IsNullOrEquivalent(_ => _.StringIsNullWhen = StringIsNullWhenEnum.Null); //false
+"  ".IsNullOrEquivalent(_ => _.StringIsNullWhen = StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces); //true
 
-var options = new IsNullOptions() { EmptyStringIsNull = false,  EmptyOrWhiteSpacesIsNull = false;};
+var options = IsNullOptions.StringIsNullWhenNull;
 "".IsNullOrEquivalent(options); //false
 " ".IsNullOrEquivalent(options); //false
 
+options = IsNullOptions.StringIsNullWhenNullOrEmpty;
+"".IsNullOrEquivalent(options); //true
+" ".IsNullOrEquivalent(options); //false
 ```
 
 ```csharp
@@ -129,6 +156,7 @@ Convert a Type into another one
 Identity people = ReadFromDataBase(...);
 var address = people.Map(p => new Address() {Street = p.Domicile, Country = p.BornCountry, ...});
 ```
+
 ```csharp
 Tesla ConvertToTesla(Ferrari f) 
 {
@@ -167,11 +195,12 @@ people.Switch
 ```
 
 ### SwitchMap
+Change the output type from the subject type to the type from the function output
 ```csharp
 Identity people = new Identity() { ... };
 
 var ageType = 
-people.Switch
+people.SwitchMap
 (
     p => Enum.Old,
     (p => p.YearsOld < 18 , p => Enum.Child),
@@ -203,7 +232,7 @@ car.When(c => c.Type == "Ferrari")
 ```
 
 ## When.ThenAnd
-Concatenate more Then on the subject 
+Concatenate more Then on the subject, the ThenAnd outpuyt is the When context. To close a chain of 'ThenAnd' the latest should be a 'Then'
 ```csharp
 var car = LoadCarData(...);
 c.Insurance = InsuranceType.LowBudget;

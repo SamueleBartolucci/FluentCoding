@@ -1,17 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net48;netstandard2.0</TargetFrameworks>
+		<TargetFrameworks>net6.0;net48;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<Version>1.1.0</Version>
+		<Version>1.2.0</Version>
 		<Title>Expand linq fluent methods with some useful constructs for developing code</Title>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Samuele Bartolucci</Authors>
 		<Description>Add new Linq style functionalities to help the develop process</Description>
 		<PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
-		<PackageReleaseNotes>first release</PackageReleaseNotes>
+		<PackageReleaseNotes>Reworked the base extensions hidden null management, to not use IsNullOrEquivalent() this to avoid unwanted or unexpected results
+Reworked IsNullOptions to have only an enum to manage how to process a string check
+Added some IsNullOptions default Setups as static fields
+Reworked base extensions to avoid to use other base extensions to reduce overhead and unwanted side effects
+Or extensions by default choose right only when subject is null, added OrIsEmpty to manage empty strings as null by default
+Renamed ForEach with the input Func as ForEachMap
+Added new extensions
+		</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<SignAssembly>True</SignAssembly>
@@ -24,6 +31,6 @@
 		  <Pack>True</Pack>
 		  <PackagePath>\</PackagePath>
 		</None>
-		<None Include="README.md" Pack="true" PackagePath="" />
+		<None Include="..\..\README.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>

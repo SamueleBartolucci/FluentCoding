@@ -14,6 +14,13 @@ namespace FluentCodingTest.Or_T
     {
 
         [Test]
+        public void Or_NullValueType()
+        {
+            decimal? input = null;
+            input.Or(10).Should().Be(10);
+        }
+
+        [Test]
         public void Or_String_Left1()
             => Test.Left.Or(Test.Right)
                 .Should().Be(Test.Left);

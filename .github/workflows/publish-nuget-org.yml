@@ -20,9 +20,9 @@ jobs:
     - uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '7.0.x'
-        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+        source-url: https://api.nuget.org/v3/index.json
       env:
-        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        NUGET_AUTH_TOKEN: ${{secrets.PUSH_TO_NUGET_ORG}}
     - name: Restore dependencies
       run: dotnet restore      
     - name: Build

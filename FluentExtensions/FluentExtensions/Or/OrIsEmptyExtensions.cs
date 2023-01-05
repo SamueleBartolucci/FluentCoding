@@ -7,7 +7,7 @@ namespace FluentCoding
         /// <summary>
         /// Choose between the left or the right value.
         /// Pick left when not null or empty and chooseRight bool is false
-        /// white spaces strings only are considered nullOrDefault
+        /// Empty string is considered null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="leftValue"></param>
@@ -20,7 +20,7 @@ namespace FluentCoding
         /// <summary>
         /// Choose between the left or the right value.
         /// Pick left when not null or empty and chooseRightWhen(leftValue, orRightValue) is false
-        /// white spaces strings only are considered nullOrDefault
+        /// Empty string is considered null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="leftValue"></param>
@@ -33,7 +33,7 @@ namespace FluentCoding
         /// <summary>
         /// Choose between the left or the right value.
         /// Pick left when not null or empty and chooseRightWhen(leftValue) is false
-        /// white spaces strings only are considered nullOrDefault
+        /// Empty string is considered null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="leftValue"></param>
@@ -46,7 +46,7 @@ namespace FluentCoding
         /// <summary>
         /// Choose between the left or the right value.
         /// Pick left when not null or empty and chooseRightWhen() is false
-        /// white spaces strings only are considered nullOrDefault
+        /// Empty string is considered null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="leftValue"></param>

@@ -5,7 +5,6 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "String", "String", "{54EEB024-F3C7-45EB-A2DF-A03626E13481}"
 	ProjectSection(SolutionItems) = preProject
-		FluentExtensions.String\FluentExtensions.String\README.md = FluentExtensions.String\FluentExtensions.String\README.md
 		FluentExtensions.String\README.md = FluentExtensions.String\README.md
 	EndProjectSection
 EndProject

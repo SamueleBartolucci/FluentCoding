@@ -1,28 +1,36 @@
 name: Publish to nuget.org
 
-on: 
+on:
+  push:
+    branches: [ "master" ]
   workflow_dispatch:
+
+
+
+
+
+
 
 jobs:
   publish: 
     runs-on: ubuntu-latest
     
     steps:
-    - name: Checkout
-      uses: actions/checkout@main
-
-    - name: Setup .NET 6
-      uses: actions/setup-dotnet@v1
+    - uses: actions/checkout@v3
+    - uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: '6.0.100'
+        dotnet-version: '7.0.x'
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
       env:
-        NUGET_AUTH_TOKEN: ${{ github.token }}
-   
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Restore dependencies
       run: dotnet restore      
-      
     - name: Build
       run: dotnet build
-      
-    - name: Publish the package to GPR
-      run: dotnet nuget push **/*.nupkg  --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PUSH_TO_NUGET_ORG }} --skip-duplicate
+
+            
+    - name: Publish the package to NUGET.ORG
+      run: dotnet nuget push **/*.nupkg  -k ${NUGET_ORG_TOKEN} -s ${NUGET_SOURCE_URL} --skip-duplicate
+      env:      
+        NUGET_ORG_TOKEN: ${{ secrets.PUSH_TO_NUGET_ORG }}
+        NUGET_SOURCE_URL: https://api.nuget.org/v3/index.json

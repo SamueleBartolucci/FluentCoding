@@ -7,7 +7,7 @@ namespace FluentCoding
         /// <summary>
         /// Choose between the left or the right value.
         /// Pick left when not null and chooseRight bool is false
-        /// white spaces strings only are considered nullOrDefault
+        /// Empty string is considered NOT null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="leftValue"></param>
@@ -21,12 +21,12 @@ namespace FluentCoding
         /// <summary>
         /// Choose between the left or the right value.
         /// Pick left when not null and chooseRightWhen() is false
-        /// white spaces strings only are considered nullOrDefault
+        /// Empty string is considered NOT null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="leftValue"></param>
         /// <param name="orRightValue"></param>
-        /// <param name="chooseRight"></param>
+        /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
         public static T Or<T>(this T leftValue, T orRightValue, Func<bool> chooseRightWhen)
             => leftValue.Or(orRightValue, chooseRightWhen());
@@ -34,7 +34,7 @@ namespace FluentCoding
         /// <summary>
         /// Choose between the left or the right value.
         /// Pick left when not null and chooseRightWhen(leftValue) is false
-        /// white spaces strings only are considered nullOrDefault
+        /// Empty string is considered NOT null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="leftValue"></param>
@@ -47,7 +47,7 @@ namespace FluentCoding
         /// <summary>
         /// Choose between the left or the right value.
         /// Pick left when not null and chooseRightWhen(leftValue, orRightValue) is false
-        /// white spaces strings only are considered nullOrDefault
+        /// Empty string is considered NOT null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="leftValue"></param>

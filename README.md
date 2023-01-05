@@ -35,6 +35,9 @@ newAddress.OrIsEmpty(oldAddress); // return oldAddress
 
 # Do
 
+Do something with/to and object and return the object": `Do`, `DoForAll`
+
+### Do
 When the Do subject is null it just return the subject
 
 `Action` Apply the Action to the subject and the return the subject
@@ -56,6 +59,20 @@ private TypeT UpdateIdentity(TypeT identity)
 
 var identitiesList = new List<Identity>();
 identitiesList.Add(identity.Do(UpdateIdentity));
+```
+### DoForAll
+Apply one ore more Actions or a Function to each item in an Enumerable and then return the Enumerable itself
+```csharp
+IEnumerable<Identity> itentities = LoadIdentitiesDataBase(...);
+
+//update the LastUpdate field for each item in identities
+itentities.DoForAll(_ => _.LastUpdate = DateTime.Now); 
+
+//or
+
+//update the LastUpdate field and the LastUpdateAuthor for each item in identities
+itentities.DoForAll(_ => _.LastUpdate = DateTime.Now,
+                    _ => _.LastUpdateAuthor = "Admin");
 ```
 
 # Equals

@@ -21,13 +21,13 @@ jobs:
       with:
         dotnet-version: '7.0.x'
         
-    - name: Restore dependencies
-      run: dotnet restore      
-    - name: Build
-      run: dotnet build
+#    - name: Restore dependencies
+#      run: dotnet restore      
+#    - name: Build
+#      run: dotnet build
 
             
     - name: Publish the package to NUGET.ORG
-      run: dotnet nuget push **/*.nupkg  -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json --skip-duplicate
+      run: dotnet nuget push */bin/Release/*.nupkg  -k $NUGET_AUTH_TOKEN -s https://api.nuget.org/v3/index.json --skip-duplicate
       env:      
         NUGET_AUTH_TOKEN: ${{ secrets.PUSH_TO_NUGET_ORG }}

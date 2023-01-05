@@ -28,7 +28,7 @@ jobs:
         dotnet build --configuration Release
     - name: Publish the package to nuget repository
       run: |
-        dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PUSH_TO_NUGET_ORG }} --skip-duplicate
+        dotnet nuget push "**/*.nupkg" --source https://api.nuget.org/v3/index.json --api-key "${{ secrets.PUSH_TO_NUGET_ORG }}" --skip-duplicate
 
 #jobs:
 #publish: 

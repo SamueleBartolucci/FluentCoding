@@ -8,7 +8,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace FluentCodingTest.Or_T
 {
     [ExcludeFromCodeCoverage]
-    public class Or_Func_Bool_Tests
+    public class Or_Func_Tests
     {
 
         [Test]
@@ -24,7 +24,7 @@ namespace FluentCodingTest.Or_T
         [Test]
         public void Or_StringEmpty_Right()
             => string.Empty.Or(Test.Right, () => false)
-                .Should().Be(Test.Right);
+                .Should().Be(string.Empty);
 
         [Test]
         public void Or_StringSpaces_Right()

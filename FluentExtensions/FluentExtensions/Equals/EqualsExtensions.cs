@@ -7,22 +7,41 @@ using System.Threading.Tasks;
 namespace FluentCoding
 {
     public static class EqualsExtensions
-    {
-        public static bool EqualsToAny<T>(this T _, params T[] domainsToCompare)
-            => _.IsNullOrEquivalent() ? false : domainsToCompare.Any(domainValue => _.Equals(domainValue));
+    {        
+        /// <summary>
+        /// Search if at least one item from the domains match the input value
+        /// Basic Equals from framework is used as comparison
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="valuesToCompareWith"></param>
+        /// <returns></returns>
+        public static bool EqualsToAny<T>(this T subject, params T[] valuesToCompareWith)
+            => subject != null && valuesToCompareWith.Any(domainValue => subject.Equals(domainValue));
+
+        /// <summary>
+        /// Search if at least one item from the domains match the input value
+        /// The provided equalityComparison function is used as comparison
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="equalityComparison"></param>
+        /// <param name="valuesToCompareWith"></param>
+        /// <returns></returns>
+        public static bool EqualsToAny<T>(this T subject, Func<T, T, bool> equalityComparison, params T[] valuesToCompareWith)
+            => subject != null && valuesToCompareWith.Any(domainValue => subject.EqualsTo(domainValue, equalityComparison));
 
 
-        public static bool EqualsToAny<T>(this T _, Func<T, T, bool> equalityComparison, params T[] domainsToCompare)
-            => _.IsNullOrEquivalent() ? false : domainsToCompare.Any(domainValue => _.EqualsTo(domainValue, equalityComparison));//equalityComparison(_, domainValue));
+        /// <summary>
+        /// Check if the two object are equals using the provided compare function
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="checkAgainst"></param>
+        /// <param name="valuesToCompareWith"></param>
+        /// <returns></returns>
+        public static bool EqualsTo<T>(this T subject, T checkAgainst, Func<T, T, bool> valuesToCompareWith)
+            => subject != null && valuesToCompareWith(subject, checkAgainst);
 
-        public static bool EqualsTo<T>(this T _, T checkAgainst, Func<T, T, bool> equalityComparison)
-            => _.IsNullOrEquivalent() ? false : equalityComparison(_, checkAgainst);
-                
-
-        public static bool EquivalentToAny<T, K>(this T _, Func<T, K, bool> equivalentComparison, params K[] domainsToCompare)
-            => _.IsNullOrEquivalent() ? false : domainsToCompare.Any(domainValue => _.EquivalentTo(domainValue, equivalentComparison));//equalityComparison(_, domainValue));
-
-        public static bool EquivalentTo<T, K>(this T _, K checkAgainst, Func<T, K, bool> equalityComparison)
-            => _.IsNullOrEquivalent() ? false : equalityComparison(_, checkAgainst);
     }
 }

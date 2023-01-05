@@ -6,12 +6,12 @@ namespace FluentCoding
     public static class IsExtensions
     {
         public static (bool IsSatisfied, T Subject) Is<T>(this T _, bool satisfyCondition)
-          => (satisfyCondition, _);
+            => (satisfyCondition, _);
 
         public static (bool IsSatisfied, T Subject) Is<T>(this T _, Func<bool> satisfyCondition)
-            => _.Is(satisfyCondition());// (satisfyCondition(), _);
+            => _.Is(satisfyCondition());
 
         public static (bool IsSatisfied, T Subject) Is<T>(this T _, Func<T, bool> satisfyCondition)
-            => _.Is(satisfyCondition(_));//(satisfyCondition(_), _);
+            => _.Is(satisfyCondition(_));
     }
 }

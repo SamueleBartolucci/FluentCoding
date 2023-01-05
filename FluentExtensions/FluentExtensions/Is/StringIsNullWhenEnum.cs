@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentCoding.String
+namespace FluentCoding
 {
-    public enum IsNullWhen
+    /// <summary>
+    /// Used by IsNullOrEquivalend to check a string status
+    /// </summary>
+    public enum StringIsNullWhenEnum
     { 
         Null,
         NullOrEmpty,

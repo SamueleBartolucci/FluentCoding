@@ -12,7 +12,7 @@ namespace FluentCodingTest.ForEach_T
     {    
 
         [Test]
-        public void ForEach_Action()
+        public void ForEach()
         {
             TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
             List<TypeT> empty = new List<TypeT>();
@@ -22,19 +22,14 @@ namespace FluentCodingTest.ForEach_T
             empty.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.T));
         }
 
-        public void ciao()
-        {
-            int[] original = { 1, 2, 3 };
-            IEnumerable<string> reworked = original.ForEach(_ => _.ToString());
-        }
         [Test]
-        public void ForEach_Func()
+        public void ForEachMap()
         {
 
             TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
             List<TypeK> empty = new List<TypeK>();
 
-            var result = original.ForEach(t => Test.K.Do(k => k.DescType = t.DescType));
+            var result = original.ForEachMap(t => Test.K.Do(k => k.DescType = t.DescType));
             result.Should().AllSatisfy(_ =>
                 {
                     _.Should().BeOfType(typeof(TypeK));

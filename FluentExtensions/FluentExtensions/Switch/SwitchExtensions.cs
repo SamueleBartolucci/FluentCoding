@@ -5,35 +5,46 @@ namespace FluentCoding
 {
     public static class SwitchExtensions
     {
-        public static T Switch<T>(this T _, Func<T, T> defaultAction, params (Func<T, bool> predicate, Func<T, T> action)[] cases)
-            => cases.FirstOrDefault(option => option.predicate(_))
-                      .Map(o => o.action)
-                      .Or(defaultAction)(_);
+        /// <summary>
+        /// Search the first whenPredicate(subject) == true and apply its  actionWhenTrue(subject)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="defaultAction"></param>
+        /// <param name="cases"></param>
+        /// <returns></returns>
+        public static T Switch<T>(this T subject, Func<T, T> defaultAction, params (Func<T, bool> whenPredicate, Func<T, T> actionWhenTrue)[] cases)
+            => cases.FirstOrDefault(@case => @case.whenPredicate(subject))
+                      .Map(o => o.actionWhenTrue)
+                      .Or(defaultAction)(subject);
 
-        public static T Switch<T>(this T _, Func<T, T> defaultAction, params (Func<bool> predicate, Func<T, T> action)[] cases)
-            => cases.FirstOrDefault(option => option.predicate())
-                      .Map(o => o.action)
-                      .Or(defaultAction)(_);
+        /// <summary>
+        /// Search the first whenPredicate() == true and apply its actionWhenTrue(subject)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="defaultAction"></param>
+        /// <param name="cases"></param>
+        /// <returns></returns>
+        public static T Switch<T>(this T subject, Func<T, T> defaultAction, params (Func<bool> whenPredicate, Func<T, T> actionWhenTrue)[] cases)
+            => cases.FirstOrDefault(option => option.whenPredicate())
+                      .Map(o => o.actionWhenTrue)
+                      .Or(defaultAction)(subject);
 
-        public static T Switch<T>(this T _, Func<T, T> defaultAction, params (bool predicate, Func<T, T> action)[] cases)
-          => cases.FirstOrDefault(option => option.predicate)
-                    .Map(o => o.action)
-                    .Or(defaultAction)(_);
+
+        /// <summary>
+        /// Search the first whenPredicate == true and apply its actionWhenTrue(subject)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="defaultAction"></param>
+        /// <param name="cases"></param>
+        /// <returns></returns>
+        public static T Switch<T>(this T subject, Func<T, T> defaultAction, params (bool whenPredicate, Func<T, T> actionWhenTrue)[] cases)
+          => cases.FirstOrDefault(option => option.whenPredicate)
+                    .Map(o => o.actionWhenTrue)
+                    .Or(defaultAction)(subject);
 
 
-        public static K SwitchMap<T, K>(this T _, Func<T, K> defaultAction, params (Func<T, bool> predicate, Func<T, K> action)[] cases)
-             => cases.FirstOrDefault(option => option.predicate(_))
-                       .Map(o => o.action)
-                       .Or(defaultAction)(_);
-
-        public static K SwitchMap<T, K>(this T _, Func<T, K> defaultAction, params (Func<bool> predicate, Func<T, K> action)[] cases)
-            => cases.FirstOrDefault(option => option.predicate())
-                      .Map(o => o.action)
-                      .Or(defaultAction)(_);
-
-        public static K SwitchMap<T, K>(this T _, Func<T, K> defaultAction, params (bool predicate, Func<T, K> action)[] cases)
-          => cases.FirstOrDefault(option => option.predicate)
-                    .Map(o => o.action)
-                    .Or(defaultAction)(_);
     }
 }

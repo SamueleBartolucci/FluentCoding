@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "String", "String", "{54EEB024-F3C7-45EB-A2DF-A03626E13481}"
+	ProjectSection(SolutionItems) = preProject
+		FluentExtensions.String\README.md = FluentExtensions.String\README.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.String", "FluentExtensions.String\FluentExtensions.String\FluentCoding.String.csproj", "{E2891C7C-3C77-4211-A13F-9E2B5267FA61}"
 EndProject
@@ -17,9 +20,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionFiles", "_Solution
 	ProjectSection(SolutionItems) = preProject
 		fluent.snk = fluent.snk
 		FluentExtensions\FluentExtensions\.Docs\LICENSE.txt = FluentExtensions\FluentExtensions\.Docs\LICENSE.txt
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Enum", "Enum", "{3F7424E4-937A-42D3-9682-6E5E92B0D51A}"
+	ProjectSection(SolutionItems) = preProject
+		FluentExtensions.Enum\README.md = FluentExtensions.Enum\README.md
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentCoding.Enum", "FluentExtensions.Enum\FluentExtensions.Enum\FluentCoding.Enum.csproj", "{54A26A4C-FBA7-43DB-9BF5-2E5093447AEF}"
 EndProject

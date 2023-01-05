@@ -21,8 +21,25 @@ namespace FluentCoding
             Subject = whenOr.Subject; 
         }
 
+        /// <summary>
+        /// Execute andCondition(Subject) and accordingly update the IsSuccesful state
+        /// </summary>
+        /// <param name="andCondition"></param>
+        /// <returns></returns>
         public WhenAnd<T> AndWhen(Func<T, bool> andCondition) => AndWhen(andCondition(Subject));
+
+        /// <summary>
+        /// Execute andCondition() and accordingly update the IsSuccesful state
+        /// </summary>
+        /// <param name="andCondition"></param>
+        /// <returns></returns>
         public WhenAnd<T> AndWhen(Func<bool> andCondition) => AndWhen(andCondition());
+
+        /// <summary>
+        /// Update the IsSuccesful accordingly with the andCondition value
+        /// </summary>
+        /// <param name="andCondition"></param>
+        /// <returns></returns>
         public WhenAnd<T> AndWhen(bool andCondition) =>  ((this is WhenOr<T>)? new WhenAnd<T>(this) : this)
                                                             .Do(_ => _.IsSuccesful &= andCondition);
 

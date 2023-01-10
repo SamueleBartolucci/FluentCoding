@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentCoding
@@ -15,8 +12,8 @@ namespace FluentCoding
         /// <typeparam name="T"></typeparam>
         /// <param name="subject"></param>
         /// <param name="valuesToCompareWith"></param>
-        /// <returns></returns>
-        public static async Task<bool> EqualsToAnyAsync<T>(Task<T> subject, params T[] valuesToCompareWith)
+        /// <returns></returns>        
+        public static async Task<bool> EqualsToAnyAsync<T>(this Task<T> subject, params T[] valuesToCompareWith)
             => (await subject).EqualsToAny(valuesToCompareWith);
 
         /// <summary>
@@ -28,7 +25,7 @@ namespace FluentCoding
         /// <param name="equalityComparison"></param>
         /// <param name="valuesToCompareWith"></param>
         /// <returns></returns>
-        public static async Task<bool> EqualsToAnyAsync<T>(Task<T> subject, Func<T, T, bool> equalityComparison, params T[] valuesToCompareWith)
+        public static async Task<bool> EqualsToAnyAsync<T>(this Task<T> subject, Func<T, T, bool> equalityComparison, params T[] valuesToCompareWith)
             => (await subject).EqualsToAny(equalityComparison, valuesToCompareWith);
 
         /// <summary>
@@ -39,7 +36,7 @@ namespace FluentCoding
         /// <param name="checkAgainst"></param>
         /// <param name="valuesToCompareWith"></param>
         /// <returns></returns>
-        public static async Task<bool> EqualsToAsync<T>(Task<T> subject, T checkAgainst, Func<T, T, bool> valuesToCompareWith)
+        public static async Task<bool> EqualsToAsync<T>(this Task<T> subject, T checkAgainst, Func<T, T, bool> valuesToCompareWith)
             => (await subject).EqualsTo(checkAgainst, valuesToCompareWith);
 
     }

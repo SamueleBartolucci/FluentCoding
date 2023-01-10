@@ -10,7 +10,7 @@ using System.Security.Principal;
 namespace FluentCodingTest.Equals_T
 {
     [ExcludeFromCodeCoverage]
-    public class ForEach_Tests
+    public class Equals_Tests
     {
 
         [Test]

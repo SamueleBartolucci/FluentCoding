@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentCoding
 {
-    public static class EqualsExtensions
+    public static partial class EqualsExtensions
     {        
         /// <summary>
         /// Search if at least one item from the domains match the input value

@@ -99,5 +99,17 @@ namespace FluentCoding
 
         //    return sbj;
         //}
+
+
+        /// <summary>
+        /// Apply the map function to each item and collect the outputs as result
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="items"></param>
+        /// <param name="mapOnItem"></param>
+        /// <returns></returns>
+        public static async Task<IEnumerable<K>> DoForAllMapAsync<T, K>(this Task<IEnumerable<T>> items, Func<T, K> mapOnItem)
+        => (await items).DoForAllMap(mapOnItem);
     }
 }

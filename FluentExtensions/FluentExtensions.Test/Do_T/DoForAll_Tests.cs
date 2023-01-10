@@ -50,5 +50,22 @@ namespace FluentCodingTest.Do_T
         }
 
 
+        [Test]
+        public void DoForAllMap()
+        {
+
+            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
+            List<TypeK> empty = new List<TypeK>();
+
+            var result = original.DoForAllMap(t => Test.K.Do(k => k.DescType = t.DescType));
+            result.Should().AllSatisfy(_ =>
+            {
+                _.Should().BeOfType(typeof(TypeK));
+                _.DescType.Should().Be(Test.T.DescType);
+            });
+
+            original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.T));
+        }
+
     }
 }

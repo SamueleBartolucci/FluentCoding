@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace FluentCoding
 {
-    public static class SwitchExtensions
+    public static partial class SwitchExtensions
     {
         /// <summary>
         /// Search the first whenPredicate(subject) == true and apply its  actionWhenTrue(subject)

@@ -13,7 +13,7 @@ namespace FluentCoding
     /// When->Then class. Run the 'Then' logic only if the 'When' is true
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class When<T> : BaseContext<T>
+    public class When<T> : FluentContext<T>
     {
         internal When() : base() { }
 
@@ -23,7 +23,7 @@ namespace FluentCoding
         /// <param name="whenTrue"></param>
         /// <param name="whenFalse"></param>
         /// <returns></returns>
-        public T Then(Func<T, T> whenTrue, Func<T, T> whenFalse)  
+        public T Then(Func<T, T> whenTrue, Func<T, T> whenFalse)
             => IsSuccesful ? whenTrue(Subject) : whenFalse(Subject);
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace FluentCoding
         {
             if (IsSuccesful)
                 whenTrue(Subject);
-            
+
             return this;
         }
 
@@ -128,7 +128,7 @@ namespace FluentCoding
         /// <param name="mapWhenTrue"></param>
         /// <param name="mapWhenFalse"></param>
         /// <returns></returns>
-        public K ThenMap<K>(Func<K> mapWhenTrue, Func<K> mapWhenFalse) 
+        public K ThenMap<K>(Func<K> mapWhenTrue, Func<K> mapWhenFalse)
             => IsSuccesful ? mapWhenTrue() : mapWhenFalse();
 
         /// <summary>
@@ -139,8 +139,8 @@ namespace FluentCoding
         /// </summary>
         /// <param name="mapWhenTrue"></param>
         /// <returns></returns>
-        public (K OnTrue, T Subject) ThenMap<K>(Func<T, K> mapWhenTrue) 
-            => (IsSuccesful ? mapWhenTrue(Subject) : default(K), Subject);
+        public (K OnTrue, T Subject) ThenMap<K>(Func<T, K> mapWhenTrue)
+            => (IsSuccesful ? mapWhenTrue(Subject) : default, Subject);
 
     }
 }

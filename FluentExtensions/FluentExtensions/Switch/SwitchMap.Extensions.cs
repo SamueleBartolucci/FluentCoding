@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace FluentCoding
 {
-    public static class SwitchMapExtensions
+    public static partial class SwitchMapExtensions
     {
         /// <summary>
         /// Search the first whenPredicate(subject) == true and apply its  mapActionWhenTrue(subject)

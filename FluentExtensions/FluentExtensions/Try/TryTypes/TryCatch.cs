@@ -14,14 +14,30 @@ namespace FluentCoding
     /// <typeparam name="S"></typeparam>
     /// <typeparam name="R"></typeparam>
     /// <typeparam name="E"></typeparam>
-    public partial class TryCatch<S, R, E> : BaseContext<S>
+    public partial class TryCatch<S, R, E> : FluentContext<S>
     {
         internal TryCatch() : base() { }
 
         public R Result { get; set; }
         public E Error { get; set; }
-        
-        
+
+
+        internal TryCatch<S, R, E> Try(Action<S> tryTo, Func<S, Exception, E> onError)
+        {
+            try
+            {
+                tryTo(Subject);                
+                IsSuccesful = true;
+            }
+            catch (Exception e)
+            {
+                IsSuccesful = false;
+                Error = onError(Subject, e);
+            }
+            return this;
+        }
+
+
         internal TryCatch<S, R, E> Try(Func<S, R> tryTo, Func<S, Exception, E> onError)
         {
             try 

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using FluentCoding;
 
 namespace FluentCoding
-{ 
-    public static class WhenAny_T
+{
+    public static partial class WhenAnyExtensions
     {
         /// <summary>
         /// Create a When contest and se IsSuccesfull status if at leas one whenContition(item) from the subject Items is true

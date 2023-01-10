@@ -4,15 +4,21 @@ using System.Security.Cryptography;
 
 namespace FluentCoding
 {
-    public static class TryExtensions
+    public static partial class TryExtensions
     {
         public static TryCatch<S, R, Exception> Try<S, R>(this S _, Func<S, R> tryTo) =>
             new TryCatch<S, R, Exception>() { Subject = _ }
-            .Try(tryTo, (s, e) => e);
+            .Try(tryTo, (s, e) => e);        
 
         public static TryCatch<S, R, E> Try<S, R, E>(this S _, Func<S, R> tryTo, Func<S, Exception, E> onError) =>
             new TryCatch<S, R, E>() { Subject = _ }
             .Try(tryTo, onError);
+
+        public static TryCatch<S, S, E> Try<S, E>(this S _, Action<S> tryTo, Func<S, Exception, E> onError) =>
+            new TryCatch<S, S, E>() { Subject = _, Result = _ }
+            .Try(tryTo, onError);
+
+
 
         public static R TryTo<S, R>(this S _, Func<S, R> tryTo, Func<S, Exception, R> onError) =>
            _.Try(tryTo, onError)

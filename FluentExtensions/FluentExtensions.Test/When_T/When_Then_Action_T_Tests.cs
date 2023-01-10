@@ -1,5 +1,6 @@
 using FluentAssertions;
 using FluentCoding;
+using FluentCoding;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 

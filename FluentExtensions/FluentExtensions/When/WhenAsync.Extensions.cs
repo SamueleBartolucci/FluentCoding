@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Xml.Linq;
+using FluentCoding;
 
 namespace FluentCoding
-{ 
-    public static class When_T
+{
+    public static partial class WhenExtensions
     {
         /// <summary>
         /// Create a When context and set IsSuccesful status with the result of whenCondition(subject)
@@ -13,8 +15,8 @@ namespace FluentCoding
         /// <param name="whenSubject"></param>
         /// <param name="whenCondition"></param>
         /// <returns></returns>
-        public static WhenOr<T> When<T>(this T whenSubject, Func<T, bool> whenCondition) 
-            => new WhenOr<T>() { IsSuccesful = whenCondition(whenSubject), Subject = whenSubject };
+        public static async Task<WhenOr<T>> WhenAsync<T>(this Task<T> whenSubject, Func<T, bool> whenCondition)
+            => (await whenSubject).When(whenCondition);
 
         /// <summary>
         /// Create a When context and set IsSuccesful status with the result of whenCondition()
@@ -24,8 +26,8 @@ namespace FluentCoding
         /// <param name="whenSubject"></param>
         /// <param name="whenCondition"></param>
         /// <returns></returns>
-        public static WhenOr<T> When<T>(this T whenSubject, Func<bool> whenCondition)
-            => new WhenOr<T>() { IsSuccesful = whenCondition(), Subject = whenSubject };
+        public static async Task<WhenOr<T>> WhenAsync<T>(this Task<T> whenSubject, Func<bool> whenCondition)
+            => (await whenSubject).When(whenCondition);
 
         /// <summary>
         /// Create a When context and set IsSuccesful status with the value of whenCondition
@@ -34,7 +36,7 @@ namespace FluentCoding
         /// <param name="whenSubject"></param>
         /// <param name="whenCondition"></param>
         /// <returns></returns>
-        public static WhenOr<T> When<T>(this T whenSubject, bool whenCondition)
-            => new WhenOr<T>() { IsSuccesful = whenCondition, Subject = whenSubject };
+        public static async Task<WhenOr<T>> WhenAsync<T>(this Task<T> whenSubject, bool whenCondition)
+            => (await whenSubject).When(whenCondition);
     }
 }

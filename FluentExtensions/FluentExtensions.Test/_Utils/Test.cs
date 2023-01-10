@@ -1,8 +1,7 @@
 ﻿using FluentCoding;
 using System;
 using System.Diagnostics.CodeAnalysis;
-
-
+using System.Threading.Tasks;
 
 namespace FluentCodingTest
 {
@@ -31,8 +30,9 @@ namespace FluentCodingTest
         public static TypeK K => GetTypeK();
 
 
-        public static T GetDefault<T>() => default(T);
+        public static T GetDefault<T>() => default(T);        
         public static T GetException<T>() => throw new Exception();
+        public static Task<T> ToTask<T>(this T input) => Task.FromResult(input);
 
         public static Exception EException = new Exception();
 

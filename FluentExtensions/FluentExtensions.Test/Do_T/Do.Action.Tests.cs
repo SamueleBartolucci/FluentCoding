@@ -10,6 +10,13 @@ namespace FluentCodingTest.Do_T
     [ExcludeFromCodeCoverage]
     public class Do_Action_Tests
     {
+        private void MergeAction(string string1, string string2)
+        {
+            string1 = string1 + string2;
+        }
+
+
+
         [Test]
         public void Do_Action_ObjectField()
         {
@@ -18,11 +25,6 @@ namespace FluentCodingTest.Do_T
             postDo.DescType.Should().Be(Test.Done);
             postDo.Should().BeEquivalentTo(Test.TDone);            
             preDo.Should().BeSameAs(postDo);
-        }
-
-        private void MergeAction(string string1, string string2)
-        {
-            string1 = string1 + string2;
         }
 
         [Test]
@@ -46,7 +48,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_StringEmpty()
         {
             string preDo = string.Empty;
-            var postDo = preDo.Do(_ => _.Concat(Test.Done));
+            var postDo = preDo.Do(_ => MergeAction(_, Test.Done));
             postDo.Should().Be(string.Empty);
 
         }
@@ -54,7 +56,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_String()
         {
             string preDo = "notDone";
-            var postDo = preDo.Do(_ => _.Concat(Test.Done));
+            var postDo = preDo.Do(_ => MergeAction(_, Test.Done));
             postDo.Should().Be(preDo);            
         }
 

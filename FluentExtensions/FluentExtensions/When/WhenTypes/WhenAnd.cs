@@ -15,10 +15,10 @@ namespace FluentCoding
     public class WhenAnd<T> : When<T>
     {
         internal WhenAnd() : base() { }
-        internal WhenAnd(WhenAnd<T> whenOr) : base() 
+        internal WhenAnd(WhenAnd<T> whenOr) : base()
         {
-            IsSuccesful = whenOr.IsSuccesful; 
-            Subject = whenOr.Subject; 
+            IsSuccesful = whenOr.IsSuccesful;
+            Subject = whenOr.Subject;
         }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace FluentCoding
         /// </summary>
         /// <param name="andCondition"></param>
         /// <returns></returns>
-        public WhenAnd<T> AndWhen(bool andCondition) =>  ((this is WhenOr<T>)? new WhenAnd<T>(this) : this)
+        public WhenAnd<T> AndWhen(bool andCondition) => (this is WhenOr<T> ? new WhenAnd<T>(this) : this)
                                                             .Do(_ => _.IsSuccesful &= andCondition);
 
     }

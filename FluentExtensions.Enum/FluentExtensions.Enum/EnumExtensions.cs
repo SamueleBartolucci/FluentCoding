@@ -28,7 +28,7 @@ namespace FluentCoding.Enum_
                             .GetField(description)
                             .GetCustomAttributes(typeof(DescriptionAttribute), true)                                                                         
                             .When(_ => _.Any())
-                            .ThenMap(_ => ((DescriptionAttribute)_.First()).Description,
+                            .Then(_ => ((DescriptionAttribute)_.First()).Description,
                                      _ => description);        }
     }
 }

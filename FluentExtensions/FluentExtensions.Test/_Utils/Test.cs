@@ -1,8 +1,9 @@
-﻿using FluentCoding;
+﻿using FluentAssertions;
+using FluentCoding;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-
-
+using System.Threading.Tasks;
 
 namespace FluentCodingTest
 {
@@ -31,8 +32,26 @@ namespace FluentCodingTest
         public static TypeK K => GetTypeK();
 
 
-        public static T GetDefault<T>() => default(T);
+        public static IEnumerable<EnumType> GetEnumerable<EnumType>(int howMany) where EnumType : new()
+        { 
+            var list = new List<EnumType>();
+            while (list.Count < howMany)
+            {
+                if (typeof(EnumType) == typeof(TypeT))
+                    list.Add(T.As<EnumType>());
+                else if (typeof(EnumType) == typeof(TypeK))
+                    list.Add(K.As<EnumType>());
+                else if (typeof(EnumType) == typeof(DateTime))
+                    list.Add(DateTime.Now.As<EnumType>());
+                else
+                    list.Add(new EnumType());
+            }
+
+            return list;
+        }
+        public static T GetDefault<T>() => default(T);        
         public static T GetException<T>() => throw new Exception();
+        public static Task<T> ToTask<T>(this T input) => Task.FromResult(input);
 
         public static Exception EException = new Exception();
 

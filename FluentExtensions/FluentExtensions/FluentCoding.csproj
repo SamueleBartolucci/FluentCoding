@@ -4,20 +4,41 @@
 		<TargetFrameworks>net6.0;net48;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<Version>1.2.1</Version>
+		<Version>2.0.0</Version>
 		<Title>Expand linq fluent methods with some useful constructs for developing code</Title>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Samuele Bartolucci</Authors>
-		<Description>Add new Linq style functionalities to help the develop process</Description>
+		<Description>Add new Linq style functionalities to help the develop process
+What's NEW
+- Do now ALWAYS return the subject (even when called with a Func)
+- Removed the Do extension with a single Action/Func, left only the extension with params[] Action/Func
+- Added the DoAsync extension
+- Changed DoForAll into DoForEach, added DoForEachAsync
+- Changed DoForAllMap into MapForEach, added MapForEachAsync
+- Removed EqualsToAny and EqualsTo (with input a comparator) same as EquivalentTo or EquivalentToAny
+- Added EqualsToAnyAsync (without input comparator)
+- Added MapAsync
+- Collapsed Switch and SwitchMap into Switch
+- Added SwitchAsync
+- Added TryAsync and TryToAsync
+- Collapsed Then(onSucces, onFail) and ThenMap(onSucces, onFail) into Then
+- Added WhenAnyAsync, WhenAsync</Description>
 		<PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
-		<PackageReleaseNotes>Reworked the base extensions hidden null management, to not use IsNullOrEquivalent() this to avoid unwanted or unexpected results
-Reworked IsNullOptions to have only an enum to manage how to process a string check
-Added some IsNullOptions default Setups as static fields
-Reworked base extensions to avoid to use other base extensions to reduce overhead and unwanted side effects
-Or extensions by default choose right only when subject is null, added OrIsEmpty to manage empty strings as null by default
-Renamed ForEach with the input Func as ForEachMap
-Added new extensions
+		<PackageReleaseNotes># What's NEW
+- Do now ALWAYS return the subject (even when called with a Func)
+- Removed the Do extension with a single Action/Func, left only the extension with params[] Action/Func
+- Added the DoAsync extension
+- Changed DoForAll into DoForEach, added DoForEachAsync
+- Changed DoForAllMap into MapForEach, added MapForEachAsync
+- Removed EqualsToAny and EqualsTo (with input a comparator) same as EquivalentTo or EquivalentToAny
+- Added EqualsToAnyAsync (without input comparator)
+- Added MapAsync
+- Collapsed Switch and SwitchMap into Switch
+- Added SwitchAsync
+- Added TryAsync and TryToAsync
+- Collapsed Then(onSucces, onFail) and ThenMap(onSucces, onFail) into Then
+- Added WhenAnyAsync, WhenAsync
 		</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>

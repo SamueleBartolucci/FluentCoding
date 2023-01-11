@@ -7,8 +7,9 @@ namespace FluentCoding.String
     public static class Concat
     {
         /// <summary>        
-        /// When the input is not null or default, is merged with the left and right values
+        /// When the input has a value, is merged with the left and right values
         /// Left or Right when only whitespaces are trimmed
+        /// Specify with subjectNullWhen when the subject has 'value'
         /// </summary>
         /// <param name="subject"></param>
         /// <param name="appendLeft"></param>
@@ -21,13 +22,9 @@ namespace FluentCoding.String
                     .Then(sbj => string.Concat(appendLeft, sbj, appendRight));
         }
 
-
-
-
-
-
         /// <summary>
-        ///  When the subject is not null or default, append the subject string at the start of each string from the domain
+        ///  When the subject has a value, append the subject string at the start of each string from the domain
+        /// Specify with subjectNullWhen when the subject has 'value'
         /// </summary>
         /// <param name="_"></param>
         /// <param name="rightStrings"></param>
@@ -38,7 +35,8 @@ namespace FluentCoding.String
            => rightStrings.Select(rightString => _.ConcatWhenWithValue(string.Empty, $"{optionalSeparator}{rightString}", subjectNullWhen));
 
         /// <summary>
-        /// When the subject is not null or default, append the subject string at the end of each string from the domain
+        /// When the subject has a value, append the subject string at the end of each string from the domain
+        /// Specify with subjectNullWhen when the subject has 'value'
         /// </summary>
         /// <param name="_"></param>
         /// <param name="leftStrings"></param>
@@ -49,23 +47,25 @@ namespace FluentCoding.String
            => leftStrings.Select(leftString => _.ConcatWhenWithValue($"{leftString}{optionalSeparator}", string.Empty, subjectNullWhen));
 
         /// <summary>
-        /// When the subject is not null or default, append the subject string at the end of each string from the domain
+        /// When the subject is with value, append the subject string at the end of each string from the domain
+        /// Specify with subjectNullWhen when the subject has 'value'
         /// </summary>
         /// <param name="_"></param>
         /// <param name="leftString"></param>
         /// <param name="subjectNullWhen"></param>
         /// <returns></returns>
-        public static string ConcatRightToWhenWithValue(this string _, string leftString, StringIsNullWhenEnum subjectNullWhen = StringIsNullWhenEnum.NullOrEmpty)
+        public static string ConcatRightTo(this string _, string leftString, StringIsNullWhenEnum subjectNullWhen = StringIsNullWhenEnum.NullOrEmpty)
             => _.ConcatWhenWithValue(leftString, string.Empty, subjectNullWhen);
 
         /// <summary>
-        /// When the subject is not null or default, append the subject on the left of the specified string
+        /// When the subject has a value, append the subject on the left of the specified string
+        /// Specify with subjectNullWhen when the subject has 'value'
         /// </summary>
         /// <param name="s"></param>
         /// <param name="rightString"></param>
         /// <param name="subjectNullWhen"></param>
         /// <returns></returns>
-        public static string ConcatLeftToWhenWithValue(this string s, string rightString, StringIsNullWhenEnum subjectNullWhen = StringIsNullWhenEnum.NullOrEmpty)
+        public static string ConcatLeftTo(this string s, string rightString, StringIsNullWhenEnum subjectNullWhen = StringIsNullWhenEnum.NullOrEmpty)
             => s.ConcatWhenWithValue(string.Empty, rightString, subjectNullWhen);
     }
 }

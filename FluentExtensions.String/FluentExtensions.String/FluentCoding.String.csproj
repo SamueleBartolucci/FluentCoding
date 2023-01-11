@@ -4,14 +4,18 @@
 		<TargetFrameworks>net6.0;net48;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<Version>1.2.1</Version>
+		<Version>2.0.0</Version>
 		<Title>Expand linq fluent methods with some useful constructs specific for String type</Title>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Samuele Bartolucci</Authors>
-		<Description>Add new Linq style functionalities to String to help the develop process</Description>
+		<Description>Add new Linq style functionalities to String to help the develop process
+Updated with latest FluentCoding changes
+Shortened some functions names
+		</Description>
 		<PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
-		<PackageReleaseNotes>Reworked null management with StringIsNullWhenEnum
+		<PackageReleaseNotes>Updated with latest FluentCoding changes
+Reworked null management with StringIsNullWhenEnum
 Null check applied only on the subject, the append values are used as provided</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>

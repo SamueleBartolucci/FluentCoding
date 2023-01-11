@@ -127,9 +127,9 @@ namespace FluentExtensions.String.Test
         [TestCase(" ", "LEFTVALUE")]
         [TestCase(null, "LEFTVALUE")]
         [TestCase("RIGHTVALUE", " ")]
-        public void ConcatRightToWhenWithValue(string rightValue, string leftValue)
+        public void ConcatRightTo(string rightValue, string leftValue)
         {
-            var result = rightValue.ConcatRightToWhenWithValue(leftValue);
+            var result = rightValue.ConcatRightTo(leftValue);
             if (string.IsNullOrEmpty(rightValue))
                 result.Should().BeNullOrWhiteSpace();
             else
@@ -141,9 +141,9 @@ namespace FluentExtensions.String.Test
         [TestCase(" ", "LEFTVALUE")]
         [TestCase(null, "LEFTVALUE")]
         [TestCase("RIGHTVALUE", " ")]
-        public void ConcatRightToWhenWithValue_WhiteSpacesAsEmpty(string rightValue, string leftValue)
+        public void ConcatRightTo_WhiteSpacesAsEmpty(string rightValue, string leftValue)
         {
-            var result = rightValue.ConcatRightToWhenWithValue(leftValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
+            var result = rightValue.ConcatRightTo(leftValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
             if (string.IsNullOrWhiteSpace(rightValue))
                 result.Should().BeNullOrWhiteSpace();
             else
@@ -155,9 +155,9 @@ namespace FluentExtensions.String.Test
         [TestCase(" ", "RIGHTVALUE")]
         [TestCase(null, "RIGHTVALUE")]
         [TestCase("LEFTVALUE", " ")]
-        public void ConcatLeftToWhenWithValue(string leftValue, string rightValue)
+        public void ConcatLeftTo(string leftValue, string rightValue)
         {
-            var result = leftValue.ConcatLeftToWhenWithValue(rightValue);
+            var result = leftValue.ConcatLeftTo(rightValue);
             if (string.IsNullOrEmpty(leftValue))
                 result.Should().BeNullOrWhiteSpace();
             else
@@ -169,9 +169,9 @@ namespace FluentExtensions.String.Test
         [TestCase(" ", "RIGHTVALUE")]
         [TestCase(null, "RIGHTVALUE")]
         [TestCase("LEFTVALUE", " ")]
-        public void ConcatLeftToWhenWithValue_WhiteSpacesAsEmpty(string leftValue, string rightValue)
+        public void ConcatLeftTo_WhiteSpacesAsEmpty(string leftValue, string rightValue)
         {
-            var result = leftValue.ConcatLeftToWhenWithValue(rightValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
+            var result = leftValue.ConcatLeftTo(rightValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);
             if (string.IsNullOrWhiteSpace(leftValue))
                 result.Should().BeNullOrWhiteSpace();
             else

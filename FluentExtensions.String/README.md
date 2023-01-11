@@ -1,3 +1,4 @@
+
 # FluentCoding.String
 
 Add a set of functionalities to manipulate strings
@@ -26,9 +27,16 @@ var IEnumerable<string> BuildCsv(bool includeHeader, int currentFileNumber)
 Add a small set of tools to concatanate string with a bit of logic.
 For all the following methods the concatenation is enabled only when the base value is not null or default
 
+By default the option used to check the input validity is: `StringIsNullWhenEnum.NullOrEmpty`
+
 ### `ConcatLeftToAll`, `ConcatRightToAll`
 Take an IEnumerable<string> ad append to each item the input string
 
+```csharp
+List<string> domainValues = new List<string>() {"left1-","left2-","left3-"}
+var result = "rightValue".ConcatRightToAll(domainValues);
+//result => {"left1-rightValue","left2-rightValue","left3-rightValue"}
+```
 ```csharp
  internal static string ToCsv(this XElement node, string csvChar) => { /* do something [...]*/ return csvNode;}
  
@@ -52,19 +60,38 @@ coordinateDescriptions:
 }
 */
 ```
-### `ConcatRightToWhenWithValue`, `ConcatLeftToWhenWithValue`
+### `ConcatRightTo`, `ConcatLeftTo`
 Join an input string with the specified value, when the input is not null or default
+By default the option used to check the input validity is: `StringIsNullWhenEnum.NullOrEmpty`
+
+```csharp
+"left".ConcatLeftTo("-right"); // -> "left-right"
+" ".ConcatLeftTo("-right"); // -> " -right"
+" ".ConcatLeftTo("-right", StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces); // -> ""
+"".ConcatLeftTo("right"); // -> ""
+"".ConcatLeftTo("right", StringIsNullWhenEnum.Null); // -> "-right"
+null.ConcatLeftTo("right"); // -> ""
+```
 
 ```csharp
  //Create the address only when the base info 'street-name' is available
  public string GetFullAddress(XPathNavigator addressXmlSource) =>
      addressXmlSource.GetAttribute("street-name")
-        .ConcatLeftToWhenWithValue(addressXmlSource.GetAttribute("street-number"))
-        .ConcatLeftToWhenWithValue(addressXmlSource.GetAttribute("province"));
+        .ConcatLeftTo(addressXmlSource.GetAttribute("street-number"))
+        .ConcatLeftTo(addressXmlSource.GetAttribute("province"));
 ```
+
 
 ### `ConcatWhenWithValue`
 Join an input string with a left and right string when the input has value
+```csharp
+"center".ConcatWhenWithValue("left-", "-right"); //left-center-right
+" ".ConcatWhenWithValue("-right"); //left- -right
+" ".ConcatWhenWithValue("-right", StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces); // -> ""
+"".ConcatWhenWithValue("right"); // -> ""
+"".ConcatWhenWithValue("right", StringIsNullWhenEnum.Null); // -> "left--right"
+null.ConcatWhenWithValue("right"); // -> ""
+```
 
 ```csharp
  //Create the province description only when the provice is available: 
@@ -73,9 +100,8 @@ Join an input string with a left and right string when the input has value
  //but not "Bologna ()" or "()"
  public string GetFullAddress(XPathNavigator addressXmlSource) =>
      addressXmlSource.GetAttribute("province-name")
-        .ConcatLeftToWhenWithValue(
+        .ConcatLeftTo(
             addressXmlSource.GetAttribute("province-name-short")
             .ConcatWhenWithValue("(", ")")
         );
 ```
-

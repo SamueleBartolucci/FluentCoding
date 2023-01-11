@@ -1,6 +1,5 @@
 using FluentAssertions;
 using FluentCoding;
-using FluentCoding;
 using System.Diagnostics.CodeAnalysis;
 
 
@@ -27,7 +26,7 @@ namespace FluentCodingTest.When_T
         public void ThenWhenTrue(bool trueCondition)
         {
             WhenContext(Test.T, trueCondition)
-                .ThenMap((_) => Test.KDone, (_) => Test.KNotDone)
+                .Then((_) => Test.KDone, (_) => Test.KNotDone)
                 .Should().BeEquivalentTo(trueCondition ? Test.KDone : Test.KNotDone);
         }
 

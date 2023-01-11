@@ -18,7 +18,14 @@ namespace FluentCoding
     {
         internal TryCatch() : base() { }
 
+        /// <summary>
+        /// result of the Try function
+        /// </summary>
         public R Result { get; set; }
+
+        /// <summary>
+        /// Exception of result of the error mapping function
+        /// </summary>
         public E Error { get; set; }
 
 
@@ -98,7 +105,7 @@ namespace FluentCoding
             => IsSuccesful? whenOk(Result) : whenOnException(Subject, Error);
 
 
-        private B GetDefaultResult<A, B>(A subject) => default(B);
-        private C GetDefaultError<A, B, C>(A subject, B error) => default(C);
+        private static B GetDefaultResult<A, B>(A subject) => default(B);
+        private static  C GetDefaultError<A, B, C>(A subject, B error) => default(C);
     }
 }

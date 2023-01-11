@@ -10,32 +10,6 @@ namespace FluentCodingTest.Do_T
     [ExcludeFromCodeCoverage]
     public class Do_Action_Tests
     {
-        private void MergeAction(string string1, string string2)
-        {
-            string1 = string1 + string2;
-        }
-
-
-
-        [Test]
-        public void Do_Action_ObjectField()
-        {
-            var preDo = Test.T;
-            var postDo = preDo.Do(_ => _.DescType = Test.Done);
-            postDo.DescType.Should().Be(Test.Done);
-            postDo.Should().BeEquivalentTo(Test.TDone);            
-            preDo.Should().BeSameAs(postDo);
-        }
-
-        [Test]
-        public void Do_Action_ObjectFieldValue()
-        {
-            var preDo = Test.TNotDone;
-            var postDo = preDo.DescType.Do(_ => MergeAction(_, Test.Done));
-            postDo.Should().NotBe(Test.NotDone+Test.Done);
-            preDo.DescType.Should().BeEquivalentTo(postDo);
-        }
-
         [Test]
         public void Do_Action_Null()
         {
@@ -45,23 +19,30 @@ namespace FluentCodingTest.Do_T
         }
 
         [Test]
-        public void Do_Action_StringEmpty()
+        public void Do_Action_SubjectField()
         {
-            string preDo = string.Empty;
-            var postDo = preDo.Do(_ => MergeAction(_, Test.Done));
-            postDo.Should().Be(string.Empty);
-
-        }
-        [Test]
-        public void Do_Action_String()
-        {
-            string preDo = "notDone";
-            var postDo = preDo.Do(_ => MergeAction(_, Test.Done));
-            postDo.Should().Be(preDo);            
+            var preDo = Test.T;
+            var postDo = preDo.Do(_ => _.DescType = Test.Done);
+            postDo.DescType.Should().Be(Test.Done);
+            postDo.Should().BeEquivalentTo(Test.TDone);            
+            preDo.Should().BeSameAs(postDo);
         }
 
         [Test]
-        public void Do_Actions()
+        public void Do_Actions_SubjectField()
+        {
+            var preDo = Test.T;
+            var postDo = preDo.Do(_ => _.DescType = ".",
+                                  _ => _.DescType += ".",
+                                  _ => _.DescType += ".",
+                                  _ => _.DescType += ".");
+            postDo.DescType.Should().Be("....");            
+            preDo.Should().BeSameAs(postDo);
+        }
+
+
+        [Test]
+        public void Do_Actions_NewObject()
         {
             string preDo = "notDone";
             List<string> output = new List<string>();
@@ -75,9 +56,5 @@ namespace FluentCodingTest.Do_T
             output[1].Should().Be(preDo + "2");
             output[2].Should().Be(preDo + "3");
         }
-
-
-
-
     }
 }

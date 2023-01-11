@@ -5,13 +5,34 @@ namespace FluentCoding
 {
     public static class IsExtensions
     {
-        public static (bool IsSatisfied, T Subject) Is<T>(this T _, bool satisfyCondition)
-            => (satisfyCondition, _);
+        /// <summary>
+        /// Check if satisfyCondition is true or false, return a tuple with (IsSatisfied, Subject)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="satisfyCondition"></param>
+        /// <returns></returns>
+        public static (bool IsSatisfied, T Subject) Is<T>(this T subject, bool satisfyCondition)
+            => (satisfyCondition, subject);
 
-        public static (bool IsSatisfied, T Subject) Is<T>(this T _, Func<bool> satisfyCondition)
-            => _.Is(satisfyCondition());
+        /// <summary>
+        /// Check if satisfyCondition() is true or false, return a tuple with (IsSatisfied, Subject)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="satisfyCondition"></param>
+        /// <returns></returns>
+        public static (bool IsSatisfied, T Subject) Is<T>(this T subject, Func<bool> satisfyCondition)
+            => subject.Is(satisfyCondition());
 
-        public static (bool IsSatisfied, T Subject) Is<T>(this T _, Func<T, bool> satisfyCondition)
-            => _.Is(satisfyCondition(_));
+        /// <summary>
+        /// Check if satisfyCondition(Subject) is true or false, return a tuple with (IsSatisfied, Subject)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="satisfyCondition"></param>
+        /// <returns></returns>
+        public static (bool IsSatisfied, T Subject) Is<T>(this T subject, Func<T, bool> satisfyCondition)
+            => subject.Is(satisfyCondition(subject));
     }
 }

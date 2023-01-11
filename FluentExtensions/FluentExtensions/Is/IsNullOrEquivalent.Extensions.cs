@@ -6,6 +6,7 @@ namespace FluentCoding
     {
         /// <summary>
         /// Check if an object is null or an equivalent state
+        /// By default String.Empty is equivalent to null
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="this"></param>

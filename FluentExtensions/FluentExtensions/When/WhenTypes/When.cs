@@ -18,15 +18,6 @@ namespace FluentCoding
         internal When() : base() { }
 
         /// <summary>
-        /// Based on the boolean condition value, apply whenTrue(subject) or whenFalse(subject) and return the result
-        /// </summary>
-        /// <param name="whenTrue"></param>
-        /// <param name="whenFalse"></param>
-        /// <returns></returns>
-        public T Then(Func<T, T> whenTrue, Func<T, T> whenFalse)
-            => IsSuccesful ? whenTrue(Subject) : whenFalse(Subject);
-
-        /// <summary>
         /// If condition is true apply whenTrue(subject) and return the result 
         /// Otherwise return the subject
         /// </summary>
@@ -34,16 +25,7 @@ namespace FluentCoding
         /// <returns></returns>
         public T Then(Func<T, T> whenTrue)
             => IsSuccesful ? whenTrue(Subject) : Subject;
-
-        /// <summary>
-        /// Based on the boolean condition value, apply whenTrue() or whenFalse() and return the result
-        /// </summary>
-        /// <param name="whenTrue"></param>
-        /// <param name="whenFalse"></param>
-        /// <returns></returns>
-        public T Then(Func<T> whenTrue, Func<T> whenFalse)
-           => IsSuccesful ? whenTrue() : whenFalse();
-
+        
         /// <summary>
         /// If condition is true apply whenTrue() and return the result 
         /// Otherwise return the subject
@@ -52,6 +34,27 @@ namespace FluentCoding
         /// <returns></returns>
         public T Then(Func<T> whenTrue)
             => IsSuccesful ? whenTrue() : Subject;
+
+
+        /// <summary>
+        /// Based on the boolean condition value, apply mapWhenTrue(subject) or mapWhenFalse(subject) and return the result
+        /// </summary>
+        /// <param name="mapWhenTrue"></param>
+        /// <param name="mapWhenFalse"></param>
+        /// <returns></returns>
+        public K Then<K>(Func<T, K> mapWhenTrue, Func<T, K> mapWhenFalse)
+            => IsSuccesful ? mapWhenTrue(Subject) : mapWhenFalse(Subject);
+
+        /// <summary>
+        /// Based on the boolean condition value, apply mapWhenTrue() or mapWhenFalse() and return the result
+        /// </summary>
+        /// <param name="mapWhenTrue"></param>
+        /// <param name="mapWhenFalse"></param>
+        /// <returns></returns>
+        public K Then<K>(Func<K> mapWhenTrue, Func<K> mapWhenFalse)
+            => IsSuccesful ? mapWhenTrue() : mapWhenFalse();
+
+
 
         /// <summary>
         /// Based on the boolean condition value, run whenTrue(subject) or whenFalse(subject) 
@@ -84,6 +87,8 @@ namespace FluentCoding
             return Subject;
         }
 
+
+
         /// <summary>
         /// If condition is true, run whenTrue(subject)
         /// Then return the When Context to chains more ThenAnd or close with Then
@@ -110,26 +115,7 @@ namespace FluentCoding
                 whenTrue(Subject);
 
             return this;
-        }
-
-
-        /// <summary>
-        /// Based on the boolean condition value, apply mapWhenTrue(subject) or mapWhenFalse(subject) and return the result
-        /// </summary>
-        /// <param name="mapWhenTrue"></param>
-        /// <param name="mapWhenFalse"></param>
-        /// <returns></returns>
-        public K ThenMap<K>(Func<T, K> mapWhenTrue, Func<T, K> mapWhenFalse)
-            => IsSuccesful ? mapWhenTrue(Subject) : mapWhenFalse(Subject);
-
-        /// <summary>
-        /// Based on the boolean condition value, apply mapWhenTrue() or mapWhenFalse() and return the result
-        /// </summary>
-        /// <param name="mapWhenTrue"></param>
-        /// <param name="mapWhenFalse"></param>
-        /// <returns></returns>
-        public K ThenMap<K>(Func<K> mapWhenTrue, Func<K> mapWhenFalse)
-            => IsSuccesful ? mapWhenTrue() : mapWhenFalse();
+        }       
 
         /// <summary>
         /// If condition is true, run mapWhenTrue(subject) 

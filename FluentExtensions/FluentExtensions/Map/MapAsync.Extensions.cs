@@ -15,16 +15,5 @@ namespace FluentCoding
         /// <returns></returns>
         public static async Task<K> MapAsync<T, K>(this Task<T> subject, Func<T, K> mapSubject) 
             => (await subject).Map(mapSubject);
-
-        /// <summary>
-        /// Apply the mapping function without using the subject data
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <typeparam name="K"></typeparam>
-        /// <param name="subject"></param>
-        /// <param name="mapWithoutSubjectContext"></param>
-        /// <returns></returns>
-        public static async Task<K> MapAsync<T, K>(this Task<T> subject, Func<K> mapWithoutSubjectContext)
-            => (await subject).Map(mapWithoutSubjectContext);
     }
 }

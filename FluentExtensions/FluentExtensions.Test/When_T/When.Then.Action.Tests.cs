@@ -52,7 +52,7 @@ namespace FluentCodingTest.When_T
         public void Then_TrueAndFalse_Func_T_T(bool trueCondition)
         {
             WhenContext(Test.T, trueCondition)
-                .Then(_ => _.DescType = Test.Done, _ => _.DescType = Test.NotDone)
+                .Then(_ => _.DescType = Test.Done, (System.Action<TypeT>)(_ => _.DescType = Test.NotDone))
                 .Should().BeEquivalentTo(trueCondition ? Test.TDone : Test.TNotDone);
         }
 

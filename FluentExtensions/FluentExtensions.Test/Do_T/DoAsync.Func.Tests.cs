@@ -4,10 +4,10 @@ using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace FluentCodingTest.Do_T
+namespace FluentCodingTest.DoAsync_T
 {
     [ExcludeFromCodeCoverage]
-    public class Do_Func_Tests
+    public class DoAsync_Func_Tests
     {
         private TypeT CopyFrom(TypeT original)
         {
@@ -24,19 +24,19 @@ namespace FluentCodingTest.Do_T
 
 
         [Test]
-        public void Do_Func_Null()
+        public void DoAsync_Func_Null()
         {
             TypeT preDo = null;
-            var postDo = preDo.Do(_ => Update(_, "."));
+            var postDo = preDo.ToTask().DoAsync(_ => Update(_, ".")).Result;
             postDo.Should().BeNull();
         }
 
         [Test]
-        public void Do_Func_UpdateObject()
+        public void DoAsync_Func_UpdateObject()
         {
             TypeT newData = null;
             TypeT preDo = Test.T;
-            var postDo = preDo.Do(_ => newData = CopyFrom(_));
+            var postDo = preDo.ToTask().DoAsync(_ => newData = CopyFrom(_)).Result;
             postDo.Should().BeSameAs(preDo);
             preDo.Should().BeEquivalentTo(Test.T);
             newData.Should().NotBeNull();
@@ -45,22 +45,23 @@ namespace FluentCodingTest.Do_T
 
 
         [Test]
-        public void Do_Func_UpdateSubject()
+        public void DoAsync_Func_UpdateSubject()
         {
             TypeT preDo = Test.T;
-            var postDo = preDo.Do(_ => Update(_, "."));
+            var postDo = preDo.ToTask().DoAsync(_ => Update(_, ".")).Result;
             postDo.Should().BeSameAs(preDo);
             postDo.DescType.Should().Be(Test.T.DescType + ".");
             preDo.DescType.Should().Be(Test.T.DescType + ".");
         }
 
         [Test]
-        public void Do_Funcs_UpdateObject_UpdateSubject()
+        public void DoAsync_Funcs_UpdateObject_UpdateSubject()
         {
             TypeT newData = null;
             TypeT preDo = Test.T;
-            var postDo = preDo.Do(_ => newData = CopyFrom(_),
-                                  _ => Update(_, "."));
+            var postDo = preDo.ToTask().DoAsync(_ => newData = CopyFrom(_),
+                                                _ => Update(_, "."))
+                                       .Result;
             postDo.Should().BeSameAs(preDo);
             preDo.DescType.Should().Be(Test.T.DescType + ".");
             newData.Should().NotBeNull();

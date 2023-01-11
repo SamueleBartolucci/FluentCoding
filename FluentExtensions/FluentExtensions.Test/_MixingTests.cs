@@ -79,7 +79,7 @@ namespace FluentCodingTest
             var outcome =
                 Test.TLeft.Try(_ => Test.TDone)
                 .When(_ => _.IsSuccesful)
-                .ThenMap
+                .Then
                 (
                    _ => _.Map(_ => _.Result)
                          .When(_ => _.DescType == Test.Done)
@@ -99,7 +99,7 @@ namespace FluentCodingTest
                 (
                    _ => _.Is(__ => !__.IsNullOrEquivalent() && __.DescType == Test.NotDone)
                             .When(_ => _.IsSatisfied)
-                            .ThenMap(_ => Test.TDone, _ => Test.TNotDone),
+                            .Then(_ => Test.TDone, _ => Test.TNotDone),
                    (_, e) => Test.EException
                 )
                 .Map(_ => _.Success.Or(Test.TNotDone))
@@ -112,7 +112,7 @@ namespace FluentCodingTest
             Test.K
                 .Map(_ => Test.EException)
                 .Do(_ => _.Source = Test.Done)
-                .SwitchMap
+                .Switch
                 (
                     _ => _.Source,
                     (_ => _.Source == Test.NotDone, _ => Test.NotDone),
@@ -128,7 +128,7 @@ namespace FluentCodingTest
             Test.K
                 .Map(_ => Test.EException)
                 .Do(_ => _.Source = Test.Done)
-                .SwitchMap
+                .Switch
                 (
                     _ => _.Source,
                     (_ => _.Source == Test.NotDone, _ => Test.NotDone),

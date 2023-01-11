@@ -8,7 +8,7 @@ using System.Linq;
 namespace FluentCodingTest.Do_T
 {
     [ExcludeFromCodeCoverage]
-    public class DoForEach_Tests
+    public class DoForEachAsync_Tests
     {
 
         private TypeT UpdateDesc(TypeT t, string newDesc)
@@ -25,23 +25,24 @@ namespace FluentCodingTest.Do_T
 
 
         [Test]
-        public void DoForEach_Action()
+        public void DoForEachAsync_Action()
         {
-            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
+            IEnumerable<TypeT> original = new[] { Test.T, Test.T, Test.T, Test.T };
             
-            var postDo = original.DoForEach(_ => _.DescType = Test.Done);
+            var postDo = original.ToTask().DoForEachAsync(_ => _.DescType = Test.Done).Result;
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
             original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
         }
 
         [Test]
-        public void DoForEach_Actions()
+        public void DoForEachAsync_Actions()
         {
-            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
+            IEnumerable<TypeT> original = new[] { Test.T, Test.T, Test.T, Test.T };
             
-            var postDo = original.DoForEach(_ => _.DescType = Test.Done,
-                                           _ => _.DescType += "." );
+            var postDo = original.ToTask().DoForEachAsync(_ => _.DescType = Test.Done,
+                                                         _ => _.DescType += "." )
+                                          .Result;
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.DescType.Should().Be(Test.TDone.DescType+"."));
             original.Should().AllSatisfy(_ => _.DescType.Should().Be(Test.TDone.DescType + "."));
@@ -49,10 +50,11 @@ namespace FluentCodingTest.Do_T
 
 
         [Test]
-        public void DoForEach_Func()
+        public void DoForEachAsync_Func()
         {
-            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
-            var postDo = original.DoForEach(_ => UpdateDesc(_, Test.Done));
+
+            IEnumerable<TypeT> original = new[] { Test.T, Test.T, Test.T, Test.T };
+            var postDo = original.ToTask().DoForEachAsync(_ => UpdateDesc(_, Test.Done)).Result;
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
             original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
@@ -60,11 +62,12 @@ namespace FluentCodingTest.Do_T
 
 
         [Test]
-        public void DoForEach_Funcs()
+        public void DoForEachAsync_Funcs()
         {
-            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
-            var postDo = original.DoForEach(_ => UpdateDesc(_, Test.Done),
-                                           _ => MergeDesc(_, "."));
+            IEnumerable<TypeT> original = new[] { Test.T, Test.T, Test.T, Test.T };
+            var postDo = original.ToTask().DoForEachAsync(_ => UpdateDesc(_, Test.Done),
+                                                         _ => MergeDesc(_, "."))
+                                           .Result;
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.DescType.Should().BeEquivalentTo(Test.Done + "."));
             original.Should().AllSatisfy(_ => _.DescType.Should().BeEquivalentTo(Test.Done + "."));

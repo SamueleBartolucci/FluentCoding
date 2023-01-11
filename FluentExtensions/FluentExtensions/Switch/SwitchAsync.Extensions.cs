@@ -4,42 +4,42 @@ using System.Threading.Tasks;
 
 namespace FluentCoding
 {
-    public static partial class SwitchExtensions
+    public static partial class SwitchMapExtensions
     {
         /// <summary>
-        /// Search the first whenPredicate(subject) == true and apply its  actionWhenTrue(subject)
+        /// Search the first whenPredicate(subject) == true and apply its  mapActionWhenTrue(subject)
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
         /// <param name="subject"></param>
         /// <param name="defaultAction"></param>
         /// <param name="cases"></param>
         /// <returns></returns>
-        public static async Task<T> SwitchAsync<T>(this Task<T> subject, Func<T, T> defaultAction, params (Func<T, bool> whenPredicate, Func<T, T> actionWhenTrue)[] cases)
+        public static async Task<K> SwitchAsync<T, K>(this Task<T> subject, Func<T, K> defaultAction, params (Func<T, bool> whenPredicate, Func<T, K> mapActionWhenTrue)[] cases)
+             => (await subject).Switch(defaultAction, cases);
+
+        /// <summary>
+        /// Search the first whenPredicate() == true and apply its mapActionWhenTrue(subject)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
+        /// <param name="subject"></param>
+        /// <param name="defaultAction"></param>
+        /// <param name="cases"></param>
+        /// <returns></returns>
+        public static async Task<K> SwitchAsync<T, K>(this Task<T> subject, Func<T, K> defaultAction, params (Func<bool> whenPredicate, Func<T, K> mapActionWhenTrue)[] cases)
             => (await subject).Switch(defaultAction, cases);
 
         /// <summary>
-        /// Search the first whenPredicate() == true and apply its actionWhenTrue(subject)
+        /// Search the first whenPredicate == true and apply its mapActionWhenTrue(subject)
         /// </summary>
         /// <typeparam name="T"></typeparam>
+        /// <typeparam name="K"></typeparam>
         /// <param name="subject"></param>
         /// <param name="defaultAction"></param>
         /// <param name="cases"></param>
         /// <returns></returns>
-        public static async Task<T> SwitchAsync<T>(this Task<T> subject, Func<T, T> defaultAction, params (Func<bool> whenPredicate, Func<T, T> actionWhenTrue)[] cases)
-             => (await subject).Switch(defaultAction, cases);
-
-
-        /// <summary>
-        /// Search the first whenPredicate == true and apply its actionWhenTrue(subject)
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="subject"></param>
-        /// <param name="defaultAction"></param>
-        /// <param name="cases"></param>
-        /// <returns></returns>
-        public static async Task<T> SwitchAsync<T>(this Task<T> subject, Func<T, T> defaultAction, params (bool whenPredicate, Func<T, T> actionWhenTrue)[] cases)
-          => (await subject).Switch(defaultAction, cases);
-
-
+        public static async Task<K> SwitchAsync<T, K>(this Task<T> subject, Func<T, K> defaultAction, params (bool whenPredicate, Func<T, K> mapActionWhenTrue)[] cases)
+            => (await subject).Switch(defaultAction, cases);
     }
 }

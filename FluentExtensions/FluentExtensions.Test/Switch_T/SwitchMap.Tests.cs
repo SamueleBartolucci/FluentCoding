@@ -11,7 +11,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Func_T_Bool_Default() =>
-            Test.T.SwitchMap
+            Test.T.Switch
             (
                 (_) => Test.KRight,
                 (_ => false, _ => Test.KNotDone),
@@ -21,7 +21,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Func_T_Bool_NotDefault1() =>
-            Test.T.SwitchMap
+            Test.T.Switch
             (
                 (_) => Test.KRight,
                 (_ => true, _ => Test.KNotDone),
@@ -31,7 +31,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Func_T_Bool_NotDefault2() =>
-            Test.T.SwitchMap
+            Test.T.Switch
             (
                 (_) => Test.KRight,
                 (_ => false, _ => Test.KNotDone),
@@ -42,7 +42,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Func_Bool_Default() =>
-           Test.T.SwitchMap
+           Test.T.Switch
            (
                (_) => Test.KRight,
                (() => false, _ => Test.KNotDone),
@@ -52,7 +52,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Func_Bool_NotDefault1() =>
-            Test.T.SwitchMap
+            Test.T.Switch
             (
                 (_) => Test.KRight,
                 (() => true, _ => Test.KNotDone),
@@ -62,7 +62,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Func_Bool_NotDefault2() =>
-            Test.T.SwitchMap
+            Test.T.Switch
             (
                 (_) => Test.KRight,
                 (() => false, _ => Test.KNotDone),
@@ -73,7 +73,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Bool_Default() =>
-          Test.T.SwitchMap
+          Test.T.Switch
           (
               (_) => Test.KRight,
               (false, _ => Test.KNotDone),
@@ -83,7 +83,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Bool_NotDefault1() =>
-            Test.T.SwitchMap
+            Test.T.Switch
             (
                 (_) => Test.KRight,
                 (true, _ => Test.KNotDone),
@@ -93,7 +93,7 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Bool_NotDefault2() =>
-            Test.T.SwitchMap
+            Test.T.Switch
             (
                 (_) => Test.KRight,
                 (false, _ => Test.KNotDone),

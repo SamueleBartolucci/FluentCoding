@@ -6,14 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentCoding
 {
-    public class FluentContext<T> : Context<T>
+    public class Context<T>
     {
-        internal FluentContext() { }
+        internal Context() { }
 
         /// <summary>
-        /// Status of the current fluent operation
+        /// Subject from which the fluent operation started
         /// </summary>
-        public bool IsSuccesful { get; set; }
-
+        public T Subject { get; set; }
     }
 }

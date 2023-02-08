@@ -11,6 +11,30 @@ namespace FluentCodingTest.DoAsync_T
     public class DoAsync_Action_Tests
     {
         [Test]
+        public void DoWrapAsync_Action_ValueType()
+        {
+            int startValue = 1;
+            var postDo = startValue
+                            .ToTask()
+                            .DoWrapAsync(_ => _.Subject++)
+                            .Result;
+
+            startValue.Should().Be(2);
+            postDo.Should().Be(2);
+        }
+
+        [Test]
+        public void DoAsync_Action_ValueType()
+        {
+            int startValue = 1;
+            var postDo = startValue
+                            .ToTask()
+                            .DoAsync(_ => _++)
+                            .Result;
+            postDo.Should().Be(1);
+        }
+
+        [Test]
         public void DoAsync_Action_Null()
         {
             TypeT preDo = null;

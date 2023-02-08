@@ -11,6 +11,22 @@ namespace FluentCodingTest.Do_T
     public class Do_Action_Tests
     {
         [Test]
+        public void DoWrap_Action_ValueType()
+        {
+            int startValue = 1;
+            var postDo = startValue.DoWrap(_ => _.Subject++);
+            postDo.Should().Be(2);
+        }
+
+        [Test]
+        public void Do_Action_ValueType()
+        {
+            int startValue = 1;
+            var postDo = startValue.Do(_ => _++);
+            postDo.Should().Be(1);
+        }
+
+        [Test]
         public void Do_Action_Null()
         {
             TypeT preDo = null;

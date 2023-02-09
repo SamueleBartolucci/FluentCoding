@@ -16,8 +16,8 @@ namespace FluentCoding
     public partial class Outcome<S, F> : FluentContext<S>
     {
         internal Outcome(bool successStatus) : base() { IsSuccesful = successStatus; }
-        internal Outcome(S successValue) : base() { Success = successValue; }
-        internal Outcome(F failureValue) : base() { Failure = failureValue; }
+        internal Outcome(S successValue) : this(true) { Success = successValue; }
+        internal Outcome(F failureValue) : this(false) { Failure = failureValue; }
 
         /// <summary>
         /// Return a successful outcome
@@ -43,11 +43,11 @@ namespace FluentCoding
         /// <summary>
         /// Failure result
         /// </summary>
-        public F Failure { get; set; }      
+        public F Failure { get; set; }
 
         /// <summary>
-        /// Apply a function to the Success or the Failure value based on the status
-        /// Return a new Outcome
+        /// Apply a function 'S -> Outcome&lt;S1, F1&gt;' or 'F -> Outcome&lt;S1, F1&gt;' to the Outcome based on the IsSuccesful status
+        /// Return a new Outcome&lt;S1, F1&gt;        
         /// </summary>
         /// <typeparam name="S1"></typeparam>
         /// <typeparam name="F1"></typeparam>
@@ -59,8 +59,8 @@ namespace FluentCoding
 
 
         /// <summary>
-        /// Apply a function to the Success only when successful
-        /// Return a new Outcome
+        /// Apply a function "S -> Outcome&lt;S1, F&gt;"  to the Success value when IsSuccsful otherwise it just return the Outcome with the Failure
+        /// Return a new Outcome&lt;S1, F&gt;
         /// </summary>
         /// <typeparam name="S1"></typeparam>
         /// <param name="doWhenSuccess"></param>
@@ -70,8 +70,8 @@ namespace FluentCoding
                              Outcome<S1, F>.ToFailure(Failure);
 
         /// <summary>
-        /// Apply a function to the Success only when successful        
-        /// Return a new Outcome
+        /// Apply a function "F -> Outcome&lt;S, F1&gt;"  to the Failure value when not IsSuccsful otherwise it just return the Outcome with the Success
+        /// Return a new Outcome&lt;S, F1&gt;
         /// </summary>
         /// <typeparam name="F1"></typeparam>
         /// <param name="doWhenFail"></param>
@@ -81,7 +81,8 @@ namespace FluentCoding
                               Outcome<S, F1>.ToSuccess(Success);
 
         /// <summary>
-        /// Apply a function to change the Success or Falure result based on the succesful status
+        /// Apply a function "S -> S1" or "F -> F1" to the Outcome based on the IsSuccesful status
+        /// Return a new Outcome&lt;S1, F1&gt;
         /// </summary>
         /// <typeparam name="S1"></typeparam>
         /// <typeparam name="F1"></typeparam>
@@ -93,8 +94,8 @@ namespace FluentCoding
                             Outcome<S1, F1>.ToFailure(doWhenFail(Failure));
 
         /// <summary>
-        /// Apply a function to change the Failure result (only if status is failed)
-        /// Return a new Outcome
+        /// Apply a function "F -> F1" to change the Failure result only when not IsSucceful
+        /// Return a new Outcome&lt;S, F1&gt;
         /// </summary>
         /// <typeparam name="F1"></typeparam>
         /// <param name="doWhenFail"></param>
@@ -104,8 +105,8 @@ namespace FluentCoding
                               Outcome<S, F1>.ToSuccess(Success);
 
         /// <summary>
-        /// Apply a function to change the Success result (only if status is succesful)
-        /// Return a new Outcome
+        /// Apply a function "S -> S1" to the Success result  only when IsSucceful
+        /// Return a new Outcome&lt;S1, F&gt;
         /// </summary>
         /// <typeparam name="S1"></typeparam>
         /// <param name="doWhenSuccess"></param>

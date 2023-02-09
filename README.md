@@ -1,28 +1,77 @@
 
-# What's NEW
-- Do now ALWAYS return the subject (even when called with a Func)
-- Removed the Do extension with a single Action/Func, left only the extension with params[] Action/Func
-- Added the DoAsync extension
-- Changed DoForAll into DoForEach, added DoForEachAsync
-- Changed DoForAllMap into MapForEach, added MapForEachAsync
-- Removed EqualsToAny and EqualsTo (with input a comparator) same as EquivalentTo or EquivalentToAny
-- Added EqualsToAnyAsync (without input comparator)
-- Added MapAsync
-- Collapsed Switch and SwitchMap into Switch
-- Added SwitchAsync
-- Added TryAsync and TryToAsync
-- Collapsed Then(onSucces, onFail) and ThenMap(onSucces, onFail) into Then
-- Added WhenAnyAsync, WhenAsync
 
+# What's NEW
+What's NEW
+- Added DoWrap and DoWrapAsync to quickly manage value types
+- Added `Outcome<R,L>;` to mimic the F# Result&lt;'T,'TFailure&gt; (with Map and Bind functionalities)
 # FluentCoding
 
 Set of functionalities to extend linq with more fluent capabilities
 This functionalities can be combined together to fluently manipulate an object:
 
-####  `Do`,`Equals`,`Is`, `Map`,`Or`, `Switch`,`Try`, `When`
+####  `Do`,`Equals`,`Is`, `Map`,`Or`, `Switch`,`Try`, `When`, `Outcome`
 
 Almost all the Fluent extension expose the `Async` version that can be used with a Task<T>.
 Currently excluded: `Is`
+# Outcome
+Mimic [railway oriented programing](https://fsharpforfunandprofit.com/rop/) concept from the functional development.
+Like the Result<L, R> from `F#`
+
+### Map
+`Outcome<R, F>` given an  take a couple of Function: **A**  `Func<R, R1>` and **B** `Func<F, F1>` 
+If the Outcome is succesful apply **A** to the `Outcome.Succesful` field and return a new `Outcome<R1, F>` 
+If the Outcome is not succesful apply **B** to the `Outcome.Failure` field and return a new `Outcome<R, F1>`
+
+```csharp
+Outcome<Data, Error> ReadUserFromDataBase(string userId) {/*[...]*/ return userDataOrErrorOutcome; }
+
+IPrincipals GetUserPrincipals(Data userData) {/*[...]*/ return userPrincipals; }
+string LogErrorAndReturnSummary(Error error) {/*[...]*/ return error.SummaryDescription(); }
+
+var outcome = ReadUserFromDataBase(123)
+				.Map(success => GetUserPrincipals(success),
+	  				 failure => LogErrorAndReturnSummary(success));
+//Outcome<IPrincipals , string> outcome:
+// - If succesful:
+//   - outcome.Succeful will contain the IPrincipals data
+//   - outcome.Failure is null
+
+// - If NOT succesful:
+//   - outcome.Succeful is null
+//   - outcome.Failure will contains the summury error and the error is Logged somewhere
+
+```
+
+
+### MapFailure, MapSuccess
+Like the Map but allows to manage only the Succesful or Failure state.
+You can combine more MapSuccess in a cascade, and as soon one return a Failure outcome, all the other will not be executed, and it will only carry forward the first error.
+
+```csharp
+Outcome<Data, Error> ReadUserFromDataBase(string userId) {/*[...]*/ return userDataOrErrorOutcome; }
+
+IPrincipals GetUserPrincipals(Data userData) {/*[...]*/ return userPrincipals; }
+string LogErrorAndReturnSummary(Error error) {/*[...]*/ return error.SummaryDescription(); }
+
+var outcome = ReadUserFromDataBase(123)
+				.MapFailure(failure => LogErrorAndReturnSummary(success));
+				
+//Outcome<IPrincipals , Error> outcome:
+// - If succesful:
+//   - outcome.Succeful will contain the userdata Data
+//   - outcome.Failure is null
+
+// - If NOT succesful:
+//   - outcome.Succeful is null
+//   - outcome.Failure will contains the summury error and the error is Logged 
+outcome = ReadUserFromDataBase(123)
+				.MapSuccess(success => GetUserPrincipals(success));
+```
+
+### Bind
+Like the Map but allows to manage only the Succesful or Failure state.
+You can combine more MapSuccess in a cascade, and as soon one return a Failure outcome, all the other will not be executed, and it will only carry forward the first error.
+
 
 # Do
 
@@ -58,6 +107,19 @@ identity.DoAsync(_ => _.Name = "John").Result;
 //or
 identity.DoAsync(_ => _.Name = "John",
             _ => _.Surname = "Smith").Result;
+```
+
+
+### DoWrap, DoWrapAsync
+Quick way to manipulate value types, wrapped inside Context.Subject field.
+Only the output will carry the changes, the input value will be left untouched
+```csharp
+
+public string GetPersonData(string pincode) => { /*[...]*/ return "John Smith"; }
+public string GetNewArchiveId() => { /*[...]*/ return "_XXX"; }
+string archivePersonData = GetPersonData("pincode")
+								.DoWrap(_ => _.Subject += GetNewArchiveId()); DateTime.Now.ToString());
+//archivePersonData  == "John Smith_XXX"
 ```
 
 ### DoForEach, DoForEachAsync

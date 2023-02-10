@@ -6,9 +6,9 @@ namespace FluentCoding
     public static partial class DoExtensions
     {
         /// <summary>
-        /// Apply a set of actions to the Subject (when this is not null) wrapped inside and object field.
-        /// Allows to quickly manipulate values type as references types (only the return value will change)
-        /// Then return the subject unwrapped
+        /// Apply a set of actions to the Subject (when this is not null) wrapped inside and Context&lt;T&gt;.Subject field.
+        /// Allows to quickly manipulate values type as references types
+        /// Then return the subject unwrapped, only the return value is changed not the original value
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="_"></param>

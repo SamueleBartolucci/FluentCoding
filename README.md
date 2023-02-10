@@ -1,10 +1,8 @@
 
-
-
 # What's NEW
 What's NEW
 - Added DoWrap and DoWrapAsync to quickly manage value types
-- Added `Outcome<R,L>;` to mimic the F# Result&lt;'T,'TFailure&gt; (with Map and Bind functionalities)
+- Added `Outcome<R,L>;` to mimic the F# `Result<'T,'TFailure>` (with Map and Bind functionalities) [[railway oriented programing](https://fsharpforfunandprofit.com/rop/)]
 # FluentCoding
 
 Set of functionalities to extend linq with more fluent capabilities
@@ -127,6 +125,35 @@ var outcome = ReadUserFromDataBase(123)
 //   - outcome.Failure will contains the Error object converted from the string error from database
 ```
 
+
+### BindSuccess
+From Outcome<S, F> apply a Function of type S -> Outcome<S1, F>
+You can chain one ore more bind success and the first one to fail will bring the Failure result to the end of the chaining
+
+
+```csharp
+Outcome<Data, string> ReadUserFromDataBase(string userId) {/*[...]*/ return userDataOrErrorOutcome; }
+Outcome<IPrincipals, Error> GetUserPrincipals(Data userData) {/*[...]*/ return userPrincipals; }
+Outcome<IServices, Error> GetAuthorizedServices(Data userData) {/*[...]*/ return userPrincipals; }
+
+
+var outcome = ReadUserFromDataBase(123)
+				.BindSuccess(success => GetUserPrincipals(success))
+				.BindSuccess(success => GetAuthorizedServices(success));
+
+//when all the bind are succesful the result will be		
+//Outcome<IServices, Error> 
+//   - outcome.Succesful will contain the IServices Data
+//   - outcome.Failure is null
+
+//if at least one bind fails the result will be
+//Outcome<IServices, Error> 
+//   - outcome.Succes is null
+//   - outcome.Failure will contains the Error from the Bind that failed (that can be any one of the 3 function called)
+```
+### BindFailure
+Same logic of  BindSuccess but applied on the Failure part of the outcome.
+Usually only one is called more than a chain of them
 
 
 # Do

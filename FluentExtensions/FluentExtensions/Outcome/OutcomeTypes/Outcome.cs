@@ -36,12 +36,12 @@ namespace FluentCoding
             => new Outcome<S, F>(failureValue);
 
         /// <summary>
-        /// Successful result
+        /// Successful result available when status is IsSuccesful=true
         /// </summary>
         public S Success { get; set; }
 
         /// <summary>
-        /// Failure result
+        /// Failure result available when status is IsSuccesful=true
         /// </summary>
         public F Failure { get; set; }
 

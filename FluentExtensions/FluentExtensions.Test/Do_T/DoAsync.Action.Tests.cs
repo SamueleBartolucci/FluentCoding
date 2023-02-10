@@ -18,8 +18,7 @@ namespace FluentCodingTest.DoAsync_T
                             .ToTask()
                             .DoWrapAsync(_ => _.Subject++)
                             .Result;
-
-            startValue.Should().Be(2);
+            startValue.Should().Be(1);
             postDo.Should().Be(2);
         }
 

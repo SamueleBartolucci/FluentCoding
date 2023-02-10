@@ -1,8 +1,24 @@
 
-# What's NEW
+# What's NEW 2.0.1
 What's NEW
 - Added DoWrap and DoWrapAsync to quickly manage value types
 - Added `Outcome<R,L>;` to mimic the F# `Result<'T,'TFailure>` (with Map and Bind functionalities) [[railway oriented programing](https://fsharpforfunandprofit.com/rop/)]
+
+# What's NEW 2.0.0
+- Do now ALWAYS return the subject (even when called with a Func)
+- Removed the Do extension with a single Action/Func, left only the extension with params[] Action/Func
+- Added the DoAsync extension
+- Changed DoForAll into DoForEach, added DoForEachAsync
+- Changed DoForAllMap into MapForEach, added MapForEachAsync
+- Removed EqualsToAny and EqualsTo (with input a comparator) same as EquivalentTo or quivalentToAny
+- Added EqualsToAnyAsync (without input comparator)
+- Added MapAsync
+- Collapsed Switch and SwitchMap into Switch
+- Added SwitchAsync
+- Added TryAsync and TryToAsync
+- Collapsed Then(onSucces, onFail) and ThenMap(onSucces, onFail) into Then
+- Added WhenAnyAsync, WhenAsync
+
 # FluentCoding
 
 Set of functionalities to extend linq with more fluent capabilities

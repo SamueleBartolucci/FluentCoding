@@ -133,5 +133,54 @@ namespace FluentCodingTest.TryCatch_T
             newOutcome.Failure.Should().BeOfType<List<TypeK>>();
             newOutcome.Failure.First().Should().BeEquivalentTo(Test.TLeft);
         }
+
+        [TestCase(true, true, true)]
+        [TestCase(true, true, false)]
+        [TestCase(true, false, false)]
+        [TestCase(false, false, false)]
+        [TestCase(false, true, true)]
+        [TestCase(false, false, true)]
+        [TestCase(false, true, false)]
+        [TestCase(true, false, true)]
+
+        public void Outcome_Cascade_BindSuccess(bool bind1, bool bind2, bool bind3)
+        {
+            var outcome = "0".ToSuccessOutcome<string, string>();
+            var newOutcome = outcome
+                                .BindSuccess(succ => bind1 ? (int.Parse(succ) + 1).ToSuccessOutcome<int, string>() : "ErrorBind1".ToFailureOutcome<int, string>())
+                                .BindSuccess(succ => bind2 ? (succ + 1).ToString().ToSuccessOutcome<string, string>() : "ErrorBind2".ToFailureOutcome<string, string>())
+                                .BindSuccess(succ => bind3 ? (int.Parse(succ) + 1).ToSuccessOutcome<int, string>() : "ErrorBind3".ToFailureOutcome<int, string>())
+                                .MapSuccess(succ => succ.ToString());
+            
+
+            newOutcome.IsSuccesful.Should().Be(bind1 && bind2 && bind3);
+
+            if (newOutcome.IsSuccesful)
+            {
+                newOutcome.Failure.Should().BeNull();
+                newOutcome.Success.Should().Be("3");
+            }
+
+            else if (!bind1)
+            {
+                newOutcome.Success.Should().BeNull();
+                newOutcome.Failure.Should().Be("ErrorBind1");
+            }
+            else if (bind1 && !bind2)
+            {
+                newOutcome.Success.Should().BeNull();
+                newOutcome.Failure.Should().Be("ErrorBind2");
+            }
+            else if (bind1 && bind2 && !bind3)
+            {
+                newOutcome.Success.Should().BeNull();
+                newOutcome.Failure.Should().Be("ErrorBind3");
+            }
+            else
+                Assert.Fail("unmanaged case");
+            
+
+        }
     }
+
 }

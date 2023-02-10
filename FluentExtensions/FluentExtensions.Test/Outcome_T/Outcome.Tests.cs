@@ -5,7 +5,7 @@ using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace FluentCodingTest.TryCatch_T
+namespace FluentCodingTest.Outcome
 {
     [ExcludeFromCodeCoverage]
     public class Outcome_Tests

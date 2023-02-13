@@ -410,7 +410,10 @@ newAddress.OrIsEmpty(oldAddress); // return oldAddress
 # Switch [Extension of generic type T]
 
 Fluent version of the switch case: `Switch`
-
+Submit a default case along with a list of Tuple (predicateToCheck, FunctionToExecuteWhenMatched)
+The first predicate matched will fire the binded function.
+When there aren't any match, the default function is called
+	
 ### Switch 
 Keep the same type on the output T -> T
 ```csharp
@@ -421,9 +424,15 @@ Identity ApiGetPeopleAddress(people) { ... return peopleAddress; }
 var updatedPeople =
 people.Switch
 (
-    p => p,
-    (p => p.LastUpdate < DateTime.Node.AddDays(-30), p => ApiGetPeople(p.Pincode)),
-    (p => p.LastUpdate < DateTime.Node.AddDays(-10), p => p.Do(_ => _.Address = ApiGetPeopleAddress(p)))
+    p => p, // -> Base case, applied when no predicate do match
+    (
+	p => p.LastUpdate < DateTime.Node.AddDays(-30), //the this predicate is true
+	p => ApiGetPeople(p.Pincode)			//apply this function
+    ),
+    (
+	p => p.LastUpdate < DateTime.Node.AddDays(-10),    //the this predicate is true
+	p => p.Do(_ => _.Address = ApiGetPeopleAddress(p)) //apply this function
+    )
 )
 ```
 

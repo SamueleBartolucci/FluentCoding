@@ -33,7 +33,7 @@ Like the Result<L, R> from `F#`
 
 ### Outcome.Map
 `Outcome<R, F>` given an  take a couple of Function: **A**  `Func<R, R1>` and **B** `Func<F, F1>` 
-If the Outcome is succesful apply **A** to the `Outcome.Succesful` field and return a new `Outcome<R1, F>` 
+If the Outcome is succesful apply **A** to the `Outcome.Succes` field and return a new `Outcome<R1, F>` 
 If the Outcome is not succesful apply **B** to the `Outcome.Failure` field and return a new `Outcome<R, F1>`
 
 ```csharp
@@ -47,11 +47,11 @@ var outcome = ReadUserFromDataBase(123)
 	  		     failure => LogErrorAndReturnSummary(success));
 //Outcome<IPrincipals , string> outcome:
 // - If succesful:
-//   - outcome.Succesful will contain the IPrincipals data
+//   - outcome.Succes will contain the IPrincipals data
 //   - outcome.Failure is null
 
 // - If NOT succesful:
-//   - outcome.Succesful is null
+//   - outcome.Succes is null
 //   - outcome.Failure will contains the summury error and the error is Logged somewhere
 
 ```
@@ -71,11 +71,11 @@ var outcome = ReadUserFromDataBase(123)
 			.MapFailure(failure => LogErrorAndReturnSummary(success));				
 //Outcome<Data, String> outcome:
 // - If succesful:
-//   - outcome.Succesful will contain the userdata Data
+//   - outcome.Succes will contain the userdata Data
 //   - outcome.Failure is null
 
 // - If NOT succesful:
-//   - outcome.Succesful is null
+//   - outcome.Succes is null
 //   - outcome.Failure will contains the summury error and the error is Logged 
 
 
@@ -83,7 +83,7 @@ outcome = ReadUserFromDataBase(123)
 			.MapSuccess(success => GetUserPrincipals(success));
 //Outcome<IPrincipals , Error> outcome:
 // - If succesful:
-//   - outcome.Succesful will contain the userdata Data
+//   - outcome.Succes will contain the IPrincipals for the loaded user
 //   - outcome.Failure is null
 
 // - If NOT succesful:
@@ -115,28 +115,28 @@ Outcome<Data, Error> GetAuthorizedServices(Data userData) {/*[...]*/ return user
 var outcome = ReadUserFromDataBase(123)
 			.Bind(success => GetUserPrincipals(success),
   	  	   	      failure => ProcessErrorInformation(failure));
-//Outcome<IPrincipals , Error> ReadUserFromDataBase:
+//ReadUserFromDataBase -- Outcome<IPrincipals , Error>:
 // - If succesful:
-//   - outcome.Succesful will contain the user Data
+//   - outcome.Succes will contain the user Data
 //   - outcome.Failure is null
 // - If NOT succesful:
-//   - outcome.Succesful is null
+//   - outcome.Succes is null
 //   - outcome.Failure will contains the error string
 
-//Outcome<IPrincipals , string> GetUserPrincipals:
+//GetUserPrincipals -- Outcome<IPrincipals , string>:
 // - If succesful:
-//   - outcome.Succesful will contain the IPrincipals data
+//   - outcome.Succes will contain the IPrincipals data
 //   - outcome.Failure is null
 // - If NOT succesful:
 //   - outcome.Succesful is null
 //   - outcome.Failure will contains the Error returuend while fetching the principlas
 
-//Outcome<IPrincipals , string> ProcessErrorInformation:
+//ProcessErrorInformation -- Outcome<IPrincipals , string>:
 // - If succesful:
-//   - outcome.Succesful will contain the IPrincipals data
+//   - outcome.Succes will contain the IPrincipals data
 //   - outcome.Failure is null
 // - If NOT succesful:
-//   - outcome.Succesful is null
+//   - outcome.Succes is null
 //   - outcome.Failure will contains the Error object converted from the string error from database
 ```
 
@@ -158,7 +158,7 @@ var outcome = ReadUserFromDataBase(123)
 
 //when all the bind are succesful the result will be		
 //Outcome<IServices, Error> 
-//   - outcome.Succesful will contain the IServices Data
+//   - outcome.Succes will contain the IServices Data
 //   - outcome.Failure is null
 
 //if at least one bind fails the result will be
@@ -204,7 +204,7 @@ Task<Identity> identity = GetIdentityFromAPIAsync(...);
 identity.DoAsync(_ => _.Name = "John").Result;
 //or
 identity.DoAsync(_ => _.Name = "John",
-            _ => _.Surname = "Smith").Result;
+    	         _ => _.Surname = "Smith").Result;
 ```
 
 
@@ -216,7 +216,7 @@ Only the output will carry the changes, the input value will be left untouched
 public string GetPersonData(string pincode) => { /*[...]*/ return "John Smith"; }
 public string GetNewArchiveId() => { /*[...]*/ return "_XXX"; }
 string archivePersonData = GetPersonData("pincode")
-								.DoWrap(_ => _.Subject += GetNewArchiveId()); DateTime.Now.ToString());
+		 		.DoWrap(_ => _.Subject += GetNewArchiveId()); DateTime.Now.ToString());
 //archivePersonData  == "John Smith_XXX"
 ```
 
@@ -232,7 +232,7 @@ itentities.DoForEach(_ => _.LastUpdate = DateTime.Now);
 
 //update the LastUpdate field and the LastUpdateAuthor for each item in identities
 itentities.DoForEach(_ => _.LastUpdate = DateTime.Now,
-                    _ => _.LastUpdateAuthor = "Admin");
+                     _ => _.LastUpdateAuthor = "Admin");
 ```
 
 `Async`
@@ -422,8 +422,8 @@ var updatedPeople =
 people.Switch
 (
     p => p,
-    (p => p.LastUpdate < DateTime.Node.AddDays(-30) , p => ApiGetPeople(p.Pincode)),
-    (p => p.LastUpdate < DateTime.Node.AddDays(-10) , p => p.Do(_ => _.Address = ApiGetPeopleAddress(p)))
+    (p => p.LastUpdate < DateTime.Node.AddDays(-30), p => ApiGetPeople(p.Pincode)),
+    (p => p.LastUpdate < DateTime.Node.AddDays(-10), p => p.Do(_ => _.Address = ApiGetPeopleAddress(p)))
 )
 ```
 

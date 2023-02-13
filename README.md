@@ -58,7 +58,7 @@ var outcome = ReadUserFromDataBase(123)
 
 
 ### Outcome.MapFailure, Outcome.MapSuccess
-Like the Map but allows to manage only the Succesful or Failure state.
+Like the Outcome.Map but allows to manage only the IsSuccesful or !IsSuccesful  state.
 You can combine more MapSuccess in a cascade, and as soon one return a Failure outcome, all the other will not be executed, and it will only carry forward the first error.
 
 ```csharp
@@ -101,7 +101,7 @@ ReadUserFromDataBase(123) //Outcome<Data, Error>
 ```
 
 ### Outcome.Bind
-Like the Map but each function returns a new Outcome<S, F> so each call to Bind can switch from Success to Failure trak (or the other way around, even if usually once you end in the Failure trak you keep that status)
+Like the Outcome.Map but each function returns a new `Outcome<S, F>` so each call to Bind can switch from Success to Failure track (or the other way around, even if usually once you end in the Failure track you keep that status)
 
 
 ```csharp
@@ -142,7 +142,7 @@ var outcome = ReadUserFromDataBase(123)
 
 
 ### Outcome.BindSuccess
-From Outcome<S, F> apply a Function of type S -> Outcome<S1, F>
+To an `Outcome<S, F>` apply a Function of type `S -> Outcome<S1, F>`
 You can chain one ore more bind success and the first one to fail will bring the Failure result to the end of the chaining
 
 
@@ -168,13 +168,15 @@ var outcome = ReadUserFromDataBase(123)
 ```
 ### Outcome.BindFailure
 Same logic of  BindSuccess but applied on the Failure part of the outcome.
-Usually only one is called more than a chain of them
+Usually only one is called at the bottom of a BindSuccess chain
 
 
 # Do [Extension of generic type T]
 
-Do something with/to and object and return the object:
- `Do`, `DoForEach`,`DoAsync`, `DoForEachAsync`
+Do something with/to and object and then return the object:
+ `Do`, `DoForEach`,`DoAsync`, `DoForEachAsync` 
+**Null Safe** when the subject is null, nothing is done (and null is returned as output). 
+**NOTE:** the async version presume that the Task is not null
 
 ### Do, DoAsync
 When the Do subject is null it just return the subject
@@ -216,7 +218,7 @@ Only the output will carry the changes, the input value will be left untouched
 public string GetPersonData(string pincode) => { /*[...]*/ return "John Smith"; }
 public string GetNewArchiveId() => { /*[...]*/ return "_XXX"; }
 string archivePersonData = GetPersonData("pincode")
-		 		.DoWrap(_ => _.Subject += GetNewArchiveId()); DateTime.Now.ToString());
+					 		  .DoWrap(_ => _.Subject += GetNewArchiveId()); 
 //archivePersonData  == "John Smith_XXX"
 ```
 
@@ -253,8 +255,10 @@ itentities.DoForEachAsync(_ => _.LastUpdate = DateTime.Now,
 # Equals [Extension of generic type T]
 
 Expand the equality functions: `EqualsToAny`, `EquivalentTo`, `EquivalentToAny`
-
+**Null Safe** when the subject is null, nothing is done (and null is returned as output)
 When the subject is null it return false
+**NOTE:** the async version presume that the Task is not null
+
 
 ### EqualsToAny
 
@@ -290,6 +294,8 @@ tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari
 # Is [Extension of generic type T]
 
 Functionalities: `Is`, `IsNullOrEquivalent`
+***IsNullOrEquivalent*** is **Null Safe** when the subject is null returns true
+***Is*** is partially safe, the Function/Action is always executed so the logic must manage the subject being potentially null
 
 ### IsNullOrEquivalent
 
@@ -347,6 +353,9 @@ if(result.IsSatisfied)
 
 # Map [Extension of generic type T]
 Convert a Type into another one: `Map`, `MapForEach`,`MapAsync`, `MapForEachAsync`
+**Null Safe** when the subject is null, default(T) is returned
+**NOTE1:** the *Async version presume that the Task is not null
+**NOTE2:** the *ForEach version when the enumerable is not null and contains null value, still apply the Func/Action to the null item
 
 ### Map
 ```csharp
@@ -383,7 +392,8 @@ carsSoftware.Where(_ => _.Version >= 1.4).[...];
 # Or [Extension of generic type T]
 
 Choose when pick the right object based on a predicate.
-By default Left when not null
+By default ***Left*** when not null
+**Null Safe** when the subject is null, ***Right*** is returned
 
 ### Or
 ```csharp

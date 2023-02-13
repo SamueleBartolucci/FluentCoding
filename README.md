@@ -43,8 +43,8 @@ IPrincipals GetUserPrincipals(Data userData) {/*[...]*/ return userPrincipals; }
 string LogErrorAndReturnSummary(Error error) {/*[...]*/ return error.SummaryDescription(); }
 
 var outcome = ReadUserFromDataBase(123)
-				.Map(success => GetUserPrincipals(success),
-	  				 failure => LogErrorAndReturnSummary(success));
+			.Map(success => GetUserPrincipals(success),
+	  		     failure => LogErrorAndReturnSummary(success));
 //Outcome<IPrincipals , string> outcome:
 // - If succesful:
 //   - outcome.Succesful will contain the IPrincipals data
@@ -68,7 +68,7 @@ IPrincipals GetUserPrincipals(Data userData) {/*[...]*/ return userPrincipals; }
 string LogErrorAndReturnSummary(Error error) {/*[...]*/ return error.SummaryDescription(); }
 
 var outcome = ReadUserFromDataBase(123)
-				.MapFailure(failure => LogErrorAndReturnSummary(success));				
+			.MapFailure(failure => LogErrorAndReturnSummary(success));				
 //Outcome<Data, String> outcome:
 // - If succesful:
 //   - outcome.Succesful will contain the userdata Data
@@ -80,7 +80,7 @@ var outcome = ReadUserFromDataBase(123)
 
 
 outcome = ReadUserFromDataBase(123)
-				.MapSuccess(success => GetUserPrincipals(success));
+			.MapSuccess(success => GetUserPrincipals(success));
 //Outcome<IPrincipals , Error> outcome:
 // - If succesful:
 //   - outcome.Succesful will contain the userdata Data
@@ -113,8 +113,8 @@ Outcome<Data, Error> GetAuthorizedServices(Data userData) {/*[...]*/ return user
 
 
 var outcome = ReadUserFromDataBase(123)
-				.Bind(success => GetUserPrincipals(success),
-  	  				  failure => ProcessErrorInformation(failure));
+			.Bind(success => GetUserPrincipals(success),
+  	  	   	      failure => ProcessErrorInformation(failure));
 //Outcome<IPrincipals , Error> ReadUserFromDataBase:
 // - If succesful:
 //   - outcome.Succesful will contain the user Data
@@ -153,8 +153,8 @@ Outcome<IServices, Error> GetAuthorizedServices(Data userData) {/*[...]*/ return
 
 
 var outcome = ReadUserFromDataBase(123)
-				.BindSuccess(success => GetUserPrincipals(success))
-				.BindSuccess(success => GetAuthorizedServices(success));
+			.BindSuccess(success => GetUserPrincipals(success))
+			.BindSuccess(success => GetAuthorizedServices(success));
 
 //when all the bind are succesful the result will be		
 //Outcome<IServices, Error> 
@@ -171,7 +171,7 @@ Same logic of  BindSuccess but applied on the Failure part of the outcome.
 Usually only one is called more than a chain of them
 
 
-# Do
+# Do [Extension of generic type T]
 
 Do something with/to and object and return the object:
  `Do`, `DoForEach`,`DoAsync`, `DoForEachAsync`
@@ -250,7 +250,7 @@ itentities.DoForEachAsync(_ => _.LastUpdate = DateTime.Now,
 ```
 
 
-# Equals
+# Equals [Extension of generic type T]
 
 Expand the equality functions: `EqualsToAny`, `EquivalentTo`, `EquivalentToAny`
 
@@ -287,7 +287,7 @@ tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari
 
 
 
-# Is
+# Is [Extension of generic type T]
 
 Functionalities: `Is`, `IsNullOrEquivalent`
 
@@ -345,7 +345,7 @@ if(result.IsSatisfied)
 ```
 
 
-# Map
+# Map [Extension of generic type T]
 Convert a Type into another one: `Map`, `MapForEach`,`MapAsync`, `MapForEachAsync`
 
 ### Map
@@ -380,7 +380,7 @@ var carsSoftware = cars.MapForEach(ExtractSoftware);
 //do soemthing...
 carsSoftware.Where(_ => _.Version >= 1.4).[...];
 ```
-# Or
+# Or [Extension of generic type T]
 
 Choose when pick the right object based on a predicate.
 By default Left when not null
@@ -392,7 +392,7 @@ var validData = object1.Or(object2, (subject)=> !subject.IsStillValid);
 var mostRecentData = dataSource1.Or(dataSource2, (subject, orValue)=> orValue.LastUpdateTime > subject.LastUpdateTime);
 ```
 
-### <string>.OrIsEmpty 
+### OrIsEmpty [Extension of type string]
 (for strings only)
 ```csharp
 string newAddress = null; //left string is null
@@ -407,7 +407,7 @@ newAddress.Or(oldAddress, newAddr => string.IsNullOrEmpty(newAddr)); // return o
 newAddress.OrIsEmpty(oldAddress); // return oldAddress
 ```
 
-# Switch 
+# Switch [Extension of generic type T]
 
 Fluent version of the switch case: `Switch`
 
@@ -442,9 +442,9 @@ people.Switch
 ```
 
 
-# TryCatch
+# TryCatch [Extension of generic type T]
 Inline wrap methods for the Try{}Catch{}:  `Try`, `TryTo`, `TryAsync`, `TryToAsync`
-## Try (base class)
+## Try (initialize TryCatch base class)
 Try to do something and return a context with all the information
 
 ```csharp
@@ -477,7 +477,7 @@ tryResult.Result; //the Car object loader
 tryResult.Error; //the CustomError returned by ManageException
 ```
 
-## Try.OnSuccess or Try.OnFail
+## TryCatch.OnSuccess or TryCatch.OnFail
 Try to do something and when ok do something else
 ```csharp
 Car LoadCarData(string licensPlate)
@@ -513,7 +513,7 @@ error; //the CustomError ONLY WHEN and exception occurred, default of CustomErro
 tryCatchContext; //the TryCatch class from the previous example, ALWAYS returned
 ```
 
-## Try.Then
+## TryCatch.Then
 Try to do something and then manage the success or the fail result
 ```csharp
 Car LoadCarData(string licensPlate)
@@ -544,10 +544,10 @@ Try to do something or manage the exception, the output type can differ from the
 var date = "2022-12-29".TryTo(DateTime.Parse, (c, ex) => DateTime.MinValue);
 ```
 
-# When
+# When [Extension of generic type T]
 Apply one or more checks on the subjects and then apply and Action or a Function only when all the checks are satisfied
 
-## When (base class)
+## When (initialize When base class)
 ```csharp
 var car = LoadCarData(...);
 

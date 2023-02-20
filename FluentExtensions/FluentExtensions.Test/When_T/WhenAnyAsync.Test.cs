@@ -13,24 +13,24 @@ namespace FluentCodingTest.When_T
     {
 
         [Test]
-        public void WhenAnyAsync_IsSuccesful()
+        public void WhenAnyAsync_IsSuccessful()
         {
             
             IEnumerable<string> input = new List<string>() { Test.Done, Test.NotDone, Test.Left, Test.Right };
 
             var when = input.ToTask().WhenAnyAsync(_ => _ == Test.Left).Result;
-            when.IsSuccesful.Should().BeTrue();
+            when.IsSuccessful.Should().BeTrue();
             when.Should().BeOfType(typeof(WhenOr<IEnumerable<string>>));
             when.Subject.Should().BeEquivalentTo(input);
         }
 
 
         [Test]
-        public void WhenAnyAsync_NotIsSuccesful()
+        public void WhenAnyAsync_NotIsSuccessful()
         {
             IEnumerable<string> input = new[] { Test.Done, Test.NotDone, Test.Left, Test.Right };
             var when = input.ToTask().WhenAnyAsync(_ => _ == "XX").Result;
-            when.IsSuccesful.Should().BeFalse();
+            when.IsSuccessful.Should().BeFalse();
             when.Should().BeOfType(typeof(WhenOr<IEnumerable<string>>));
             when.Subject.Should().BeEquivalentTo(input);
         }

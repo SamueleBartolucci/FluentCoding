@@ -28,7 +28,7 @@ namespace FluentCodingTest.Outcome
                                 .Map(succ => ToList(succ.Do(_ => _.DescType = Test.Done)),
                                      fail => ToList(fail.Do(_ => _.DescType = Test.Left)));
 
-            newOutcome.IsSuccesful.Should().BeTrue();
+            newOutcome.IsSuccessful.Should().BeTrue();
             newOutcome.Failure.Should().BeNull();
             newOutcome.Success.Should().BeOfType<List<TypeT>>();
             newOutcome.Success.First().Should().BeEquivalentTo(Test.TDone);
@@ -42,7 +42,7 @@ namespace FluentCodingTest.Outcome
                                 .Map(succ => ToList(succ.Do(_ => _.DescType = Test.Done)),
                                      fail => new List<TypeK> { fail.Do(_ => _.DescType = Test.Left) });
 
-            newOutcome.IsSuccesful.Should().BeFalse();
+            newOutcome.IsSuccessful.Should().BeFalse();
             newOutcome.Success.Should().BeNull();
             newOutcome.Failure.Should().BeOfType<List<TypeK>>();
             newOutcome.Failure.First().Should().BeEquivalentTo(Test.TLeft);
@@ -56,7 +56,7 @@ namespace FluentCodingTest.Outcome
                                 .MapFailure(_ => new List<TypeK>() { _.Do(__ => __.DescType = Test.Left) })
                                 .MapSuccess(_ => new List<TypeT>() { _.Do(__ => __.DescType = Test.Done) });
 
-            newOutcome.IsSuccesful.Should().BeTrue();
+            newOutcome.IsSuccessful.Should().BeTrue();
             newOutcome.Failure.Should().BeNull();
             newOutcome.Success.Should().BeOfType<List<TypeT>>();
             newOutcome.Success.First().Should().BeEquivalentTo(Test.TDone);
@@ -70,7 +70,7 @@ namespace FluentCodingTest.Outcome
                                 .MapSuccess(_ => new List<TypeT>() { _.Do(__ => __.DescType = Test.Done) })
                                 .MapFailure(_ => new List<TypeK>() { _.Do(__ => __.DescType = Test.Left) });
 
-            newOutcome.IsSuccesful.Should().BeTrue();
+            newOutcome.IsSuccessful.Should().BeTrue();
             newOutcome.Failure.Should().BeNull();
             newOutcome.Success.Should().BeOfType<List<TypeT>>();
             newOutcome.Success.First().Should().BeEquivalentTo(Test.TDone);
@@ -85,7 +85,7 @@ namespace FluentCodingTest.Outcome
                                 .MapSuccess(_ => new List<TypeT>() { _.Do(__ => __.DescType = Test.Done) })
                                 .MapFailure(_ => new List<TypeK>() { _.Do(__ => __.DescType = Test.Left) });
 
-            newOutcome.IsSuccesful.Should().BeFalse();            
+            newOutcome.IsSuccessful.Should().BeFalse();            
             newOutcome.Success.Should().BeNull();
             newOutcome.Failure.Should().BeOfType<List<TypeK>>();
             newOutcome.Failure.First().Should().BeEquivalentTo(Test.TLeft);
@@ -100,7 +100,7 @@ namespace FluentCodingTest.Outcome
                                 .MapFailure(_ => new List<TypeK>() { _.Do(__ => __.DescType = Test.Left) })
                                 .MapSuccess(_ => new List<TypeT>() { _.Do(__ => __.DescType = Test.Done) });
 
-            newOutcome.IsSuccesful.Should().BeFalse();
+            newOutcome.IsSuccessful.Should().BeFalse();
             newOutcome.Success.Should().BeNull();
             newOutcome.Failure.Should().BeOfType<List<TypeK>>();
             newOutcome.Failure.First().Should().BeEquivalentTo(Test.TLeft);

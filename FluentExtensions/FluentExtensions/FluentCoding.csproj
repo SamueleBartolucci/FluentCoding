@@ -26,7 +26,7 @@ What's NEW 2.0.1
 - Collapsed Switch and SwitchMap into Switch
 - Added SwitchAsync
 - Added TryAsync and TryToAsync
-- Collapsed Then(onSucces, onFail) and ThenMap(onSucces, onFail) into Then
+- Collapsed Then(onSuccess, onFail) and ThenMap(onSuccess, onFail) into Then
 - Added WhenAnyAsync, WhenAsync</Description>
 		<PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>

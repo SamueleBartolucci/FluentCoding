@@ -17,7 +17,7 @@ namespace FluentCodingTest.Outcome
         {
             var outcome = Test.T.ToSuccessOutcome<TypeT, TypeK>();
 
-            outcome.IsSuccesful.Should().BeTrue();
+            outcome.IsSuccessful.Should().BeTrue();
             outcome.Success.Should().BeEquivalentTo(Test.T);
             outcome.Failure.Should().BeNull();
 
@@ -28,7 +28,7 @@ namespace FluentCodingTest.Outcome
         {
             var outcome = Outcome<TypeT, TypeK>.ToSuccess(Test.T);
 
-            outcome.IsSuccesful.Should().BeTrue();
+            outcome.IsSuccessful.Should().BeTrue();
             outcome.Success.Should().BeEquivalentTo(Test.T);
             outcome.Failure.Should().BeNull();
 
@@ -39,7 +39,7 @@ namespace FluentCodingTest.Outcome
         {
             var outcome = Outcome<TypeT, TypeK>.ToFailure(Test.K);
 
-            outcome.IsSuccesful.Should().BeFalse();
+            outcome.IsSuccessful.Should().BeFalse();
             outcome.Success.Should().BeNull();
             outcome.Failure.Should().BeEquivalentTo(Test.K);
 
@@ -50,7 +50,7 @@ namespace FluentCodingTest.Outcome
         {
             var outcome = Test.K.ToFailureOutcome<TypeT, TypeK>();
 
-            outcome.IsSuccesful.Should().BeFalse();
+            outcome.IsSuccessful.Should().BeFalse();
             outcome.Success.Should().BeNull();
             outcome.Failure.Should().BeEquivalentTo(Test.K);
 

@@ -17,31 +17,31 @@ namespace FluentCoding
         internal WhenAnd() : base() { }
         internal WhenAnd(WhenAnd<T> whenOr) : base()
         {
-            IsSuccesful = whenOr.IsSuccesful;
+            IsSuccessful = whenOr.IsSuccessful;
             Subject = whenOr.Subject;
         }
 
         /// <summary>
-        /// Execute andCondition(Subject) and accordingly update the IsSuccesful state
+        /// Execute andCondition(Subject) and accordingly update the IsSuccessful state
         /// </summary>
         /// <param name="andCondition"></param>
         /// <returns></returns>
         public WhenAnd<T> AndWhen(Func<T, bool> andCondition) => AndWhen(andCondition(Subject));
 
         /// <summary>
-        /// Execute andCondition() and accordingly update the IsSuccesful state
+        /// Execute andCondition() and accordingly update the IsSuccessful state
         /// </summary>
         /// <param name="andCondition"></param>
         /// <returns></returns>
         public WhenAnd<T> AndWhen(Func<bool> andCondition) => AndWhen(andCondition());
 
         /// <summary>
-        /// Update the IsSuccesful accordingly with the andCondition value
+        /// Update the IsSuccessful accordingly with the andCondition value
         /// </summary>
         /// <param name="andCondition"></param>
         /// <returns></returns>
         public WhenAnd<T> AndWhen(bool andCondition) => (this is WhenOr<T> ? new WhenAnd<T>(this) : this)
-                                                            .Do(_ => _.IsSuccesful &= andCondition);
+                                                            .Do(_ => _.IsSuccessful &= andCondition);
 
     }
 }

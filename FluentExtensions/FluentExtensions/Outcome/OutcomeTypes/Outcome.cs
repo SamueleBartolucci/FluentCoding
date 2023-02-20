@@ -15,7 +15,7 @@ namespace FluentCoding
     /// <typeparam name="F"></typeparam>
     public partial class Outcome<S, F> : FluentContext<S>
     {
-        internal Outcome(bool successStatus) : base() { IsSuccesful = successStatus; }
+        internal Outcome(bool successStatus) : base() { IsSuccessful = successStatus; }
         internal Outcome(S successValue) : this(true) { Success = successValue; }
         internal Outcome(F failureValue) : this(false) { Failure = failureValue; }
 
@@ -36,17 +36,17 @@ namespace FluentCoding
             => new Outcome<S, F>(failureValue);
 
         /// <summary>
-        /// Successful result available when status is IsSuccesful=true
+        /// Successful result available when status is IsSuccessful=true
         /// </summary>
         public S Success { get; set; }
 
         /// <summary>
-        /// Failure result available when status is IsSuccesful=true
+        /// Failure result available when status is IsSuccessful=true
         /// </summary>
         public F Failure { get; set; }
 
         /// <summary>
-        /// Apply a function 'S -> Outcome&lt;S1, F1&gt;' or 'F -> Outcome&lt;S1, F1&gt;' to the Outcome based on the IsSuccesful status
+        /// Apply a function 'S -> Outcome&lt;S1, F1&gt;' or 'F -> Outcome&lt;S1, F1&gt;' to the Outcome based on the IsSuccessful status
         /// Return a new Outcome&lt;S1, F1&gt;        
         /// </summary>
         /// <typeparam name="S1"></typeparam>
@@ -55,7 +55,7 @@ namespace FluentCoding
         /// <param name="doWhenFailure"></param>
         /// <returns></returns>
         public Outcome<S1, F1> Bind<S1, F1>(Func<S, Outcome<S1, F1>> doWhenSuccess, Func<F, Outcome<S1, F1>> doWhenFailure) 
-            => IsSuccesful ? doWhenSuccess(Success) : doWhenFailure(Failure);
+            => IsSuccessful ? doWhenSuccess(Success) : doWhenFailure(Failure);
 
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace FluentCoding
         /// <param name="doWhenSuccess"></param>
         /// <returns></returns>
         public Outcome<S1, F> BindSuccess<S1>(Func<S, Outcome<S1, F>> doWhenSuccess)
-            => IsSuccesful ? doWhenSuccess(Success) :
+            => IsSuccessful ? doWhenSuccess(Success) :
                              Outcome<S1, F>.ToFailure(Failure);
 
         /// <summary>
@@ -77,11 +77,11 @@ namespace FluentCoding
         /// <param name="doWhenFail"></param>
         /// <returns></returns>
         public Outcome<S, F1> BindFailure<F1>(Func<F, Outcome<S, F1>> doWhenFail)
-            => !IsSuccesful ? doWhenFail(Failure) : 
+            => !IsSuccessful ? doWhenFail(Failure) : 
                               Outcome<S, F1>.ToSuccess(Success);
 
         /// <summary>
-        /// Apply a function "S -> S1" or "F -> F1" to the Outcome based on the IsSuccesful status
+        /// Apply a function "S -> S1" or "F -> F1" to the Outcome based on the IsSuccessful status
         /// Return a new Outcome&lt;S1, F1&gt;
         /// </summary>
         /// <typeparam name="S1"></typeparam>
@@ -90,7 +90,7 @@ namespace FluentCoding
         /// <param name="doWhenFail"></param>
         /// <returns></returns>
         public Outcome<S1, F1> Map<S1, F1>(Func<S, S1> doWhenSuccess, Func<F, F1> doWhenFail)
-           => IsSuccesful ? Outcome<S1, F1>.ToSuccess(doWhenSuccess(Success)) :
+           => IsSuccessful ? Outcome<S1, F1>.ToSuccess(doWhenSuccess(Success)) :
                             Outcome<S1, F1>.ToFailure(doWhenFail(Failure));
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace FluentCoding
         /// <param name="doWhenFail"></param>
         /// <returns></returns>
         public Outcome<S, F1> MapFailure<F1>(Func<F, F1> doWhenFail)
-            => !IsSuccesful ? Outcome<S, F1>.ToFailure(doWhenFail(Failure)) : 
+            => !IsSuccessful ? Outcome<S, F1>.ToFailure(doWhenFail(Failure)) : 
                               Outcome<S, F1>.ToSuccess(Success);
 
         /// <summary>
@@ -112,7 +112,7 @@ namespace FluentCoding
         /// <param name="doWhenSuccess"></param>
         /// <returns></returns>
         public Outcome<S1, F> MapSuccess<S1>(Func<S, S1> doWhenSuccess)
-            => IsSuccesful ? Outcome<S1, F>.ToSuccess(doWhenSuccess(Success)) :
+            => IsSuccessful ? Outcome<S1, F>.ToSuccess(doWhenSuccess(Success)) :
                              Outcome<S1, F>.ToFailure(Failure);
     }
 }

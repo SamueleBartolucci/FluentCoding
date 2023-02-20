@@ -18,25 +18,25 @@ namespace FluentCoding
         internal WhenOr() : base() { }
 
         /// <summary>
-        /// Execute orCondition(Subject) and accordingly update the IsSuccesful state
+        /// Execute orCondition(Subject) and accordingly update the IsSuccessful state
         /// </summary>
         /// <param name="orCondition"></param>
         /// <returns></returns>
         public WhenAnd<T> OrWhen(Func<T, bool> orCondition) => OrWhen(orCondition(Subject));
 
         /// <summary>
-        /// Execute orCondition() and accordingly update the IsSuccesful state
+        /// Execute orCondition() and accordingly update the IsSuccessful state
         /// </summary>
         /// <param name="orCondition"></param>
         /// <returns></returns>
         public WhenAnd<T> OrWhen(Func<bool> orCondition) => OrWhen(orCondition());
 
         /// <summary>
-        /// Update the IsSuccesful state accordingly to the orCondition value
+        /// Update the IsSuccessful state accordingly to the orCondition value
         /// </summary>
         /// <param name="orCondition"></param>
         /// <returns></returns>
-        public WhenAnd<T> OrWhen(bool orCondition) => this.Do(_ => _.IsSuccesful |= orCondition);
+        public WhenAnd<T> OrWhen(bool orCondition) => this.Do(_ => _.IsSuccessful |= orCondition);
     }
 }
 

@@ -16,7 +16,7 @@ namespace FluentCodingTest.TryCatch_T
         {
             var tryCatch = Test.TNotDone.ToTask().TryAsync(_ => Test.KRight).Result;
 
-            tryCatch.IsSuccesful.Should().BeTrue();
+            tryCatch.IsSuccessful.Should().BeTrue();
             tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
             tryCatch.Result.Should().BeEquivalentTo(Test.KRight);
             tryCatch.Error.Should().BeNull();
@@ -27,7 +27,7 @@ namespace FluentCodingTest.TryCatch_T
         {
             var tryCatch = Test.TNotDone.ToTask().TryAsync(_ => Test.GetException<TypeK>()).Result;
 
-            tryCatch.IsSuccesful.Should().BeFalse();
+            tryCatch.IsSuccessful.Should().BeFalse();
             tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
             tryCatch.Result.Should().BeNull();
             tryCatch.Error.Should().NotBeNull();

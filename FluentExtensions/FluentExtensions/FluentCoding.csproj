@@ -1,16 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net48;netstandard2.0;netstandard2.1</TargetFrameworks>
+		<TargetFrameworks>net6.0;net48;netstandard2.0;netstandard2.1;net48</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<Version>2.0.1</Version>
+		<Version>2.1.0</Version>
 		<Title>Expand linq fluent methods with some useful constructs for developing code</Title>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Samuele Bartolucci</Authors>
 		<Description>Add new Linq style functionalities to help the develop process
+# What's NEW 2.1.0
+- Fixed `Outcome.Succes` typo
+- Fixed `FluentContext.IsSuccesful` typo. This change impacts: `TryCatch.IsSuccesful`, `When.IsSuccesful`, `Outcome.IsSuccesful`
 
-What's NEW 2.0.1
+# What's NEW 2.0.1
 - Added DoWrap and DoWrapAsync to quickly manage value types
 - Added `Outcome&lt;R,L&gt;;` to mimic the F# `Result&lt;'T,'TFailure&gt;` (with Map and Bind functionalities) [railway oriented programing (https://fsharpforfunandprofit.com/rop/]
 
@@ -42,7 +45,7 @@ What's NEW 2.0.1
 - Collapsed Switch and SwitchMap into Switch
 - Added SwitchAsync
 - Added TryAsync and TryToAsync
-- Collapsed Then(onSucces, onFail) and ThenMap(onSucces, onFail) into Then
+- Collapsed Then(onSuccess, onFail) and ThenMap(onSuccess, onFail) into Then
 - Added WhenAnyAsync, WhenAsync
 		</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>

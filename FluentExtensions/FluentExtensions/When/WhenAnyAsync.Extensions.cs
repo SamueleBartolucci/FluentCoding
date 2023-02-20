@@ -9,8 +9,8 @@ namespace FluentCoding
     public static partial class WhenAnyExtensions
     {
         /// <summary>
-        /// Create a When contest and se IsSuccessfull status if at leas one whenContition(item) from the subject Items is true
-        /// Then set IsSuccessfull accordingly
+        /// Create a When contest and se IsSuccessful status if at leas one whenContition(item) from the subject Items is true
+        /// Then set IsSuccessful accordingly
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="whenSubject"></param>

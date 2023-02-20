@@ -8,7 +8,7 @@ namespace FluentCoding
     {
         /// <summary>
         /// Create a When context and set IsSuccessful status with the result of whenCondition(subject)
-        /// Then set IsSuccessfull accordingly
+        /// Then set IsSuccessful accordingly
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="whenSubject"></param>
@@ -19,7 +19,7 @@ namespace FluentCoding
 
         /// <summary>
         /// Create a When context and set IsSuccessful status with the result of whenCondition()
-        /// Then set IsSuccessfull accordingly
+        /// Then set IsSuccessful accordingly
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="whenSubject"></param>

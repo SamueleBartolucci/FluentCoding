@@ -61,7 +61,7 @@ namespace FluentCoding
         }
 
         /// <summary>
-        /// Apply a further function on the Try.Result when the Try is successfull
+        /// Apply a further function on the Try.Result when the Try is successful
         /// </summary>
         /// <typeparam name="TRES"></typeparam>
         /// <param name="whenOk"></param>

@@ -1,15 +1,17 @@
 
 # What's NEW 2.1.0
 - Fixed `Outcome.Succes` typo
-- Fixed `FluentContext.IsSuccessful` typo. This change impacts: `TryCatch.IsSuccessful`, `When.IsSuccessful`, `Outcome.IsSuccessful`
+- Fixed `FluentContext.IsSuccesful` typo. 
+This change impacts: `TryCatch.IsSuccesful`, `When.IsSuccesful`, `Outcome.IsSuccesful`
+
 
 # What's NEW 2.0.1
 - Added `DoWrap` and `DoWrapAsync` to quickly manage value types
 - Added `Outcome<R,L>` to mimic **F#** `Result<'T,'TFailure>` (with Map and Bind functionalities) [[railway oriented programming](https://fsharpforfunandprofit.com/rop/)]
 
 # What's NEW 2.0.0
-- `Do` now ALWAYS returns the subject (even when called with a Func)
-- Removed `Do` extension with a single Action/Func, left only the extension with params[] Action/Func
+- `Do` now **ALWAYS** returns the subject (even when called with a `Func`)
+- Removed `Do` extension with a single `Action`/`Func`, left only the extension with `params[]` `Action`/`Func`
 - Added `DoAsync` extension
 - Changed `DoForAll` into `DoForEach`, added `DoForEachAsync`
 - Changed `DoForAllMap` into `MapForEach`, added `MapForEachAsync`
@@ -29,11 +31,11 @@ These functionalities can be combined together to fluently manipulate an object:
 
 ####  `Outcome`, `Do`,`Equals`,`Is`, `Map`, `Or`, `Switch`,`Try`, `When`
 
-Almost all the Fluent extensions expose the `*Async` version that can be used with a Task<T>.
+Almost all the fluent extensions expose the `*Async` version that can be used with a `Task<T>`.
 
 # Outcome
 Mimics [railway oriented programming](https://fsharpforfunandprofit.com/rop/) concept of  functional programming.
-Similar to `Result<L,R>` of `F#`
+Similar to `Result<L,R>` of **F#**
 
 ### Outcome.Map
 `Outcome<R, F>.Map` takes two Functions: 
@@ -65,8 +67,8 @@ var outcome = ReadUserFromDataBase(123)
 
 
 ### Outcome.MapFailure, Outcome.MapSuccess
-Similar to `Outcome.Map` but allows to manage only a specific state: IsSuccessful or !IsSuccessful.
-You can combine more **MapSuccess** in a cascade, these will be executed only when the state **IsSuccessful = true**, otherwise they will only carry forward the Failure field.
+Similar to `Outcome.Map` but allows to manage only a specific state: `IsSuccessful` or `!IsSuccessful`.
+You can combine more **MapSuccess** in a cascade, these will be executed only when the state **IsSuccessful = true**, otherwise they will only carry forward the `Failure` field.
 
 ```csharp
 Outcome<Data, Error> ReadUserFromDataBase(string userId) {/*[...]*/ return userDataOrErrorOutcome; }
@@ -118,7 +120,7 @@ If the database ReadUserFromDataBase fails, the MapSuccess chain will only bring
 ```
 
 ### Outcome.Bind
-Like the `Outcome.Map` but each function returns a new `Outcome<S, F>`, so each call to Bind can switch from  **Success** to **Failure** track (or the other way around, even if usually once you end in the Failure track you keep that status)
+Like the `Outcome.Map` but each function returns a new `Outcome<S, F>`, so each call to `Bind` can switch from **Success** to **Failure** track (or the other way around, even if usually once you end in the failure track you keep that status)
 
 ```csharp
 Outcome<Data, string> ReadUserFromDataBase(string userId) {/*[...]*/ return userDataOrErrorOutcome; }
@@ -158,8 +160,8 @@ var outcome = ReadUserFromDataBase(123)
 
 
 ### Outcome.BindSuccess
-To an `Outcome<S, F>` apply a Function of type `S -> Outcome<S1, F>`
-You can chain one ore more bind success and the first one to fail will bring the Failure result to the end of the chain.
+To an `Outcome<S, F>` apply a function of type `S -> Outcome<S1, F>`
+You can chain one ore more **BindSuccess**: as soon as one fails, all the others will only bring the `Failure` result at the end of the chain.
 
 ```csharp
 Outcome<Data, string> ReadUserFromDataBase(string userId) {/*[...]*/ return userDataOrErrorOutcome; }
@@ -192,13 +194,13 @@ Usually, only one is called at the bottom of a BindSuccess chain
 Do something with/to an object and then returns the object itself:
  `Do`, `DoForEach`,`DoAsync`, `DoForEachAsync` 
  
-**Null Safe** when the subject is null, nothing is done (and null is returned as output).  \
+**Null Safe** when the subject is null, nothing is done (and `null` is returned as output).  \
 **NOTE:** the async version takes the assumption that `Task<T>` is not null 
 
 ### Do, DoAsync
-When the `Do` subject is null it directly returns the (null) subject.
+When the `Do` subject is null it directly returns the `null` subject.
 
-`Action` applies one or more Actions to the subject and then returns the subject.
+`Action` applies one or more actions to the subject and then returns the subject.
 ```csharp
 identity.Do(_ => _.Name = "John");
 //or
@@ -212,7 +214,7 @@ identity.Do(_ =>
 	            //[...]
            });
 ```
-`Func` applies one or more Funcs to the subject and then returns the Subject.
+`Func` applies one or more functions to the subject and then returns the Subject.
 ```csharp
 private TypeT UpdateIdentity(TypeT identity) { /* [...] do stuff*/ return updatedIdentity }
 
@@ -220,7 +222,7 @@ var identitiesList = new List<Identity>();
 identitiesList.Add(identity.Do(UpdateIdentity));
 ```
 
-`Async`
+`*Async`
 ```csharp
 Task<Identity> identity = GetIdentityFromAPIAsync(...);
 identity.DoAsync(_ => _.Name = "John").Result;
@@ -243,7 +245,7 @@ string archivePersonData = GetPersonData("pincode")
 ```
 
 ### DoForEach, DoForEachAsync
-Applies one ore more Actions or Functions to each item in an `Enumerable` and then returns the `Enumerable` itself.
+Applies one ore more actions or functions to each item in an `Enumerable` and then returns the `Enumerable` itself.
 ```csharp
 IEnumerable<Identity> itentities = LoadIdentitiesDataBase(...);
 
@@ -257,7 +259,7 @@ itentities.DoForEach(_ => _.LastUpdate = DateTime.Now,
                      _ => _.LastUpdateAuthor = "Admin");
 ```
 
-`Async`
+`*Async`
 ```csharp
 Task<IEnumerable<Identity>> itentities = GetIdentitiesFromAPIAsync(...);
 
@@ -277,7 +279,7 @@ itentities.DoForEachAsync(_ => _.LastUpdate = DateTime.Now,
 Expands the equality functions: `EqualsToAny`, `EquivalentTo`, `EquivalentToAny`
 
 **Null Safe:** When the subject is null it returns false  \
-**NOTE:** the async version presumes that the Task is not null
+**NOTE:** the async version presumes that the `Task<T>` is not `null`
 
 
 ### EqualsToAny
@@ -291,7 +293,7 @@ Identity people3 = ReadFromDataBase(...);
 Identity people4 = ReadFromDataBase(...);
 
 //The framework Equals is used in this case
-people1.EqualsToAny(people2, people3, people4);
+people1.EqualsToAny(people2, people3, people4); //true or false
 "XX".EqualsToAny("YY", "TT", "XX", "VV"); //true
 ```
 
@@ -304,8 +306,8 @@ Ferrari ferrari = new Ferrari() { ... };
 Ferrari ferrari2 = new Ferrari() { ... };
 Ferrari ferrari3 = new Ferrari() { ... };
 
-tesla.EquivalentTo(ferrari, (t, f) => t.PlateNumber == f.PlateNumber);
-tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari2, ferrari3);
+tesla.EquivalentTo(ferrari, (t, f) => t.PlateNumber == f.PlateNumber); //true or false
+tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari2, ferrari3); //true or false
 ```
 
 
@@ -314,12 +316,12 @@ tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari
 
 Functionalities: `Is`, `IsNullOrEquivalent`
 
-***IsNullOrEquivalent*** is **Null Safe**, when the subject is null returns true  \
-***Is*** is partially safe, the Function/Action is always executed so its logic must manage the subject being potentially null
+`IsNullOrEquivalent` is **Null Safe**, when the subject is null returns true  \
+`Is` is partially safe, the function/action is always executed so its logic must manage the subject being potentially `null`
 
 ### IsNullOrEquivalent
 
-Handy shorthand method to check if something is `null` or an equivalent state. \
+Handy shorthand method to check if something is `null` or an equivalent state. 
 ```csharp
 string.Empty.IsNullOrEquivalent(); //true
 null.IsNullOrEquivalent(); //true
@@ -360,7 +362,7 @@ NotNullFunc.IsNullOrEquivalent(); //false
 ```
 
 ### Is
-Applis a boolean predicate to an object and obtains the predicate result along with the subject. 
+Applies a boolean predicate to an object and obtains the predicate result along with the subject. 
 Can be combined with other functions from this library in a fluent way.
 
 ```csharp
@@ -374,7 +376,7 @@ if(result.IsSatisfied)
 
 
 # Map [Extension of generic type T]
-Converts a Type into another one: `Map`, `MapForEach`,`MapAsync`, `MapForEachAsync`
+Converts a type into another one: `Map`, `MapForEach`,`MapAsync`, `MapForEachAsync`
 
 **Null Safe:** when the subject is null, `default(T)` is returned  \
 **NOTE1:** the *Async version presumes that the Task is not null  \
@@ -416,12 +418,15 @@ carsSoftware.Where(_ => _.Version >= 1.4).[...];
 
 Chooses whether to pick the object on the right or on the left, based on a predicate.
 By default returns ***Left***  when not `null`  \
-**Null Safe:** when the subject is null, ***Right*** is returned  
-**NOTE:** the current version of OR works with 2 values.
+**Null Safe:** when the subject is `null`, ***Right*** is returned  
+**NOTE:** the current version of `Or` works with 2 values.
   this means that `Function(something).Or(AnotherFunction(somethingElse))` will always evaluate both functions.
   
   ***In a future release I intend to expand **Or** to work also with functions, in order to allow the above case to evaluate only the really required part of the whole function.***
-
+The `Or` accepts as predicates:  
+- **bool**: `leftValue.Or(rightValue, bool boolValueFromContext)` 
+- **Func\<bool\>**: `leftValue.Or(rightValue, Func<bool> predicateToEvaluate)` 
+- **Func\<T, bool\>**: `leftValue.Or(rightValue, Func<T, bool> predicateToEvaluateOnTheLeftValue)` 
 ### Or
 ```csharp
 var currentAddress = object.AddressDomicile.Or(object.AddressResidence);
@@ -455,11 +460,21 @@ newAddress.OrIsEmpty(oldAddress); // returns oldAddress
 # Switch [Extension of generic type T]
 
 Fluent version of the switch-case: `Switch`  \
-It takes a `default` case along with a list of `Tuple(predicateToCheck, FunctionToExecuteWhenMatched)`  \
+It takes a **default** function, along with a list of `Tuple(predicateToCheck, FunctionToExecuteWhenMatched)`  \
 The first `predicateToCheck` that returns true will run its binded function `FunctionToExecuteWhenMatched`.
-When there aren't any matches, the `default` function is called
+When there aren't any matches, the **default** function is called
+The **default** function and all the `FunctionToExecuteWhenMatched` functions must have the same output type.
+
+The predicates from the `Switch` tuples, can be:
+- **boolean**: 
+`subject.Switch(Func<T, K> default, (bool whenPredicate, Func<T, K> mapActionWhenTrue)[] cases)`
+- **Func\<bool\>**:
+`subject.Switch(Func<T, K> default, (Func<bool> whenPredicate, Func<T, K> mapActionWhenTrue)[] cases)`
+- **Func\<T, bool\>**:
+`subject.Switch(Func<T, K> default, (Func<T, bool> whenPredicate, Func<T, K> mapActionWhenTrue)[] cases)`
 	
 ### Switch 
+
 Input and output types are the same T -> T
 ```csharp
 Identity people = new Identity() { ... };
@@ -500,13 +515,23 @@ people.Switch
 Inline wraps methods for the Try{}Catch{}:  `Try`, `TryTo`, `TryAsync`, `TryToAsync`
 
 ## Try (initialize TryCatch base class)
-Tries to do something and returns a `Context` with all the information
+Applies a `Func<T,K>` on the subject `T` and returns a `Context<T>` with all the information.
+
+`var result = subject.Try(Func<T,K> functToTry)`
+Where `result` is of type `Context<T>` :
+- `result.IsSuccessful`: **false** if an exception is raised from  `Func<T,K>` , **true** otherwise
+- `result.Subject`:  The instance of the subject `T`
+- `result.Result`:  The result of the `Func<T,K>` if `Context.IsSucessful`, `default(K)` otherwise
+- `result.Error`:  The `Exception` raised from `Func<T,K>` if any, `default(Exception)` otherwise
+
+`Try` also allows to specify a `Func<S, Exception, E>`  to manage the error with a custom type  \
+`var result = subject.Try(Func<T,K> functToTry, Func<S, Exception, E> onError)`  
+
+In this case `result.Error` contains: 
+- the result of  `Func<S, Exception, E>` when *functToTry* raise an exception
+- `default(E)` otherwise
 ```csharp
-Car LoadCarData(string licensPlate)
-{
- //[...] do something
- return car; 
-}
+Car LoadCarData(string licensPlate) { /*[...] do something*/ return car; }
 
 var tryResult = "license-plate".Try(LoadCarData);
 tryResult.IsSuccessful; //true or false
@@ -516,12 +541,7 @@ tryResult.Error; //the Exception raised when loading the car data
 ```
 
 ```csharp
-Car LoadCarData(string licensePlate)
-{
- //[...] do something
- return car; 
-}
-
+Car LoadCarData(string licensePlate) { /*[...] do something*/ return car; }
 CustomError ManageException(String licensePlate, Exception e) => new CustomError(e.Messge, licensePlate);
 
 var tryResult = "carLicensePlate".Try(LoadCarData, ManageException);
@@ -533,7 +553,11 @@ tryResult.Error; //the CustomError returned by ManageException
 
 ## TryCatch.OnSuccess or TryCatch.OnFail
 Once the `Try` has been executed, do something else on success or on fail as specified.
+`var result = subject.Try(Func<S,R> funcToTry).OnSuccess(Func<R,R1> onSuccess)`
+The `result` is a tuple `(R1 Success, TryCatch<S, R, E> TryCatch)`
 
+`var result = subject.Try(Func<S,R> funcToTry).OnFail(Func<S,E,E1> whenException)`
+The `result` is a tuple `(E1 Fail, TryCatch<S, R, E> TryCatch)`
 ```csharp
 Car LoadCarData(string licensPlate) { /*[...] do something*/ return car; }
 List<CarComponent> DisassembleCar(Car car) { /*[...] do something*/ return carComponents; }
@@ -560,6 +584,9 @@ List<Car> availableCar = new List<Car>();
 
 ## TryCatch.Then
 Once the `Try` has been executed, specify what to do when Successful or when on Error
+
+Subject.`Try(Func<T,K> funcToTry)`
+.`Then(Func<K, K1> funcWhenOk ,Func<K, Exception, K1> funcWhenOnError)`
 ```csharp
 Car LoadCarData(string licensPlate) { /*[...] do something*/ return car; }
 bool AddCarToStock(Car car) { /*[...] do something*/ return true; }
@@ -578,6 +605,8 @@ Given a subject of type `T`, it takes 2 functions :
  - **Func<T, K>** function wrapped from the TryCatch
  - **Func<T, E, K>** function is executed only when TryTo raises an exception; it takes the Subject and the Exception object and returns K
 
+`subject.TryTo(Func<S,R> tryTo, Func<S,Exception,R> onError)`
+
 ```csharp
 var date = "2022-12-29".TryTo(DateTime.Parse, (subject, ex) => DateTime.MinValue);
 ```
@@ -586,6 +615,16 @@ var date = "2022-12-29".TryTo(DateTime.Parse, (subject, ex) => DateTime.MinValue
 Applies one or more checks on the Subject and then applies an Action or Function only when all the checks are satisfied
 
 ## When (initialize When base class)
+
+The when predicate can be:
+- **bool**: `subject.When(bool boolValueFromContext)` 
+- **Func\<bool\>**: `subject.When(Func<bool> predicateToEvaluate)` 
+- **Func\<T, bool\>**: `subject.When(Func<T, bool> predicateToEvaluateOnSubject)` 
+
+The `result` is `When<T>`:
+- result.IsSuccessful: `true`/`false` based on the predicate result
+- result.Subject: the `When` subject 
+
 ```csharp
 var car = LoadCarData(...);
 
@@ -595,8 +634,8 @@ result.Subject; //the predicate subject
 ```
 
 ## When.Then
-**Applies a Func when the condition is true**  \
-(Input and output types are the same T -> T)
+**Applies a Func olny when the condition is true**  \
+(Input and output types must be the same T -> T)
 ```csharp
 var car = LoadCarData(...);
 c.Insurance = InsuranceType.LowBudget;
@@ -606,8 +645,9 @@ car.When(c => c.Type == "Ferrari")
 ```
 
 **Applies the first Func when the condition is true and the second one when the condition is false**  \
-Both functions must return the same type  \
-(They can change the output type T->K)
+Both functions must return the same type (they can change the output type T->K)  \
+`subject.When(Func<T,bool>/Func<bool>/bool).Then(Func<T,K> whenTrue, Func<T,K> whenFalse)`
+	
 ```csharp
 var car = LoadCarData(...);
 

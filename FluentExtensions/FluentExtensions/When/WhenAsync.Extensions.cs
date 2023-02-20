@@ -8,8 +8,8 @@ namespace FluentCoding
     public static partial class WhenExtensions
     {
         /// <summary>
-        /// Create a When context and set IsSuccesful status with the result of whenCondition(subject)
-        /// Then set IsSuccesfull accordingly
+        /// Create a When context and set IsSuccessful status with the result of whenCondition(subject)
+        /// Then set IsSuccessful accordingly
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="whenSubject"></param>
@@ -19,8 +19,8 @@ namespace FluentCoding
             => (await whenSubject).When(whenCondition);
 
         /// <summary>
-        /// Create a When context and set IsSuccesful status with the result of whenCondition()
-        /// Then set IsSuccesfull accordingly
+        /// Create a When context and set IsSuccessful status with the result of whenCondition()
+        /// Then set IsSuccessful accordingly
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="whenSubject"></param>
@@ -30,7 +30,7 @@ namespace FluentCoding
             => (await whenSubject).When(whenCondition);
 
         /// <summary>
-        /// Create a When context and set IsSuccesful status with the value of whenCondition
+        /// Create a When context and set IsSuccessful status with the value of whenCondition
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="whenSubject"></param>

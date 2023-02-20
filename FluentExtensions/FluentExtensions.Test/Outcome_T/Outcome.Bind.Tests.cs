@@ -31,7 +31,7 @@ namespace FluentCodingTest.Outcome
                                 .Bind(succ => DoSomethingThatCanFail(false),
                                      fail => Test.KNotDone.ToFailureOutcome<TypeT, TypeK>());
 
-            newOutcome.IsSuccesful.Should().BeTrue();
+            newOutcome.IsSuccessful.Should().BeTrue();
             newOutcome.Failure.Should().BeNull();            
             newOutcome.Success.Should().BeEquivalentTo(Test.TRight);
         }
@@ -44,7 +44,7 @@ namespace FluentCodingTest.Outcome
                                 .Bind(succ => DoSomethingThatCanFail(true),
                                      fail => Test.KNotDone.ToFailureOutcome<TypeT, TypeK>());
 
-            newOutcome.IsSuccesful.Should().BeFalse();
+            newOutcome.IsSuccessful.Should().BeFalse();
             newOutcome.Failure.Should().BeEquivalentTo(Test.KLeft);
             newOutcome.Success.Should().BeNull();
         }
@@ -58,7 +58,7 @@ namespace FluentCodingTest.Outcome
                                 .Bind(succ => Test.TDone.ToSuccessOutcome<TypeT, TypeK>(),
                                      fail => DoSomethingThatCanFail(false));
 
-            newOutcome.IsSuccesful.Should().BeTrue();
+            newOutcome.IsSuccessful.Should().BeTrue();
             newOutcome.Failure.Should().BeNull();
             newOutcome.Success.Should().BeEquivalentTo(Test.TRight);
         }
@@ -71,7 +71,7 @@ namespace FluentCodingTest.Outcome
                                 .Bind(succ => Test.TDone.ToSuccessOutcome<TypeT, TypeK>(),
                                       fail => DoSomethingThatCanFail(true));
 
-            newOutcome.IsSuccesful.Should().BeFalse();
+            newOutcome.IsSuccessful.Should().BeFalse();
             newOutcome.Failure.Should().BeEquivalentTo(Test.KLeft);
             newOutcome.Success.Should().BeNull();
         }
@@ -85,7 +85,7 @@ namespace FluentCodingTest.Outcome
                                 .BindFailure(fail => ToList(Test.K.Do(f => f.DescType = Test.Left)).ToFailureOutcome<string, List<TypeK>>())
                                 .BindSuccess(succ => ToList(Test.T.Do(t => t.DescType = succ)).ToSuccessOutcome<List<TypeT>, List<TypeK>>());
 
-            newOutcome.IsSuccesful.Should().BeTrue();
+            newOutcome.IsSuccessful.Should().BeTrue();
             newOutcome.Failure.Should().BeNull();
             newOutcome.Success.Should().BeOfType<List<TypeT>>();
             newOutcome.Success.First().Should().BeEquivalentTo(Test.TRight);
@@ -99,7 +99,7 @@ namespace FluentCodingTest.Outcome
                                 .BindSuccess(succ => ToList(Test.T.Do(t => t.DescType = succ)).ToSuccessOutcome<List<TypeT>, string>())
                                 .BindFailure(fail => ToList(Test.K.Do(f => f.DescType = Test.Left)).ToFailureOutcome<List<TypeT>, List<TypeK>>());
 
-            newOutcome.IsSuccesful.Should().BeTrue();
+            newOutcome.IsSuccessful.Should().BeTrue();
             newOutcome.Failure.Should().BeNull();
             newOutcome.Success.Should().BeOfType<List<TypeT>>();
             newOutcome.Success.First().Should().BeEquivalentTo(Test.TRight);
@@ -114,7 +114,7 @@ namespace FluentCodingTest.Outcome
                                 .BindFailure(fail => ToList(Test.K.Do(f => f.DescType = Test.Left)).ToFailureOutcome<string, List<TypeK>>())
                                 .BindSuccess(succ => ToList(Test.T.Do(t => t.DescType = succ)).ToSuccessOutcome<List<TypeT>, List<TypeK>>());
 
-            newOutcome.IsSuccesful.Should().BeFalse();
+            newOutcome.IsSuccessful.Should().BeFalse();
             newOutcome.Success.Should().BeNull();
             newOutcome.Failure.Should().BeOfType<List<TypeK>>();
             newOutcome.Failure.First().Should().BeEquivalentTo(Test.TLeft);
@@ -128,7 +128,7 @@ namespace FluentCodingTest.Outcome
                                 .BindSuccess(succ => ToList(Test.T.Do(t => t.DescType = succ)).ToSuccessOutcome<List<TypeT>, string>())
                                 .BindFailure(fail => ToList(Test.K.Do(f => f.DescType = Test.Left)).ToFailureOutcome<List<TypeT>, List<TypeK>>());
 
-            newOutcome.IsSuccesful.Should().BeFalse();
+            newOutcome.IsSuccessful.Should().BeFalse();
             newOutcome.Success.Should().BeNull();
             newOutcome.Failure.Should().BeOfType<List<TypeK>>();
             newOutcome.Failure.First().Should().BeEquivalentTo(Test.TLeft);
@@ -153,9 +153,9 @@ namespace FluentCodingTest.Outcome
                                 .MapSuccess(succ => succ.ToString());
             
 
-            newOutcome.IsSuccesful.Should().Be(bind1 && bind2 && bind3);
+            newOutcome.IsSuccessful.Should().Be(bind1 && bind2 && bind3);
 
-            if (newOutcome.IsSuccesful)
+            if (newOutcome.IsSuccessful)
             {
                 newOutcome.Failure.Should().BeNull();
                 newOutcome.Success.Should().Be("3");

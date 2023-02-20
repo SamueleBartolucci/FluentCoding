@@ -24,7 +24,7 @@ namespace FluentCoding
         /// <param name="whenTrue"></param>
         /// <returns></returns>
         public T Then(Func<T, T> whenTrue)
-            => IsSuccesful ? whenTrue(Subject) : Subject;
+            => IsSuccessful ? whenTrue(Subject) : Subject;
         
         /// <summary>
         /// If condition is true apply whenTrue() and return the result 
@@ -33,7 +33,7 @@ namespace FluentCoding
         /// <param name="whenTrue"></param>
         /// <returns></returns>
         public T Then(Func<T> whenTrue)
-            => IsSuccesful ? whenTrue() : Subject;
+            => IsSuccessful ? whenTrue() : Subject;
 
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace FluentCoding
         /// <param name="mapWhenFalse"></param>
         /// <returns></returns>
         public K Then<K>(Func<T, K> mapWhenTrue, Func<T, K> mapWhenFalse)
-            => IsSuccesful ? mapWhenTrue(Subject) : mapWhenFalse(Subject);
+            => IsSuccessful ? mapWhenTrue(Subject) : mapWhenFalse(Subject);
 
         /// <summary>
         /// Based on the boolean condition value, apply mapWhenTrue() or mapWhenFalse() and return the result
@@ -52,7 +52,7 @@ namespace FluentCoding
         /// <param name="mapWhenFalse"></param>
         /// <returns></returns>
         public K Then<K>(Func<K> mapWhenTrue, Func<K> mapWhenFalse)
-            => IsSuccesful ? mapWhenTrue() : mapWhenFalse();
+            => IsSuccessful ? mapWhenTrue() : mapWhenFalse();
 
 
 
@@ -65,7 +65,7 @@ namespace FluentCoding
         /// <returns></returns>
         public T Then(Action<T> whenTrue, Action<T> whenFalse)
         {
-            if (IsSuccesful)
+            if (IsSuccessful)
                 whenTrue(Subject);
             else
                 whenFalse(Subject);
@@ -81,7 +81,7 @@ namespace FluentCoding
         /// <returns></returns>
         public T Then(Action<T> whenTrue)
         {
-            if (IsSuccesful)
+            if (IsSuccessful)
                 whenTrue(Subject);
 
             return Subject;
@@ -97,7 +97,7 @@ namespace FluentCoding
         /// <returns></returns>
         public When<T> ThenAnd(Action<T> whenTrue)
         {
-            if (IsSuccesful)
+            if (IsSuccessful)
                 whenTrue(Subject);
 
             return this;
@@ -111,7 +111,7 @@ namespace FluentCoding
         /// <returns></returns>
         public When<T> ThenAnd(Func<T, T> whenTrue)
         {
-            if (IsSuccesful)
+            if (IsSuccessful)
                 whenTrue(Subject);
 
             return this;
@@ -126,7 +126,7 @@ namespace FluentCoding
         /// <param name="mapWhenTrue"></param>
         /// <returns></returns>
         public (K OnTrue, T Subject) ThenMap<K>(Func<T, K> mapWhenTrue)
-            => (IsSuccesful ? mapWhenTrue(Subject) : default, Subject);
+            => (IsSuccessful ? mapWhenTrue(Subject) : default, Subject);
 
     }
 }

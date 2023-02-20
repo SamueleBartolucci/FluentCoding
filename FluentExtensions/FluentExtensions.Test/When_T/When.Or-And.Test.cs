@@ -26,7 +26,7 @@ namespace FluentCodingTest.When_T
                         .OrWhen(orCondition)
                         .AndWhen(andCondition);
 
-            when.IsSuccesful.Should().Be((baseCondition || orCondition) && andCondition);
+            when.IsSuccessful.Should().Be((baseCondition || orCondition) && andCondition);
             when.Should().BeOfType(typeof(WhenAnd<TypeT>));
             when.Subject.Should().BeEquivalentTo(Test.T);
         }

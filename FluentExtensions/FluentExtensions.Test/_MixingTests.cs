@@ -78,7 +78,7 @@ namespace FluentCodingTest
         {
             var outcome =
                 Test.TLeft.Try(_ => Test.TDone)
-                .When(_ => _.IsSuccesful)
+                .When(_ => _.IsSuccessful)
                 .Then
                 (
                    _ => _.Map(_ => _.Result)

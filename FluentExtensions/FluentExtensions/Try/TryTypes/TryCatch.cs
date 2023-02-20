@@ -9,7 +9,7 @@ namespace FluentCoding
 {
     /// <summary>
     /// TryCath class to wrap the try{} catch{} clause in a fluent way
-    /// The class expose the status of the try 'IsSuccesful', the result of the try function 'Result' the option exception 'Error'
+    /// The class expose the status of the try 'IsSuccessful', the result of the try function 'Result' the option exception 'Error'
     /// </summary>
     /// <typeparam name="S"></typeparam>
     /// <typeparam name="R"></typeparam>
@@ -34,11 +34,11 @@ namespace FluentCoding
             try
             {
                 tryTo(Subject);                
-                IsSuccesful = true;
+                IsSuccessful = true;
             }
             catch (Exception e)
             {
-                IsSuccesful = false;
+                IsSuccessful = false;
                 Error = onError(Subject, e);
             }
             return this;
@@ -50,24 +50,24 @@ namespace FluentCoding
             try 
             {
                 Result = tryTo(Subject); 
-                IsSuccesful = true; 
+                IsSuccessful = true; 
             }
             catch (Exception e) 
             {
-                IsSuccesful = false;
+                IsSuccessful = false;
                 Error = onError(Subject, e);                
             }
             return this;
         }
 
         /// <summary>
-        /// Apply a further function on the Try.Result when the Try is succesfull
+        /// Apply a further function on the Try.Result when the Try is successful
         /// </summary>
         /// <typeparam name="TRES"></typeparam>
         /// <param name="whenOk"></param>
         /// <returns></returns>
         public (TRES Success, TryCatch<S, R, E> TryCatch) OnSuccess<TRES>(Func<R, TRES> whenOk)
-         => (whenOk.Or(GetDefaultResult<R, TRES>, !IsSuccesful)(Result), 
+         => (whenOk.Or(GetDefaultResult<R, TRES>, !IsSuccessful)(Result), 
              this);
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace FluentCoding
         /// <param name="whenException"></param>
         /// <returns></returns>
         public (TERR Fail, TryCatch<S, R, E> TryCatch) OnFail<TERR>(Func<S, E, TERR> whenException)
-            => (whenException.Or(GetDefaultError<S, E, TERR>, IsSuccesful)(Subject, Error),
+            => (whenException.Or(GetDefaultError<S, E, TERR>, IsSuccessful)(Subject, Error),
                 this);
 
 
@@ -91,8 +91,8 @@ namespace FluentCoding
         /// <param name="whenOnException"></param>
         /// <returns></returns>
         public (TRES Success, TERR Fail) Then<TRES, TERR>(Func<R, TRES> whenOk, Func<S, E, TERR> whenOnException)
-            => (whenOk.Or(GetDefaultResult<R, TRES>, !IsSuccesful)(Result),  
-                whenOnException.Or(GetDefaultError<S, E, TERR>, IsSuccesful)(Subject, Error));
+            => (whenOk.Or(GetDefaultResult<R, TRES>, !IsSuccessful)(Result),  
+                whenOnException.Or(GetDefaultError<S, E, TERR>, IsSuccessful)(Subject, Error));
 
         /// <summary>
         /// Apply a further function that change the original Type on the Try.Result or Try.Error based on the Try raising or not an exception
@@ -102,7 +102,7 @@ namespace FluentCoding
         /// <param name="whenOnException"></param>
         /// <returns></returns>
         public TRES ThenMap<TRES>(Func<R, TRES> whenOk, Func<S, E, TRES> whenOnException)
-            => IsSuccesful? whenOk(Result) : whenOnException(Subject, Error);
+            => IsSuccessful? whenOk(Result) : whenOnException(Subject, Error);
 
 
         private static B GetDefaultResult<A, B>(A subject) => default(B);

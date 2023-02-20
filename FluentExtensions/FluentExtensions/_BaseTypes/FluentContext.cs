@@ -13,7 +13,7 @@ namespace FluentCoding
         /// <summary>
         /// Status of the current fluent operation
         /// </summary>
-        public bool IsSuccesful { get; set; }
+        public bool IsSuccessful { get; set; }
 
     }
 }

@@ -7,7 +7,7 @@ namespace FluentCoding
     public static partial class OutcomeExtensions
     {
         /// <summary>
-        /// Convert the subject into the succesfull Outcome with the subject as Success
+        /// Convert the subject into the successful Outcome with the subject as Success
         /// </summary>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="F"></typeparam>
@@ -16,7 +16,7 @@ namespace FluentCoding
         public static Outcome<S, F> ToSuccessOutcome<S, F>(this S _) => Outcome<S, F>.ToSuccess(_);
 
         /// <summary>
-        /// Convert the subject into a not succesfull Outcome with the subject as Failure
+        /// Convert the subject into a not successful Outcome with the subject as Failure
         /// </summary>
         /// <typeparam name="S"></typeparam>
         /// <typeparam name="F"></typeparam>

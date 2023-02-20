@@ -16,7 +16,7 @@ namespace FluentCodingTest.When_T
         public void When_bool(bool trueCondition)
         {
             var when = Test.T.When(trueCondition);
-            when.IsSuccesful.Should().Be(trueCondition);
+            when.IsSuccessful.Should().Be(trueCondition);
             when.Should().BeOfType(typeof(WhenOr<TypeT>));
             when.Subject.Should().BeEquivalentTo(Test.T);
         }
@@ -26,7 +26,7 @@ namespace FluentCodingTest.When_T
         public void When_Funct_T_bool(bool trueCondition)
         {
             var when = Test.T.When(() => trueCondition);
-            when.IsSuccesful.Should().Be(trueCondition);
+            when.IsSuccessful.Should().Be(trueCondition);
             when.Should().BeOfType(typeof(WhenOr<TypeT>));
             when.Subject.Should().BeEquivalentTo(Test.T);
         }
@@ -37,7 +37,7 @@ namespace FluentCodingTest.When_T
         public void When_Func_bool(bool trueCondition)
         {
             var when = Test.T.When((_) => trueCondition);
-            when.IsSuccesful.Should().Be(trueCondition);
+            when.IsSuccessful.Should().Be(trueCondition);
             when.Should().BeOfType(typeof(WhenOr<TypeT>));
             when.Subject.Should().BeEquivalentTo(Test.T);
         }

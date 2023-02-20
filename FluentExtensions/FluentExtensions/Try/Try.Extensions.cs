@@ -60,7 +60,7 @@ namespace FluentCoding
         /// <returns></returns>
         public static R TryTo<S, R>(this S _, Func<S, R> tryTo, Func<S, Exception, R> onError) =>
            _.Try(tryTo, onError)
-            .Map(tryCatch => tryCatch.IsSuccesful ? tryCatch.Result : tryCatch.Error);
+            .Map(tryCatch => tryCatch.IsSuccessful ? tryCatch.Result : tryCatch.Error);
     }
 
 }

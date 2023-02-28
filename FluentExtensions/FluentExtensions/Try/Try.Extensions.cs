@@ -15,7 +15,7 @@ namespace FluentCoding
         /// <param name="tryTo"></param>
         /// <returns></returns>
         public static TryCatch<S, R, Exception> Try<S, R>(this S _, Func<S, R> tryTo) =>
-            new TryCatch<S, R, Exception>() { Subject = _ }
+            new TryCatch<S, R, Exception>(_) {}
             .Try(tryTo, (s, e) => e);
 
         /// <summary>
@@ -29,12 +29,12 @@ namespace FluentCoding
         /// <param name="onError"></param>
         /// <returns></returns>
         public static TryCatch<S, R, E> Try<S, R, E>(this S _, Func<S, R> tryTo, Func<S, Exception, E> onError) =>
-            new TryCatch<S, R, E>() { Subject = _ }
+            new TryCatch<S, R, E>(_) { }
             .Try(tryTo, onError);
 
 
         /// <summary>
-        /// Execute aa Action and (when raised) manage the exception, Then return the TryCatch context
+        /// Execute an Action and (when raised) manage the exception, Then return the TryCatch context
         /// The result is the same as the subject
         /// </summary>
         /// <typeparam name="S"></typeparam>
@@ -44,7 +44,7 @@ namespace FluentCoding
         /// <param name="onError"></param>
         /// <returns></returns>
         public static TryCatch<S, S, E> Try<S, E>(this S _, Action<S> tryTo, Func<S, Exception, E> onError) =>
-            new TryCatch<S, S, E>() { Subject = _, Result = _ }
+            new TryCatch<S, S, E>(_) { Result = _ }
             .Try(tryTo, onError);
 
 

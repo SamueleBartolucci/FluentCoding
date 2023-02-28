@@ -15,7 +15,7 @@ namespace FluentCoding
     /// <typeparam name="T"></typeparam>
     public class When<T> : FluentContext<T>
     {
-        internal When() : base() { }
+        internal When(T subject) : base(subject) { }
 
         /// <summary>
         /// If condition is true apply whenTrue(subject) and return the result 

@@ -11,17 +11,20 @@ namespace FluentCoding
         /// Then return the subject unwrapped, only the return value is changed not the original value
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="_"></param>
+        /// <param name="optionalSubject"></param>
         /// <param name="doOnSubject"></param>
         /// <returns></returns>
-        public static T DoWrap<T>(this T _, params Action<SubjectContext<T>>[] doOnSubject)
+        public static Optional<T> DoWrap<T>(this Optional<T> optionalSubject, params Action<SubjectContext<T>>[] doOnSubject)
         {
-            var tmp = new SubjectContext<T>(_) { };
 
-            if (_ != null)
+            if (optionalSubject?.IsSome() ?? false)
+            {
+                var tmp = new SubjectContext<T>(optionalSubject.Subject) { };
                 tmp.Do(doOnSubject);
+                return tmp.Subject.ToOptional();
+            }
 
-            return tmp.Subject;
+            return optionalSubject;
         }
 
         /// <summary>
@@ -29,18 +32,18 @@ namespace FluentCoding
         /// Then return the subject
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="_"></param>
+        /// <param name="optionalSubject"></param>
         /// <param name="doOnSubject"></param>
         /// <returns></returns>
-        public static T Do<T>(this T _, params Action<T>[] doOnSubject)
+        public static Optional<T> Do<T>(this Optional<T> optionalSubject, params Action<T>[] doOnSubject)
         {
-            if (_ != null)
+            if (optionalSubject?.IsSome() ?? false)
             {
                 foreach (var doOnSbj in doOnSubject)
-                    doOnSbj(_);
+                    doOnSbj(optionalSubject.Subject);
             }
 
-            return _;
+            return optionalSubject;
         }
 
         /// <summary>
@@ -48,18 +51,18 @@ namespace FluentCoding
         /// Then return the subject
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        /// <param name="_"></param>
+        /// <param name="optionalSubject"></param>
         /// <param name="doOnSubject"></param>
         /// <returns></returns>
-        public static T Do<T>(this T _, params Func<T, T>[] doOnSubject)
+        public static Optional<T> Do<T>(this Optional<T> optionalSubject, params Func<T, T>[] doOnSubject)
         {
-            if (_ != null)
+            if (optionalSubject?.IsSome() ?? false)
             {                
                 foreach (var doOnSbj in doOnSubject)
-                    doOnSbj(_);
+                    doOnSbj(optionalSubject.Subject);
             }
 
-            return _;
+            return optionalSubject;
         }
     }
 }

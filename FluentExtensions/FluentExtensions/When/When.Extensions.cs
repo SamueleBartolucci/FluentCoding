@@ -15,7 +15,7 @@ namespace FluentCoding
         /// <param name="whenCondition"></param>
         /// <returns></returns>
         public static WhenOr<T> When<T>(this T whenSubject, Func<T, bool> whenCondition) 
-            => new WhenOr<T>() { IsSuccessful = whenCondition(whenSubject), Subject = whenSubject };
+            => new WhenOr<T>(whenSubject) { IsSuccessful = whenCondition(whenSubject) };
 
         /// <summary>
         /// Create a When context and set IsSuccessful status with the result of whenCondition()
@@ -26,7 +26,7 @@ namespace FluentCoding
         /// <param name="whenCondition"></param>
         /// <returns></returns>
         public static WhenOr<T> When<T>(this T whenSubject, Func<bool> whenCondition)
-            => new WhenOr<T>() { IsSuccessful = whenCondition(), Subject = whenSubject };
+            => new WhenOr<T>(whenSubject) { IsSuccessful = whenCondition() };
 
         /// <summary>
         /// Create a When context and set IsSuccessful status with the value of whenCondition
@@ -36,6 +36,6 @@ namespace FluentCoding
         /// <param name="whenCondition"></param>
         /// <returns></returns>
         public static WhenOr<T> When<T>(this T whenSubject, bool whenCondition)
-            => new WhenOr<T>() { IsSuccessful = whenCondition, Subject = whenSubject };
+            => new WhenOr<T>(whenSubject) { IsSuccessful = whenCondition };
     }
 }

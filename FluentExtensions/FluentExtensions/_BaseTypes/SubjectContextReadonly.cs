@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace FluentCoding
 {
-    public class Context<T>
+    public class SubjectContextReadonly<T> : SubjectContext<T>
     {
-        internal Context() { }
-
+        internal SubjectContextReadonly(T subject) : base(subject) { }
+        
         /// <summary>
         /// Subject from which the fluent operation started
         /// </summary>
-        public T Subject { get; set; }
+        public new T Subject => base.Subject;
     }
 }

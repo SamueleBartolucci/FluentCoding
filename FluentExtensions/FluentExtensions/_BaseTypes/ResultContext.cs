@@ -6,30 +6,30 @@ using System.Threading.Tasks;
 
 namespace FluentCoding
 {
-    public class FluentContext<T> : SubjectContextReadonly<T>
+    public class ResultContext
     {
+        internal ResultContext(bool resultState) { IsSuccessful = resultState; }
+
         /// <summary>
         /// Truthy operator
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static bool operator true(FluentContext<T> context) => context.IsSuccessful;
+        public static bool operator true(ResultContext context) => context.IsSuccessful;
 
         /// <summary>
         /// Falsy operator 
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static bool operator false(FluentContext<T> context) => !context.IsSuccessful;
+        public static bool operator false(ResultContext context) => !context.IsSuccessful;
 
         /// <summary>
         /// Negation operator 
         /// </summary>
         /// <param name="context"></param>
         /// <returns></returns>
-        public static bool operator !(FluentContext<T> context) => !context.IsSuccessful;
-
-        internal FluentContext(T subject) : base(subject) { }
+        public static bool operator !(ResultContext context) => !context.IsSuccessful;
 
         /// <summary>
         /// Status of the current fluent operation

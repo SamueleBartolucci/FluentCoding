@@ -16,7 +16,7 @@ namespace FluentCoding
     /// <typeparam name="E"></typeparam>
     public partial class TryCatch<S, R, E> : FluentContext<S>
     {
-        internal TryCatch() : base() { }
+        internal TryCatch(S subject) : base(subject) { }
 
         /// <summary>
         /// result of the Try function

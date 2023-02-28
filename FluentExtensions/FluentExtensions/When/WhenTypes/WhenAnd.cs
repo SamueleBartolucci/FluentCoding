@@ -14,11 +14,10 @@ namespace FluentCoding
     /// <typeparam name="T"></typeparam>
     public class WhenAnd<T> : When<T>
     {
-        internal WhenAnd() : base() { }
-        internal WhenAnd(WhenAnd<T> whenOr) : base()
+        internal WhenAnd(T subject) : base(subject) { }
+        internal WhenAnd(WhenAnd<T> whenOr) : base(whenOr.Subject)
         {
-            IsSuccessful = whenOr.IsSuccessful;
-            Subject = whenOr.Subject;
+            IsSuccessful = whenOr.IsSuccessful;            
         }
 
         /// <summary>

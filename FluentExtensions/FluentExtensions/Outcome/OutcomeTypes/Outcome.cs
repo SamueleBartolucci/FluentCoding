@@ -13,11 +13,25 @@ namespace FluentCoding
     /// </summary>
     /// <typeparam name="S"></typeparam>    
     /// <typeparam name="F"></typeparam>
-    public partial class Outcome<S, F> : FluentContext<S>
+    public partial class Outcome<S, F> : ResultContext
     {
-        internal Outcome(bool successStatus) : base() { IsSuccessful = successStatus; }
-        internal Outcome(S successValue) : this(true) { Success = successValue; }
-        internal Outcome(F failureValue) : this(false) { Failure = failureValue; }
+        /// <summary>
+        /// Successful result available when status is IsSuccessful=true
+        /// </summary>
+        public S Success { get; set; }
+
+        /// <summary>
+        /// Failure result available when status is IsSuccessful=true
+        /// </summary>
+        public F Failure { get; set; }
+
+        public static implicit operator Outcome<S, F>(S input) => ToSuccess(input);
+        public static implicit operator Outcome<S, F>(F input) => ToFailure(input);
+
+        //internal Outcome(bool successStatus) : base() { IsSuccessful = successStatus; }
+        public Outcome(S successValue) : base(true) { Success = successValue; Failure = default; }
+        public Outcome(F failureValue) : base(false) { Success = default; Failure = failureValue; }
+
 
         /// <summary>
         /// Return a successful outcome
@@ -32,18 +46,9 @@ namespace FluentCoding
         /// </summary>
         /// <param name="failureValue"></param>
         /// <returns></returns>
-        public static Outcome<S, F> ToFailure(F failureValue) 
+        public static Outcome<S, F> ToFailure(F failureValue)
             => new Outcome<S, F>(failureValue);
 
-        /// <summary>
-        /// Successful result available when status is IsSuccessful=true
-        /// </summary>
-        public S Success { get; set; }
-
-        /// <summary>
-        /// Failure result available when status is IsSuccessful=true
-        /// </summary>
-        public F Failure { get; set; }
 
         /// <summary>
         /// Apply a function 'S -> Outcome&lt;S1, F1&gt;' or 'F -> Outcome&lt;S1, F1&gt;' to the Outcome based on the IsSuccessful status
@@ -59,7 +64,7 @@ namespace FluentCoding
 
 
         /// <summary>
-        /// Apply a function "S -> Outcome&lt;S1, F&gt;"  to the Success value when IsSuccsful otherwise it just return the Outcome with the Failure
+        /// Apply a function "S -> Outcome&lt;S1, F&gt;" to the Success  field when the status IsSuccessful = true
         /// Return a new Outcome&lt;S1, F&gt;
         /// </summary>
         /// <typeparam name="S1"></typeparam>
@@ -70,7 +75,7 @@ namespace FluentCoding
                              Outcome<S1, F>.ToFailure(Failure);
 
         /// <summary>
-        /// Apply a function "F -> Outcome&lt;S, F1&gt;"  to the Failure value when not IsSuccsful otherwise it just return the Outcome with the Success
+        /// Apply a function "F -> Outcome&lt;S, F1&gt;" to the Failure field when the status IsSuccessful = false
         /// Return a new Outcome&lt;S, F1&gt;
         /// </summary>
         /// <typeparam name="F1"></typeparam>
@@ -94,7 +99,7 @@ namespace FluentCoding
                             Outcome<S1, F1>.ToFailure(doWhenFail(Failure));
 
         /// <summary>
-        /// Apply a function "F -> F1" to change the Failure result only when not IsSucceful
+        /// Apply a function "F -> F1" to the Failure field when the status IsSuccessful = false
         /// Return a new Outcome&lt;S, F1&gt;
         /// </summary>
         /// <typeparam name="F1"></typeparam>
@@ -105,7 +110,7 @@ namespace FluentCoding
                               Outcome<S, F1>.ToSuccess(Success);
 
         /// <summary>
-        /// Apply a function "S -> S1" to the Success result  only when IsSucceful
+        /// Apply a function "S -> S1" to the Success field when the status IsSuccessful = true
         /// Return a new Outcome&lt;S1, F&gt;
         /// </summary>
         /// <typeparam name="S1"></typeparam>
@@ -114,5 +119,26 @@ namespace FluentCoding
         public Outcome<S1, F> MapSuccess<S1>(Func<S, S1> doWhenSuccess)
             => IsSuccessful ? Outcome<S1, F>.ToSuccess(doWhenSuccess(Success)) :
                              Outcome<S1, F>.ToFailure(Failure);
+
+
+        /// <summary>
+        /// Apply an action on the Failure field when the status IsSuccessful = false
+        /// </summary>
+        /// <typeparam name="F1"></typeparam>
+        /// <param name="doWhenFail"></param>
+        /// <returns></returns>
+        public Outcome<S, F> WhenFailure<F1>(Action<F> doWhenFail)
+            => this.When(!IsSuccessful)
+                   .Then(failureOutcome => doWhenFail(failureOutcome.Failure));
+
+        /// <summary>
+        /// Apply an action on the Success field when the status IsSuccessful = true
+        /// </summary>
+        /// <typeparam name="S1"></typeparam>
+        /// <param name="doWhenSuccess"></param>
+        /// <returns></returns>
+        public Outcome<S, F> WhenSuccess<S1>(Action<S> doWhenSuccess)
+            => this.When(IsSuccessful)
+                   .Then(successOutcome => doWhenSuccess(successOutcome.Success));
     }
 }

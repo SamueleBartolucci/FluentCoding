@@ -15,7 +15,7 @@ namespace FluentCoding
     /// <typeparam name="T"></typeparam>
     public class WhenOr<T> : WhenAnd<T>
     {
-        internal WhenOr() : base() { }
+        internal WhenOr(T subject) : base(subject) { }
 
         /// <summary>
         /// Execute orCondition(Subject) and accordingly update the IsSuccessful state

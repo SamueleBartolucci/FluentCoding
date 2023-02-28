@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace FluentCodingTest.Outcome
+namespace FluentCodingTest.Outcome_S_F
 {
     [ExcludeFromCodeCoverage]
     public class Outcome_Bind_Tests
@@ -26,6 +26,7 @@ namespace FluentCodingTest.Outcome
         [Test]
         public void Outcome_Success_Bind_SuccessBindResult()
         {
+            
             var outcome = GetSuccessOutcome();
             var newOutcome = outcome
                                 .Bind(succ => DoSomethingThatCanFail(false),

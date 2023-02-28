@@ -14,7 +14,7 @@ namespace FluentCoding
         /// <param name="_"></param>
         /// <param name="doOnSubject"></param>
         /// <returns></returns>
-        public static async Task<T> DoWrapAsync<T>(this Task<T> _, params Action<Context<T>>[] doOnSubject)
+        public static async Task<T> DoWrapAsync<T>(this Task<T> _, params Action<SubjectContext<T>>[] doOnSubject)
             => (await _).DoWrap(doOnSubject);
 
         /// <summary>

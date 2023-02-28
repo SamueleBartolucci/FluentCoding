@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace FluentCodingTest.Outcome
+namespace FluentCodingTest.Outcome_S_F
 {
     [ExcludeFromCodeCoverage]
     public class Outcome_Map_Tests

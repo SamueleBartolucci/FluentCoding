@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using FluentCoding;
 
 namespace FluentCoding
@@ -15,7 +16,7 @@ namespace FluentCoding
         /// <param name="whenSubject"></param>
         /// <param name="whenCondition"></param>
         /// <returns></returns>
-        public static WhenOr<IEnumerable<T>> WhenAny<T>(this IEnumerable<T> whenSubject, Func<T, bool> whenCondition) =>
-            new WhenOr<IEnumerable<T>>(whenSubject) { IsSuccessful = whenSubject != null && whenSubject.Any(i => whenCondition(i)) };
+        public static async Task<WhenOr<IEnumerable<Optional<T>>>> WhenAnyAsync<T>(this Task<IEnumerable<Optional<T>>> whenSubject, Func<T, bool> whenCondition)
+            => (await whenSubject).WhenAny(whenCondition);
     }
 }

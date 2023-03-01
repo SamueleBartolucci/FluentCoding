@@ -11,6 +11,12 @@ namespace FluentCoding
         internal ResultContext(bool resultState) { IsSuccessful = resultState; }
 
         /// <summary>
+        /// Truthy/Falsy operator
+        /// </summary>
+        /// <param name="context"></param>
+        public static implicit operator bool(ResultContext context) => context.IsSuccessful;
+
+        /// <summary>
         /// Truthy operator
         /// </summary>
         /// <param name="context"></param>

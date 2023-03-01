@@ -14,6 +14,13 @@ namespace FluentCoding
     {
         private Optional(O optionalValue, bool isSomething) : base(optionalValue) { IsSuccessful = isSomething; }
 
+
+        public static implicit operator Optional<O>(O input) => input.IsNullOrEquivalent()? None() : Some(input);
+        public static implicit operator bool(Optional<O> input) => input.IsSome();
+        public static bool operator true(Optional<O> input) => input.IsSome();
+        public static bool operator false(Optional<O> input) => input.IsNone();
+        public static bool operator !(Optional<O> input) => input.IsNone();
+
         /// <summary>
         /// Return Some of the input value
         /// If the value is null the return is None

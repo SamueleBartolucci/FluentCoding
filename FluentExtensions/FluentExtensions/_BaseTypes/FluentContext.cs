@@ -8,6 +8,13 @@ namespace FluentCoding
 {
     public class FluentContext<T> : SubjectContextReadonly<T>
     {
+
+        /// <summary>
+        /// Truthy/Falsy operator
+        /// </summary>
+        /// <param name="context"></param>
+        public static implicit operator bool(FluentContext<T> context) => context.IsSuccessful;
+
         /// <summary>
         /// Truthy operator
         /// </summary>

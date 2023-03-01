@@ -9,16 +9,16 @@ namespace FluentCodingTest.Do_T
     [ExcludeFromCodeCoverage]
     public class Do_Optional_Func_Tests
     {
-        private TypeT CopyFrom(TypeT original)
+        private TType CopyFrom(TType original)
         {
-            var result = Test.T;
-            result.DescType = "copy";
+            var result = Test.NewT;
+            result.TDesc = "copy";
             return result;
         }
 
-        private TypeT Update(TypeT original, string newDescPart)
+        private TType Update(TType original, string newDescPart)
         {
-            original.DescType += newDescPart;
+            original.TDesc += newDescPart;
             return original;
         }
 
@@ -26,45 +26,46 @@ namespace FluentCodingTest.Do_T
         [Test]
         public void Do_Func_Null()
         {
-            TypeT preDo = null;
-            var postDo = preDo.Do(_ => Update(_, "."));
-            postDo.Should().BeNull();
+            TType preDo = null;
+            var postDo = preDo.ToOptional().DoOptional(_ => Update(_, "."));
+            postDo.IsNone().Should().BeTrue();
+            postDo.Subject.Should().BeNull();
         }
 
         [Test]
         public void Do_Func_UpdateObject()
         {
-            TypeT newData = null;
-            TypeT preDo = Test.T;
-            var postDo = preDo.Do(_ => newData = CopyFrom(_));
+            TType newData = null;
+            var preDo = Test.NewT.ToOptional();
+            var postDo = preDo.DoOptional(_ => newData = CopyFrom(_));
             postDo.Should().BeSameAs(preDo);
-            preDo.Should().BeEquivalentTo(Test.T);
+            preDo.Subject.Should().BeEquivalentTo(Test.NewT);
             newData.Should().NotBeNull();
-            newData.DescType.Should().Be("copy");
+            newData.TDesc.Should().Be("copy");
         }
 
 
         [Test]
         public void Do_Func_UpdateSubject()
         {
-            TypeT preDo = Test.T;
-            var postDo = preDo.Do(_ => Update(_, "."));
+            var preDo = Test.NewT.ToOptional();
+            var postDo = preDo.DoOptional(_ => Update(_, "."));
             postDo.Should().BeSameAs(preDo);
-            postDo.DescType.Should().Be(Test.T.DescType + ".");
-            preDo.DescType.Should().Be(Test.T.DescType + ".");
+            postDo.Subject.TDesc.Should().Be(Test.NewT.TDesc + ".");
+            preDo.Subject.TDesc.Should().Be(Test.NewT.TDesc + ".");
         }
 
         [Test]
         public void Do_Funcs_UpdateObject_UpdateSubject()
         {
-            TypeT newData = null;
-            TypeT preDo = Test.T;
-            var postDo = preDo.Do(_ => newData = CopyFrom(_),
+            TType newData = null;
+            var preDo = Test.NewT.ToOptional();
+            var postDo = preDo.DoOptional(_ => newData = CopyFrom(_),
                                   _ => Update(_, "."));
             postDo.Should().BeSameAs(preDo);
-            preDo.DescType.Should().Be(Test.T.DescType + ".");
+            preDo.Subject.TDesc.Should().Be(Test.NewT.TDesc + ".");
             newData.Should().NotBeNull();
-            newData.DescType.Should().Be("copy");
+            newData.TDesc.Should().Be("copy");
         }
 
 

@@ -15,34 +15,34 @@ namespace FluentCodingTest.Equals_T
 
         [Test]
         public void EqualsTo_True() =>
-            Test.T.EquivalentTo(Test.T, (a, b) => a.DescType == b.DescType)
+            Test.NewT.EquivalentTo(Test.NewT, (a, b) => a.TDesc == b.TDesc)
             .Should().BeTrue();
 
         [Test]
         public void EqualsTo_False() =>
-            Test.TLeft.EquivalentTo(Test.TRight, (a, b) => a.DescType == b.DescType)
+            Test.NewTLeft.EquivalentTo(Test.NewTRight, (a, b) => a.TDesc == b.TDesc)
         .Should().BeFalse();
 
 
 
         [Test]
         public void EqualsToAny_Strings_True() =>
-            Test.Left.EqualsToAny(Test.Right, Test.Left, "VV")
+            Test.LEFT.EqualsToAny(Test.RIGHT, Test.LEFT, "VV")
             .Should().BeTrue();
 
         [Test]
         public void EqualsToAny_Strings_False() =>
-            "XX".EqualsToAny(Test.Left, "Xx", Test.Right)
+            "XX".EqualsToAny(Test.LEFT, "Xx", Test.RIGHT)
             .Should().BeFalse();
 
         [Test]
         public void EqualsToAny_Object_False() =>
-            Test.T.EqualsToAny(Test.T, Test.T)
+            Test.NewT.EqualsToAny(Test.NewT, Test.NewT)
             .Should().BeFalse();
 
         [Test]
         public void EqualsToAny_Object_True() =>
-            Test.T.EquivalentToAny((l, r) => l.DescType == r.DescType, Test.T, Test.T)
+            Test.NewT.EquivalentToAny((l, r) => l.TDesc == r.TDesc, Test.NewT, Test.NewT)
             .Should().BeTrue();
 
 
@@ -69,7 +69,7 @@ namespace FluentCodingTest.Equals_T
 
         [Test]
         public void EqualsToAny_Null_CustomCompare_False() =>
-         Test.GetDefault<string>().EquivalentToAny((a, b) => a == b, Test.Left, "Xx", Test.Right)
+         Test.GetDefault<string>().EquivalentToAny((a, b) => a == b, Test.LEFT, "Xx", Test.RIGHT)
          .Should().BeFalse();
     }
 }

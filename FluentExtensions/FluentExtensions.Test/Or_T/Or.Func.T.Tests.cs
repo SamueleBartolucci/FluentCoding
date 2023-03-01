@@ -13,55 +13,55 @@ namespace FluentCodingTest.Or_T
 
         [Test]
         public void Or_String_Left1()
-            => Test.Left.Or(Test.Right, (s) => false)
-                .Should().Be(Test.Left);
+            => Test.LEFT.Or(Test.RIGHT, (s) => false)
+                .Should().Be(Test.LEFT);
 
         [Test]
         public void Or_String_Left2()
-            => Test.Left.Or(null, (s) => false)
-                .Should().Be(Test.Left);
+            => Test.LEFT.Or(null, (s) => false)
+                .Should().Be(Test.LEFT);
 
         [Test]
         public void Or_StringEmpty_Right()
-            => string.Empty.Or(Test.Right, (s) => false)
+            => string.Empty.Or(Test.RIGHT, (s) => false)
                 .Should().Be(string.Empty);
 
         [Test]
         public void Or_StringSpaces_Right()
-            => " ".Or(Test.Right, (s) => false)
+            => " ".Or(Test.RIGHT, (s) => false)
                 .Should().Be(" ");
 
         [Test]
         public void Or_Null_Right()
             => (null as string)
-                .Or(Test.Right, (s) => false)
-                .Should().Be(Test.Right);
+                .Or(Test.RIGHT, (s) => false)
+                .Should().Be(Test.RIGHT);
 
         [Test]
         public void Or_Object_Left()
-            => Test.TLeft
-                .Or(Test.TRight, (s) => false)
-                .Should().BeEquivalentTo(Test.TLeft);
+            => Test.NewTLeft
+                .Or(Test.NewTRight, (s) => false)
+                .Should().BeEquivalentTo(Test.NewTLeft);
 
         [Test]
         public void Or_Object_Right()
-            => Test.GetDefault<TypeT>()
-                .Or(Test.TRight, (s) => false)
-                .Should().BeEquivalentTo(Test.TRight);
+            => Test.GetDefault<TType>()
+                .Or(Test.NewTRight, (s) => false)
+                .Should().BeEquivalentTo(Test.NewTRight);
 
         [Test]
         public void Or_Null_RightPriority_Right()
-            => Test.GetDefault<TypeT>().Or(Test.TRight, (s) => true)
-                .Should().BeEquivalentTo(Test.TRight);
+            => Test.GetDefault<TType>().Or(Test.NewTRight, (s) => true)
+                .Should().BeEquivalentTo(Test.NewTRight);
 
         [Test]
         public void Or_Null_LeftPriority_Right()
-          => Test.GetDefault<TypeT>().Or(Test.TRight, (s) => false)
-              .Should().BeEquivalentTo(Test.TRight);
+          => Test.GetDefault<TType>().Or(Test.NewTRight, (s) => false)
+              .Should().BeEquivalentTo(Test.NewTRight);
 
         [Test]
         public void Or_Object_RightPriority_Right()
-            => Test.TLeft.Or(Test.TRight, (s) => true)
-                .Should().BeEquivalentTo(Test.TRight);
+            => Test.NewTLeft.Or(Test.NewTRight, (s) => true)
+                .Should().BeEquivalentTo(Test.NewTRight);
     }
 }

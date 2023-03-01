@@ -13,10 +13,10 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="doOnItem"></param>
         /// <returns></returns>
-        public static IEnumerable<Optional<T>> DoForEach<T>(this IEnumerable<Optional<T>> subject, params Action<T>[] doOnItem)
+        public static IEnumerable<Optional<T>> DoOptionalForEach<T>(this IEnumerable<Optional<T>> subject, params Action<T>[] doOnItem)
         {
             foreach (var item in subject??new List<Optional<T>>())
-                    item.Do(doOnItem);
+                    item.DoOptional(doOnItem);
 
             return subject;
         }
@@ -30,10 +30,10 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="doOnItem"></param>
         /// <returns></returns>
-        public static IEnumerable<Optional<T>> DoForEach<T>(this IEnumerable<Optional<T>> subject, params Func<T, T>[] doOnItem)
+        public static IEnumerable<Optional<T>> DoOptionalForEach<T>(this IEnumerable<Optional<T>> subject, params Func<T, T>[] doOnItem)
         {
             foreach (var item in subject ?? new List<Optional<T>>())
-                item.Do(doOnItem);
+                item.DoOptional(doOnItem);
 
             return subject;
         }

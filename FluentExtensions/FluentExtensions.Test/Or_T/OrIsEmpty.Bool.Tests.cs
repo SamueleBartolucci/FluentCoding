@@ -15,28 +15,28 @@ namespace FluentCodingTest.Or_T
 
         [Test]
         public void Or_String_Left1()
-            => Test.Left.OrIsEmpty(Test.Right)
-                .Should().Be(Test.Left);
+            => Test.LEFT.OrIsEmpty(Test.RIGHT)
+                .Should().Be(Test.LEFT);
 
         [Test]
         public void Or_String_Left2()
-            => Test.Left.OrIsEmpty(null)
-                .Should().Be(Test.Left);
+            => Test.LEFT.OrIsEmpty(null)
+                .Should().Be(Test.LEFT);
 
         [Test]
         public void Or_StringEmpty_Right()
-            => string.Empty.OrIsEmpty(Test.Right)
-                .Should().Be(Test.Right);
+            => string.Empty.OrIsEmpty(Test.RIGHT)
+                .Should().Be(Test.RIGHT);
 
         [Test]
         public void Or_StringSpaces_Right()
-            => " ".OrIsEmpty(Test.Right)
+            => " ".OrIsEmpty(Test.RIGHT)
                 .Should().Be(" ");
 
         [Test]
         public void Or_Null_Right()
-            => (null as string).OrIsEmpty(Test.Right)
-                .Should().Be(Test.Right);
+            => (null as string).OrIsEmpty(Test.RIGHT)
+                .Should().Be(Test.RIGHT);
 
 
     }

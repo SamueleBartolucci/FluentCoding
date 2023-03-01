@@ -13,31 +13,31 @@ namespace FluentCodingTest.Equals_T
 
         [Test]
         public void EquivalentToAsync_True() =>
-            Test.TLeft.ToTask().EquivalentToAsync(Test.KLeft, (a, b) => a.DescType == b.DescType)
+            Test.NewTLeft.ToTask().EquivalentToAsync(Test.NewKLeft, (a, b) => a.TDesc == b.KDesc)
             .Result
             .Should().BeTrue();
 
         [Test]
         public void EquivalentToAsync_False() =>
-            Test.T.ToTask().EquivalentToAsync(Test.TLeft, (a, b) => a.DescType == b.DescType)
+            Test.NewT.ToTask().EquivalentToAsync(Test.NewTLeft, (a, b) => a.TDesc == b.TDesc)
             .Result
             .Should().BeFalse();
 
         [Test]
         public void EquivalentToAnyAsync_True() =>
-            Test.TLeft.ToTask().EquivalentToAnyAsync((o1, o2) => o1.DescType == o2.DescType, Test.KLeft, Test.K)
+            Test.NewTLeft.ToTask().EquivalentToAnyAsync((o1, o2) => o1.TDesc == o2.KDesc, Test.NewKLeft, Test.NewK)
             .Result
             .Should().BeTrue();
 
         [Test]
         public void EquivalentToAnyAsync_False() =>
-            Test.T.ToTask().EquivalentToAnyAsync((o1, o2) => o1.DescType == o2.DescType, Test.K, Test.K)
+            Test.NewT.ToTask().EquivalentToAnyAsync((o1, o2) => o1.TDesc == o2.KDesc, Test.NewK, Test.NewK)
             .Result
             .Should().BeFalse();     
 
         [Test]
         public void EquvalentToAnyAsync_Null_False() =>
-            Test.GetDefault<TypeT>().ToTask().EquivalentToAnyAsync((l, r) => true, Test.K, Test.KDone)
+            Test.GetDefault<TType>().ToTask().EquivalentToAnyAsync((l, r) => true, Test.NewK, Test.NewKDone)
             .Result
             .Should().BeFalse();
     }

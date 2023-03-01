@@ -1,19 +1,21 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace FluentCoding
 {
-    public static partial class MapExtensions
+    public partial class Optional<O> : FluentContext<O>
     {
         /// <summary>
         /// Apply the mapping function on the subject and return the result
         /// </summary>
-        /// <typeparam name="T"></typeparam>
+        /// <typeparam name="O"></typeparam>
         /// <typeparam name="K"></typeparam>
         /// <param name="subject"></param>
         /// <param name="mapSubject"></param>
         /// <returns></returns>
-        public static async Task<Optional<K>> MapOptionalAsync<T, K>(this Task<Optional<T>> subject, Func<T, K> mapSubject) 
-            => (await subject).MapOptional(mapSubject);
+        public Optional<K> MapOptional<K>(Func<O, K> mapSubject) 
+            => IsNone() ?
+                Optional<K>.None() : 
+                Subject.Map(mapSubject).ToOptional();
+
     }
 }

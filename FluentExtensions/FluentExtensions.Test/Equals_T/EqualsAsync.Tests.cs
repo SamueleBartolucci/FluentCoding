@@ -16,19 +16,19 @@ namespace FluentCodingTest.Equals_T
 
         [Test]
         public void EqualsToAnyAsync_Strings_True() =>
-            Test.Left.ToTask().EqualsToAnyAsync(Test.Right, Test.Left, "VV")
+            Test.LEFT.ToTask().EqualsToAnyAsync(Test.RIGHT, Test.LEFT, "VV")
             .Result
             .Should().BeTrue();
 
         [Test]
         public void EqualsToAnyAsync_Strings_False() =>
-            "XX".ToTask().EqualsToAnyAsync(Test.Left, "Xx", Test.Right)
+            "XX".ToTask().EqualsToAnyAsync(Test.LEFT, "Xx", Test.RIGHT)
             .Result
             .Should().BeFalse();
 
         [Test]
         public void EqualsToAnyAsync_Object_False() =>
-            Test.T.ToTask().EqualsToAnyAsync(Test.T, Test.T)
+            Test.NewT.ToTask().EqualsToAnyAsync(Test.NewT, Test.NewT)
             .Result
             .Should().BeFalse();
 

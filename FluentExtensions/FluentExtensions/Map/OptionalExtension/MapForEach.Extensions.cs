@@ -14,14 +14,14 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="doOnSubject"></param>
         /// <returns></returns>
-        public static IEnumerable<Optional<K>> MapForEach<T, K>(this IEnumerable<Optional<T>> subject, Func<T, K> doOnSubject)
+        public static IEnumerable<Optional<K>> MapOptionalForEach<T, K>(this IEnumerable<Optional<T>> subject, Func<T, K> doOnSubject)
         {
             List<Optional<K>> result = null;
             if (subject != null)
             {
                 result = new List<Optional<K>>();
                 foreach (var item in subject)
-                    result.Add(item.Map(doOnSubject));
+                    result.Add(item.MapOptional(doOnSubject));
             }
 
             return result;

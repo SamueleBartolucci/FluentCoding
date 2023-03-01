@@ -10,9 +10,9 @@ namespace FluentCodingTest.When_T
     [ExcludeFromCodeCoverage]
     public class When_Then_Action_T_Tests
     {
-        private TypeT UpdateT(TypeT t, string newDesc)
+        private TType UpdateT(TType t, string newDesc)
         {
-            t.DescType = newDesc;
+            t.TDesc = newDesc;
             return t;
         }
 
@@ -21,9 +21,9 @@ namespace FluentCodingTest.When_T
         [TestCase(false)]
         public void Then_Func_T_T(bool trueCondition)
         {
-            WhenContext(Test.T, trueCondition)
-                .Then(_ => UpdateT(_, Test.Done))
-                .Should().BeEquivalentTo(trueCondition ? Test.TDone : Test.T);
+            WhenContext(Test.NewT, trueCondition)
+                .Then(_ => UpdateT(_, Test.DONE))
+                .Should().BeEquivalentTo(trueCondition ? Test.NewTDone : Test.NewT);
         }
 
 
@@ -32,18 +32,18 @@ namespace FluentCodingTest.When_T
         public void ThenAnd_TrueAndFalse_Func_T_T(bool trueCondition)
         {
             0.IsNullOrEquivalent();
-            var output = new List<TypeT>();
+            var output = new List<TType>();
 
-            WhenContext(Test.T, trueCondition)
-                .ThenAnd(_ => UpdateT(_, Test.Done))
+            WhenContext(Test.NewT, trueCondition)
+                .ThenAnd(_ => UpdateT(_, Test.DONE))
                 .ThenAnd(_ => output.Add(_))
                 .Then(_ => output.Add(_))
-                .Should().BeEquivalentTo(trueCondition ? Test.TDone : Test.T);
+                .Should().BeEquivalentTo(trueCondition ? Test.NewTDone : Test.NewT);
 
             output.Count.Should().Be(0.Or(2, trueCondition));
 
             if(trueCondition) 
-                output.Should().AllSatisfy(x => x.Should().BeEquivalentTo(Test.TDone));            
+                output.Should().AllSatisfy(x => x.Should().BeEquivalentTo(Test.NewTDone));            
         }
 
 
@@ -51,9 +51,9 @@ namespace FluentCodingTest.When_T
         [TestCase(false)]
         public void Then_TrueAndFalse_Func_T_T(bool trueCondition)
         {
-            WhenContext(Test.T, trueCondition)
-                .Then(_ => _.DescType = Test.Done, (System.Action<TypeT>)(_ => _.DescType = Test.NotDone))
-                .Should().BeEquivalentTo(trueCondition ? Test.TDone : Test.TNotDone);
+            WhenContext(Test.NewT, trueCondition)
+                .Then(_ => _.TDesc = Test.DONE, (System.Action<TType>)(_ => _.TDesc = Test.NOT_DONE))
+                .Should().BeEquivalentTo(trueCondition ? Test.NewTDone : Test.NewTNotDone);
         }
 
 

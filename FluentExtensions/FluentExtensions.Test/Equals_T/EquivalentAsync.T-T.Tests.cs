@@ -15,19 +15,19 @@ namespace FluentCodingTest.Equals_T
 
         [Test]
         public void EquivalentToAsync_True() =>
-            Test.T.ToTask().EquivalentToAsync(Test.T, (a, b) => a.DescType == b.DescType)
+            Test.NewT.ToTask().EquivalentToAsync(Test.NewT, (a, b) => a.TDesc == b.TDesc)
             .Result
             .Should().BeTrue();
 
         [Test]
         public void EquivalentToAsync_False() =>
-            Test.TLeft.ToTask().EquivalentToAsync(Test.TRight, (a, b) => a.DescType == b.DescType)
+            Test.NewTLeft.ToTask().EquivalentToAsync(Test.NewTRight, (a, b) => a.TDesc == b.TDesc)
             .Result
             .Should().BeFalse();
 
         [Test]
         public void EquivalentToAnyAsync_Object_True() =>
-            Test.T.ToTask().EquivalentToAnyAsync((l, r) => l.DescType == r.DescType, Test.T, Test.T)
+            Test.NewT.ToTask().EquivalentToAnyAsync((l, r) => l.TDesc == r.TDesc, Test.NewT, Test.NewT)
             .Result
             .Should().BeTrue();      
       
@@ -39,7 +39,7 @@ namespace FluentCodingTest.Equals_T
 
         [Test]
         public void EquivalentToAnyAsync_Null_CustomCompare_False() =>
-         Test.GetDefault<string>().ToTask().EquivalentToAnyAsync((a, b) => a == b, Test.Left, "Xx", Test.Right)
+         Test.GetDefault<string>().ToTask().EquivalentToAnyAsync((a, b) => a == b, Test.LEFT, "Xx", Test.RIGHT)
             .Result
             .Should().BeFalse();
     }

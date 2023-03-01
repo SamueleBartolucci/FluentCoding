@@ -63,12 +63,12 @@ namespace FluentCodingTest.Is_T
 
         [Test]
         public void IsNullOrDefault_Object() =>
-            Test.T.IsNullOrEquivalent()
+            Test.NewT.IsNullOrEquivalent()
             .Should().BeFalse();
 
         [Test]
         public void IsNullOrDefault_String() =>
-            Test.Left.IsNullOrEquivalent()
+            Test.LEFT.IsNullOrEquivalent()
                 .Should().BeFalse();
         
         [Test]

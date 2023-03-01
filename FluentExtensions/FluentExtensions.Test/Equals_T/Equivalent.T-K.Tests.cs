@@ -13,27 +13,27 @@ namespace FluentCodingTest.Equals_T
 
         [Test]
         public void EquivalentTo_True() =>
-            Test.TLeft.EquivalentTo(Test.KLeft, (a, b) => a.DescType == b.DescType)
+            Test.NewTLeft.EquivalentTo(Test.NewKLeft, (a, b) => a.TDesc == b.KDesc)
             .Should().BeTrue();
 
         [Test]
         public void EquivalentTo_False() =>
-            Test.T.EquivalentTo(Test.TLeft, (a, b) => a.DescType == b.DescType)
+            Test.NewT.EquivalentTo(Test.NewTLeft, (a, b) => a.TDesc == b.TDesc)
             .Should().BeFalse();
 
         [Test]
         public void EquivalentToAny_True() =>
-            Test.TLeft.EquivalentToAny((o1, o2) => o1.DescType == o2.DescType, Test.KLeft, Test.K).
+            Test.NewTLeft.EquivalentToAny((o1, o2) => o1.TDesc == o2.KDesc, Test.NewKLeft, Test.NewK).
             Should().BeTrue();
 
         [Test]
         public void EquivalentToAny_False() =>
-            Test.T.EquivalentToAny((o1, o2) => o1.DescType == o2.DescType, Test.K, Test.K)
+            Test.NewT.EquivalentToAny((o1, o2) => o1.TDesc == o2.KDesc, Test.NewK, Test.NewK)
             .Should().BeFalse();     
 
         [Test]
         public void EquvalentToAny_Null_False() =>
-            Test.GetDefault<TypeT>().EquivalentToAny((l, r) => true, Test.K, Test.KDone)
+            Test.GetDefault<TType>().EquivalentToAny((l, r) => true, Test.NewK, Test.NewKDone)
             .Should().BeFalse();
     }
 }

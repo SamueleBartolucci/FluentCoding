@@ -11,15 +11,15 @@ namespace FluentCodingTest.Do_T
     public class DoForEachAsync_Optional_Tests
     {
 
-        private TypeT UpdateDesc(TypeT t, string newDesc)
+        private TType UpdateDesc(TType t, string newDesc)
         {
-            t.DescType = newDesc;
+            t.TDesc = newDesc;
             return t;
         }
 
-        private TypeT MergeDesc(TypeT t, string newDescPart)
+        private TType MergeDesc(TType t, string newDescPart)
         {
-            t.DescType += newDescPart;
+            t.TDesc += newDescPart;
             return t;
         }
 
@@ -27,25 +27,25 @@ namespace FluentCodingTest.Do_T
         [Test]
         public void DoForEachAsync_Action()
         {
-            IEnumerable<TypeT> original = new[] { Test.T, Test.T, Test.T, Test.T };
+            IEnumerable<Optional<TType>> original = new[] { Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional() };
             
-            var postDo = original.ToTask().DoForEachAsync(_ => _.DescType = Test.Done).Result;
+            var postDo = original.ToTask().DoOptionalForEachAsync(_ => _.TDesc = Test.DONE).Result;
             postDo.Should().HaveCount(4);
-            postDo.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
-            original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
+            postDo.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
+            original.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
         }
 
         [Test]
         public void DoForEachAsync_Actions()
         {
-            IEnumerable<TypeT> original = new[] { Test.T, Test.T, Test.T, Test.T };
-            
-            var postDo = original.ToTask().DoForEachAsync(_ => _.DescType = Test.Done,
-                                                         _ => _.DescType += "." )
+            IEnumerable<Optional<TType>> original = new[] { Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional() };
+
+            var postDo = original.ToTask().DoOptionalForEachAsync(_ => _.TDesc = Test.DONE,
+                                                         _ => _.TDesc += "." )
                                           .Result;
             postDo.Should().HaveCount(4);
-            postDo.Should().AllSatisfy(_ => _.DescType.Should().Be(Test.TDone.DescType+"."));
-            original.Should().AllSatisfy(_ => _.DescType.Should().Be(Test.TDone.DescType + "."));
+            postDo.Should().AllSatisfy(_ => _.Subject.TDesc.Should().Be(Test.NewTDone.TDesc+"."));
+            original.Should().AllSatisfy(_ => _.Subject.TDesc.Should().Be(Test.NewTDone.TDesc + "."));
         }
 
 
@@ -53,24 +53,28 @@ namespace FluentCodingTest.Do_T
         public void DoForEachAsync_Func()
         {
 
-            IEnumerable<TypeT> original = new[] { Test.T, Test.T, Test.T, Test.T };
-            var postDo = original.ToTask().DoForEachAsync(_ => UpdateDesc(_, Test.Done)).Result;
+            IEnumerable<Optional<TType>> original = new[] { Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional() };
+            var postDo = original.ToTask().DoOptionalForEachAsync(_ => UpdateDesc(_, Test.DONE)).Result;
             postDo.Should().HaveCount(4);
-            postDo.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
-            original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
+            postDo.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
+            original.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
         }
 
 
         [Test]
         public void DoForEachAsync_Funcs()
         {
-            IEnumerable<TypeT> original = new[] { Test.T, Test.T, Test.T, Test.T };
-            var postDo = original.ToTask().DoForEachAsync(_ => UpdateDesc(_, Test.Done),
-                                                         _ => MergeDesc(_, "."))
-                                           .Result;
+            IEnumerable<Optional<TType>> original = new[] { Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional() };
+
+            var postDo = original
+                            .ToTask()
+                            .DoOptionalForEachAsync(originalItem        => UpdateDesc(originalItem, Test.DONE),
+                                            itemWihtUpdatedDesc => MergeDesc(itemWihtUpdatedDesc, "."))
+                            .Result;
+
             postDo.Should().HaveCount(4);
-            postDo.Should().AllSatisfy(_ => _.DescType.Should().BeEquivalentTo(Test.Done + "."));
-            original.Should().AllSatisfy(_ => _.DescType.Should().BeEquivalentTo(Test.Done + "."));
+            postDo.Should().AllSatisfy(_ => _.Subject.TDesc.Should().BeEquivalentTo(Test.DONE + "."));
+            original.Should().AllSatisfy(_ => _.Subject.TDesc.Should().BeEquivalentTo(Test.DONE + "."));
         }
 
     }

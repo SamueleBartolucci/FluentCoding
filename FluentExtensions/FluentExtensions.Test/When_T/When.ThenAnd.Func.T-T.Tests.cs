@@ -15,12 +15,12 @@ namespace FluentCodingTest.When_T
         [TestCase(false)]
         public void Then_Func_T_T(bool trueCondition)
         {
-            WhenContext(Test.T, trueCondition)
-                .ThenAnd(_ => _.Do(x => x.DescType = "."))
-                .ThenAnd(_ => _.Do(x => x.DescType += "."))
-                .Then(_ => _.Do(x => x.DescType += "."))
-                .DescType
-                .Should().Be(trueCondition ? "..." : Test.T.DescType);
+            WhenContext(Test.NewT, trueCondition)
+                .ThenAnd(_ => _.Do(x => x.TDesc = "."))
+                .ThenAnd(_ => _.Do(x => x.TDesc += "."))
+                .Then(_ => _.Do(x => x.TDesc += "."))
+                .TDesc
+                .Should().Be(trueCondition ? "..." : Test.NewT.TDesc);
         }
 
     }

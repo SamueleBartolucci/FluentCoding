@@ -19,11 +19,11 @@ namespace FluentCodingTest.Do_T
         [Test]
         public void Do_Action_ValueType_FromObject()
         {
-            var preDo = Test.TNotDone;
-            var postDo = preDo.DescType.Do(_ => MergeAction(_, Test.Done));
-            postDo.Should().NotBe(Test.NotDone + Test.Done);
-            postDo.Should().Be(Test.TNotDone.DescType);
-            preDo.Should().BeEquivalentTo(Test.TNotDone);            
+            var preDo = Test.NewTNotDone;
+            var postDo = preDo.TDesc.Do(_ => MergeAction(_, Test.DONE));
+            postDo.Should().NotBe(Test.NOT_DONE + Test.DONE);
+            postDo.Should().Be(Test.NewTNotDone.TDesc);
+            preDo.Should().BeEquivalentTo(Test.NewTNotDone);            
         }
 
 
@@ -31,7 +31,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_StringEmpty()
         {
             string preDo = string.Empty;
-            var postDo = preDo.Do(_ => MergeAction(_, Test.Done));
+            var postDo = preDo.Do(_ => MergeAction(_, Test.DONE));
             postDo.Should().Be(string.Empty);
 
         }
@@ -39,16 +39,16 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_String()
         {
             string preDo = "notDone";
-            var postDo = preDo.Do(_ => MergeAction(_, Test.Done));
+            var postDo = preDo.Do(_ => MergeAction(_, Test.DONE));
             postDo.Should().Be(preDo);
         }
 
         [Test]
         public void Do_Func_NewObject_Unchanged()
         {
-            TypeT preDo = Test.T;
-            var postDo = preDo.Do(_ => new TypeT() { DescType = Test.Done });
-            postDo.DescType.Should().Be(Test.T.DescType);
+            TType preDo = Test.NewT;
+            var postDo = preDo.Do(_ => new TType() { TDesc = Test.DONE });
+            postDo.TDesc.Should().Be(Test.NewT.TDesc);
             preDo.Should().BeSameAs(postDo);
         }
 
@@ -57,7 +57,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Func_StringEmpty()
         {
             string preDo = string.Empty;
-            var postDo = preDo.Do(_ => Test.Done);
+            var postDo = preDo.Do(_ => Test.DONE);
             postDo.Should().BeSameAs(preDo);
             postDo.Should().Be(string.Empty);
 
@@ -66,10 +66,10 @@ namespace FluentCodingTest.Do_T
         [Test]
         public void Do_Func_String()
         {
-            string preDo = Test.NotDone;
-            var postDo = preDo.Do((_) => Test.Done);
+            string preDo = Test.NOT_DONE;
+            var postDo = preDo.Do((_) => Test.DONE);
             postDo.Should().BeSameAs(preDo);
-            postDo.Should().Be(Test.NotDone);
+            postDo.Should().Be(Test.NOT_DONE);
         }
 
 

@@ -16,15 +16,15 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void TryCatch_Success_Then()
         {
-            var then = Test.TNotDone.Try(_ => Test.KRight).Then(_ => _.Do(_ => _.DescType = Test.Done), (s, e) => e.Message);
-            then.Success.Should().BeEquivalentTo(Test.KDone);
+            var then = Test.NewTNotDone.Try(_ => Test.NewKRight).Then(_ => _.Do(_ => _.KDesc = Test.DONE), (s, e) => e.Message);
+            then.Success.Should().BeEquivalentTo(Test.NewKDone);
             then.Fail.Should().BeNull();
         }
 
         [Test]
         public void TryCatch_Fail_Then()
         {
-            var then = Test.TNotDone.Try(_ => Test.GetException<TypeK>()).Then(_ => _.DescType, (s, e) => e);
+            var then = Test.NewTNotDone.Try(_ => Test.RaiseException<KType>()).Then(_ => _.KDesc, (s, e) => e);
             then.Success.Should().BeNull();
             then.Fail.Should().BeOfType<Exception>();
         }
@@ -33,17 +33,17 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void TryCatch_Success_ThenMap()
         {
-            var then = Test.TNotDone.Try(_ => Test.KRight)
-                .ThenMap(_ => Test.Done, (s, e) => Test.NotDone)
-                .Should().Be(Test.Done);
+            var then = Test.NewTNotDone.Try(_ => Test.NewKRight)
+                .ThenMap(_ => Test.DONE, (s, e) => Test.NOT_DONE)
+                .Should().Be(Test.DONE);
         }
 
         [Test]
         public void TryCatch_Fail_ThenMap()
         {
-            var then = Test.TNotDone.Try(_ => Test.GetException<TypeK>())
-                .ThenMap(_ => Test.Done, (s, e) => Test.NotDone)
-                .Should().Be(Test.NotDone);
+            var then = Test.NewTNotDone.Try(_ => Test.RaiseException<KType>())
+                .ThenMap(_ => Test.DONE, (s, e) => Test.NOT_DONE)
+                .Should().Be(Test.NOT_DONE);
         }
 
     }

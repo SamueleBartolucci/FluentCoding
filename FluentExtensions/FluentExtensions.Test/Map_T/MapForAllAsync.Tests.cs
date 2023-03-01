@@ -13,38 +13,38 @@ namespace FluentCodingTest.MapForEachAsync_T
         [Test]
         public void MapForEachAsync_NullEnumerable()
         {
-            var enumerable = Test.GetDefault<IEnumerable<TypeT>>();
-            var mappedResult = enumerable.ToTask().MapForEachAsync(_ => _.DescType + "MAP").Result;
+            var enumerable = Test.GetDefault<IEnumerable<TType>>();
+            var mappedResult = enumerable.ToTask().MapForEachAsync(_ => _.TDesc + "MAP").Result;
             mappedResult.Should().BeNull();            
         }
 
         [Test]
         public void MapForEachAsync_EmptyEnumerable()
         {
-            var enumerable = Test.GetEnumerable<TypeT>(0);
-            var mappedResult = enumerable.ToTask().MapForEachAsync(_ => _.DescType + "MAP").Result;
+            var enumerable = Test.GetEnumerable<TType>(0);
+            var mappedResult = enumerable.ToTask().MapForEachAsync(_ => _.TDesc + "MAP").Result;
             mappedResult.Count().Should().Be(0);            
         }
 
         [Test]
         public void MapForEachAsync_Strings()
         {
-            var enumerable = Test.GetEnumerable<TypeT>(4);
-            var mappedResult = enumerable.ToTask().MapForEachAsync(_ => _.DescType+"MAP").Result;
+            var enumerable = Test.GetEnumerable<TType>(4);
+            var mappedResult = enumerable.ToTask().MapForEachAsync(_ => _.TDesc+"MAP").Result;
             mappedResult.Count().Should().Be(enumerable.Count());
-            mappedResult.Should().AllSatisfy(_ => _.Should().Be(Test.T.DescType + "MAP"));
+            mappedResult.Should().AllSatisfy(_ => _.Should().Be(Test.NewT.TDesc + "MAP"));
         }
 
         [Test]
         public void MapForEachAsync_Object() 
         {
-            var enumerable = Test.GetEnumerable<TypeT>(4);
-            var mappedResult = enumerable.ToTask().MapForEachAsync(_ => new TypeK() { DescType = _.DescType+"MAP" }).Result;
+            var enumerable = Test.GetEnumerable<TType>(4);
+            var mappedResult = enumerable.ToTask().MapForEachAsync(_ => new KType() { KDesc = _.TDesc+"MAP" }).Result;
             mappedResult.Count().Should().Be(enumerable.Count());
             mappedResult.Should().AllSatisfy(_ =>
                                                 {
-                                                    _.DescType.Should().Be(Test.T.DescType + "MAP");
-                                                    _.Should().BeOfType<TypeK>();
+                                                    _.KDesc.Should().Be(Test.NewT.TDesc + "MAP");
+                                                    _.Should().BeOfType<KType>();
                                                 });
         }
 

@@ -36,31 +36,31 @@ namespace FluentCodingTest.DoAsync_T
         [Test]
         public void DoAsync_Action_Null()
         {
-            TypeT preDo = null;
-            var postDo = preDo.ToTask().DoAsync(_ => _.DescType = Test.Done).Result;
+            TType preDo = null;
+            var postDo = preDo.ToTask().DoAsync(_ => _.TDesc = Test.DONE).Result;
             postDo.Should().Be(null);
         }
 
         [Test]
         public void DoAsync_Action_SubjectField()
         {
-            var preDo = Test.T;
-            var postDo = preDo.ToTask().DoAsync(_ => _.DescType = Test.Done).Result;
-            postDo.DescType.Should().Be(Test.Done);
-            postDo.Should().BeEquivalentTo(Test.TDone);            
+            var preDo = Test.NewT;
+            var postDo = preDo.ToTask().DoAsync(_ => _.TDesc = Test.DONE).Result;
+            postDo.TDesc.Should().Be(Test.DONE);
+            postDo.Should().BeEquivalentTo(Test.NewTDone);            
             preDo.Should().BeSameAs(postDo);
         }
 
         [Test]
         public void DoAsync_Actions_SubjectField()
         {
-            var preDo = Test.T;
-            var postDo = preDo.ToTask().DoAsync(_ => _.DescType = ".",
-                                                  _ => _.DescType += ".",
-                                                  _ => _.DescType += ".",
-                                                  _ => _.DescType += ".")
+            var preDo = Test.NewT;
+            var postDo = preDo.ToTask().DoAsync(_ => _.TDesc = ".",
+                                                  _ => _.TDesc += ".",
+                                                  _ => _.TDesc += ".",
+                                                  _ => _.TDesc += ".")
                                         .Result;
-            postDo.DescType.Should().Be("....");            
+            postDo.TDesc.Should().Be("....");            
             preDo.Should().BeSameAs(postDo);
         }
 

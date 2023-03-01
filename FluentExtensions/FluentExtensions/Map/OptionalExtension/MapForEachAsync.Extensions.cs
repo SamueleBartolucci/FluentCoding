@@ -15,9 +15,9 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="doOnSubject"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Optional<K>>> MapForEachAsync<T, K>(this Task<IEnumerable<Optional<T>>> subject, Func<T, K> doOnSubject)
+        public static async Task<IEnumerable<Optional<K>>> MapOptionalForEachAsync<T, K>(this Task<IEnumerable<Optional<T>>> subject, Func<T, K> doOnSubject)
         {
-            return (await subject).MapForEach(doOnSubject);
+            return (await subject).MapOptionalForEach(doOnSubject);
         }
 
     }

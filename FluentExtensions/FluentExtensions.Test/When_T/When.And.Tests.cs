@@ -16,59 +16,59 @@ namespace FluentCodingTest.When_T
         [TestCase(false)]
         public void AndWhen_Bool(bool trueCondition)
         {
-            var when = WhenContext(Test.T, trueCondition)
+            var when = WhenContext(Test.NewT, trueCondition)
                        .AndWhen(trueCondition);
             when.IsSuccessful.Should().Be(trueCondition);
-            when.Should().BeOfType(typeof(WhenAnd<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenAnd<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void AndWhen_Func_Bool(bool trueCondition)
         {
-            var when = WhenContext(Test.T, trueCondition)
+            var when = WhenContext(Test.NewT, trueCondition)
                         .AndWhen(() => trueCondition);
 
             when.IsSuccessful.Should().Be(trueCondition);
-            when.Should().BeOfType(typeof(WhenAnd<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenAnd<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void AndWhen_Func_T_Bool(bool trueCondition)
         {
-            var when = WhenContext(Test.T, trueCondition)
+            var when = WhenContext(Test.NewT, trueCondition)
                         .AndWhen((_) => trueCondition);
 
             when.IsSuccessful.Should().Be(trueCondition);
-            when.Should().BeOfType(typeof(WhenAnd<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenAnd<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
 
 
         [TestCase]
         public void AndWhen_TrueAndFalse()
         {
-            var when = WhenContext(Test.T, true)        
+            var when = WhenContext(Test.NewT, true)        
                         .AndWhen(false);
 
             when.IsSuccessful.Should().Be(false);
-            when.Should().BeOfType(typeof(WhenAnd<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenAnd<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
 
         [TestCase]
         public void AndWhen_FalseAndTrue()
         {
-            var when = WhenContext(Test.T, false)
+            var when = WhenContext(Test.NewT, false)
                         .AndWhen(true)
                         .AndWhen(true);
 
             when.IsSuccessful.Should().Be(false);
-            when.Should().BeOfType(typeof(WhenAnd<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenAnd<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
     }
 }

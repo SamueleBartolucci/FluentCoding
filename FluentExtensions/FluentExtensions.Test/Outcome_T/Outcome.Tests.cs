@@ -16,7 +16,7 @@ namespace FluentCodingTest.Outcome_S_F
         [Test]
         public void Outcome_Success_Istrue()
         {
-            if(Test.T.ToSuccessOutcome<TypeT, TypeK>())
+            if(Test.NewT.ToSuccessOutcome<TType, KType>())
                 Assert.Pass();
             else
                 Assert.Fail();
@@ -26,7 +26,7 @@ namespace FluentCodingTest.Outcome_S_F
         [Test]
         public void Outcome_Failure_IsFalse()
         {
-            if (Test.T.ToFailureOutcome<TypeK, TypeT>())
+            if (Test.NewT.ToFailureOutcome<KType, TType>())
                 Assert.Fail();
             else
                 Assert.Pass();
@@ -34,7 +34,7 @@ namespace FluentCodingTest.Outcome_S_F
         [Test]
         public void Outcome_Band_Success_IsFalse()
         {
-            if (!Test.T.ToSuccessOutcome<TypeT, TypeK>())
+            if (!Test.NewT.ToSuccessOutcome<TType, KType>())
                 Assert.Fail();
             else
                 Assert.Pass();
@@ -44,7 +44,7 @@ namespace FluentCodingTest.Outcome_S_F
         [Test]
         public void Outcome_Band_Failure_IsTrue()
         {
-            if (!Test.T.ToFailureOutcome<TypeK, TypeT>())
+            if (!Test.NewT.ToFailureOutcome<KType, TType>())
                 Assert.Pass();
             else
                 Assert.Fail();
@@ -53,10 +53,10 @@ namespace FluentCodingTest.Outcome_S_F
         [Test]
         public void Outcome_ToSuccessOutcome()
         {
-            var outcome = Test.T.ToSuccessOutcome<TypeT, TypeK>();
+            var outcome = Test.NewT.ToSuccessOutcome<TType, KType>();
 
             outcome.IsSuccessful.Should().BeTrue();
-            outcome.Success.Should().BeEquivalentTo(Test.T);
+            outcome.Success.Should().BeEquivalentTo(Test.NewT);
             outcome.Failure.Should().BeNull();
 
         }
@@ -64,10 +64,10 @@ namespace FluentCodingTest.Outcome_S_F
         [Test]
         public void Outcome_ToSuccess()
         {
-            var outcome = Outcome<TypeT, TypeK>.ToSuccess(Test.T);
+            var outcome = Outcome<TType, KType>.ToSuccess(Test.NewT);
 
             outcome.IsSuccessful.Should().BeTrue();
-            outcome.Success.Should().BeEquivalentTo(Test.T);
+            outcome.Success.Should().BeEquivalentTo(Test.NewT);
             outcome.Failure.Should().BeNull();
 
         }
@@ -75,22 +75,22 @@ namespace FluentCodingTest.Outcome_S_F
         [Test]
         public void Outcome_ToFaliure()
         {
-            var outcome = Outcome<TypeT, TypeK>.ToFailure(Test.K);
+            var outcome = Outcome<TType, KType>.ToFailure(Test.NewK);
 
             outcome.IsSuccessful.Should().BeFalse();
             outcome.Success.Should().BeNull();
-            outcome.Failure.Should().BeEquivalentTo(Test.K);
+            outcome.Failure.Should().BeEquivalentTo(Test.NewK);
 
         }
 
         [Test]
         public void Outcome_ToFailureOutcome()
         {
-            var outcome = Test.K.ToFailureOutcome<TypeT, TypeK>();
+            var outcome = Test.NewK.ToFailureOutcome<TType, KType>();
 
             outcome.IsSuccessful.Should().BeFalse();
             outcome.Success.Should().BeNull();
-            outcome.Failure.Should().BeEquivalentTo(Test.K);
+            outcome.Failure.Should().BeEquivalentTo(Test.NewK);
 
         }
 

@@ -15,8 +15,8 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="doOnItem"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Optional<T>>> DoForEachAsync<T>(this Task<IEnumerable<Optional<T>>> subject, params Action<T>[] doOnItem)
-            => (await subject).DoForEach(doOnItem);
+        public static async Task<IEnumerable<Optional<T>>> DoOptionalForEachAsync<T>(this Task<IEnumerable<Optional<T>>> subject, params Action<T>[] doOnItem)
+            => (await subject).DoOptionalForEach(doOnItem);
 
        
         /// <summary>
@@ -27,7 +27,7 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="doOnItem"></param>
         /// <returns></returns>
-        public static async Task<IEnumerable<Optional<T>>> DoForEachAsync<T>(this Task<IEnumerable<Optional<T>>> subject, params Func<T, T>[] doOnItem)
-            => (await subject).DoForEach(doOnItem);       
+        public static async Task<IEnumerable<Optional<T>>> DoOptionalForEachAsync<T>(this Task<IEnumerable<Optional<T>>> subject, params Func<T, T>[] doOnItem)
+            => (await subject).DoOptionalForEach(doOnItem);       
     }
 }

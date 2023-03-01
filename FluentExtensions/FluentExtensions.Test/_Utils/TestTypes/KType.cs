@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 namespace FluentCodingTest
 {
     [ExcludeFromCodeCoverage]
-    internal class TypeT
+    internal class KType
     {
-        public TypeT() { }
-        public string DescType { get; set; } = nameof(TypeT);
+        public KType() { }
+
+        public string KDesc { get; set; } = nameof(KType);
     }
 }

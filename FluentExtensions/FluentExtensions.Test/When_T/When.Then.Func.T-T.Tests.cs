@@ -16,18 +16,18 @@ namespace FluentCodingTest.When_T
         [TestCase(false)]
         public void Then_Func_T_T(bool trueCondition)
         {
-            WhenContext(Test.T, trueCondition)
-                .Then(_ => Test.TDone)
-                .Should().BeEquivalentTo(trueCondition ? Test.TDone : Test.T);
+            WhenContext(Test.NewT, trueCondition)
+                .Then(_ => Test.NewTDone)
+                .Should().BeEquivalentTo(trueCondition ? Test.NewTDone : Test.NewT);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void Then_TrueAndFalse_Func_T_T(bool trueCondition)
         {
-            WhenContext(Test.T, trueCondition)
-                .Then((_) => Test.TDone, (_) => Test.TNotDone)
-                .Should().BeEquivalentTo(trueCondition ? Test.TDone : Test.TNotDone);
+            WhenContext(Test.NewT, trueCondition)
+                .Then((_) => Test.NewTDone, (_) => Test.NewTNotDone)
+                .Should().BeEquivalentTo(trueCondition ? Test.NewTDone : Test.NewTNotDone);
         }
 
     }

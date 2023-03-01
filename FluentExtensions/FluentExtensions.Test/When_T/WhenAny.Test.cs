@@ -16,8 +16,8 @@ namespace FluentCodingTest.When_T
         [Test]
         public void WhenAny_IsSuccessful()
         {
-            var input = new[] { Test.Done, Test.NotDone, Test.Left, Test.Right };
-            var when = input.WhenAny(_ => _ == Test.Left);
+            var input = new[] { Test.DONE, Test.NOT_DONE, Test.LEFT, Test.RIGHT };
+            var when = input.WhenAny(_ => _ == Test.LEFT);
             when.IsSuccessful.Should().BeTrue();
             when.Should().BeOfType(typeof(WhenOr<IEnumerable<string>>));
             when.Subject.Should().BeEquivalentTo(input);
@@ -27,7 +27,7 @@ namespace FluentCodingTest.When_T
         [Test]
         public void WhenAny_NotIsSuccessful()
         {
-            var input = new[] { Test.Done, Test.NotDone, Test.Left, Test.Right };
+            var input = new[] { Test.DONE, Test.NOT_DONE, Test.LEFT, Test.RIGHT };
             var when = input.WhenAny(_ => _ == "XX");
             when.IsSuccessful.Should().BeFalse();
             when.Should().BeOfType(typeof(WhenOr<IEnumerable<string>>));

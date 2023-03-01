@@ -14,21 +14,21 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void Try_Success()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.KRight);
+            var tryCatch = Test.NewTNotDone.Try(_ => Test.NewKRight);
 
             tryCatch.IsSuccessful.Should().BeTrue();
-            tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
-            tryCatch.Result.Should().BeEquivalentTo(Test.KRight);
+            tryCatch.Subject.Should().BeEquivalentTo(Test.NewTNotDone);
+            tryCatch.Result.Should().BeEquivalentTo(Test.NewKRight);
             tryCatch.Error.Should().BeNull();
         }
 
         [Test]
         public void Try_Fail()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.GetException<TypeK>());
+            var tryCatch = Test.NewTNotDone.Try(_ => Test.RaiseException<KType>());
 
             tryCatch.IsSuccessful.Should().BeFalse();
-            tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
+            tryCatch.Subject.Should().BeEquivalentTo(Test.NewTNotDone);
             tryCatch.Result.Should().BeNull();
             tryCatch.Error.Should().NotBeNull();
         }
@@ -36,36 +36,36 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void TryOnError_Success()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.KRight, (s, e) => string.Concat(s.DescType, "_", e.Message));
+            var tryCatch = Test.NewTNotDone.Try(_ => Test.NewKRight, (s, e) => string.Concat(s.TDesc, "_", e.Message));
 
-            tryCatch.Result.Should().BeEquivalentTo(Test.KRight);
+            tryCatch.Result.Should().BeEquivalentTo(Test.NewKRight);
             tryCatch.Error.Should().BeNull();
-            tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
+            tryCatch.Subject.Should().BeEquivalentTo(Test.NewTNotDone);
         }
 
         [Test]
         public void TryOnError_Fail()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.GetException<TypeK>(),
-                                             (s, e) => string.Concat(s.DescType, "_", e.Message));
+            var tryCatch = Test.NewTNotDone.Try(_ => Test.RaiseException<KType>(),
+                                             (s, e) => string.Concat(s.TDesc, "_", e.Message));
 
             tryCatch.Result.Should().BeNull();
-            tryCatch.Error.Should().StartWith(Test.TNotDone.DescType + "_Exception");
-            tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
+            tryCatch.Error.Should().StartWith(Test.NewTNotDone.TDesc + "_Exception");
+            tryCatch.Subject.Should().BeEquivalentTo(Test.NewTNotDone);
         }
 
         [Test]
         public void TryTo_Success()
         {
-            var result = Test.TNotDone.TryTo(_ => Test.Right, (s, e) => Test.Left);
-            result.Should().Be(Test.Right);
+            var result = Test.NewTNotDone.TryTo(_ => Test.RIGHT, (s, e) => Test.LEFT);
+            result.Should().Be(Test.RIGHT);
         }
 
         [Test]
         public void TryTo_Fail()
         {
-            var result = Test.TNotDone.TryTo(_ => Test.GetException<string>(), (s, e) => Test.Left);
-            result.Should().Be(Test.Left);
+            var result = Test.NewTNotDone.TryTo(_ => Test.RaiseException<string>(), (s, e) => Test.LEFT);
+            result.Should().Be(Test.LEFT);
         }
     }
 }

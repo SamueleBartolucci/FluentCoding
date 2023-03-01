@@ -15,20 +15,20 @@ namespace FluentCodingTest.When_T
         [TestCase(false)]
         public void When_bool(bool trueCondition)
         {
-            var when = Test.T.When(trueCondition);
+            var when = Test.NewT.When(trueCondition);
             when.IsSuccessful.Should().Be(trueCondition);
-            when.Should().BeOfType(typeof(WhenOr<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenOr<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void When_Funct_T_bool(bool trueCondition)
         {
-            var when = Test.T.When(() => trueCondition);
+            var when = Test.NewT.When(() => trueCondition);
             when.IsSuccessful.Should().Be(trueCondition);
-            when.Should().BeOfType(typeof(WhenOr<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenOr<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
 
 
@@ -36,10 +36,10 @@ namespace FluentCodingTest.When_T
         [TestCase(false)]
         public void When_Func_bool(bool trueCondition)
         {
-            var when = Test.T.When((_) => trueCondition);
+            var when = Test.NewT.When((_) => trueCondition);
             when.IsSuccessful.Should().Be(trueCondition);
-            when.Should().BeOfType(typeof(WhenOr<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenOr<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
     }
 }

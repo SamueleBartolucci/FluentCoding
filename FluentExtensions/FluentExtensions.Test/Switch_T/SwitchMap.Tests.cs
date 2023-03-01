@@ -11,94 +11,94 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMap_Func_T_Bool_Default() =>
-            Test.T.Switch
+            Test.NewT.Switch
             (
-                (_) => Test.KRight,
-                (_ => false, _ => Test.KNotDone),
-                (_ => false, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (_ => false, _ => Test.NewKNotDone),
+                (_ => false, _ => Test.NewKLeft)
              )
-            .Should().BeEquivalentTo(Test.KRight);
+            .Should().BeEquivalentTo(Test.NewKRight);
 
         [Test]
         public void SwitchMap_Func_T_Bool_NotDefault1() =>
-            Test.T.Switch
+            Test.NewT.Switch
             (
-                (_) => Test.KRight,
-                (_ => true, _ => Test.KNotDone),
-                (_ => false, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (_ => true, _ => Test.NewKNotDone),
+                (_ => false, _ => Test.NewKLeft)
              )
-            .Should().BeEquivalentTo(Test.KNotDone);
+            .Should().BeEquivalentTo(Test.NewKNotDone);
 
         [Test]
         public void SwitchMap_Func_T_Bool_NotDefault2() =>
-            Test.T.Switch
+            Test.NewT.Switch
             (
-                (_) => Test.KRight,
-                (_ => false, _ => Test.KNotDone),
-                (_ => true, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (_ => false, _ => Test.NewKNotDone),
+                (_ => true, _ => Test.NewKLeft)
              )
-            .Should().BeEquivalentTo(Test.KLeft);
+            .Should().BeEquivalentTo(Test.NewKLeft);
 
 
         [Test]
         public void SwitchMap_Func_Bool_Default() =>
-           Test.T.Switch
+           Test.NewT.Switch
            (
-               (_) => Test.KRight,
-               (() => false, _ => Test.KNotDone),
-               (() => false, _ => Test.KLeft)
+               (_) => Test.NewKRight,
+               (() => false, _ => Test.NewKNotDone),
+               (() => false, _ => Test.NewKLeft)
             )
-           .Should().BeEquivalentTo(Test.KRight);
+           .Should().BeEquivalentTo(Test.NewKRight);
 
         [Test]
         public void SwitchMap_Func_Bool_NotDefault1() =>
-            Test.T.Switch
+            Test.NewT.Switch
             (
-                (_) => Test.KRight,
-                (() => true, _ => Test.KNotDone),
-                (() => false, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (() => true, _ => Test.NewKNotDone),
+                (() => false, _ => Test.NewKLeft)
              )
-            .Should().BeEquivalentTo(Test.KNotDone);
+            .Should().BeEquivalentTo(Test.NewKNotDone);
 
         [Test]
         public void SwitchMap_Func_Bool_NotDefault2() =>
-            Test.T.Switch
+            Test.NewT.Switch
             (
-                (_) => Test.KRight,
-                (() => false, _ => Test.KNotDone),
-                (() => true, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (() => false, _ => Test.NewKNotDone),
+                (() => true, _ => Test.NewKLeft)
              )
-            .Should().BeEquivalentTo(Test.KLeft);
+            .Should().BeEquivalentTo(Test.NewKLeft);
 
 
         [Test]
         public void SwitchMap_Bool_Default() =>
-          Test.T.Switch
+          Test.NewT.Switch
           (
-              (_) => Test.KRight,
-              (false, _ => Test.KNotDone),
-              (false, _ => Test.KLeft)
+              (_) => Test.NewKRight,
+              (false, _ => Test.NewKNotDone),
+              (false, _ => Test.NewKLeft)
            )
-          .Should().BeEquivalentTo(Test.KRight);
+          .Should().BeEquivalentTo(Test.NewKRight);
 
         [Test]
         public void SwitchMap_Bool_NotDefault1() =>
-            Test.T.Switch
+            Test.NewT.Switch
             (
-                (_) => Test.KRight,
-                (true, _ => Test.KNotDone),
-                (false, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (true, _ => Test.NewKNotDone),
+                (false, _ => Test.NewKLeft)
              )
-            .Should().BeEquivalentTo(Test.KNotDone);
+            .Should().BeEquivalentTo(Test.NewKNotDone);
 
         [Test]
         public void SwitchMap_Bool_NotDefault2() =>
-            Test.T.Switch
+            Test.NewT.Switch
             (
-                (_) => Test.KRight,
-                (false, _ => Test.KNotDone),
-                (true, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (false, _ => Test.NewKNotDone),
+                (true, _ => Test.NewKLeft)
              )
-            .Should().BeEquivalentTo(Test.KLeft);
+            .Should().BeEquivalentTo(Test.NewKLeft);
     }
 }

@@ -29,30 +29,30 @@ namespace FluentCodingTest.Do_T
         [Test]
         public void Do_Action_Null()
         {
-            TypeT preDo = null;
-            var postDo = preDo.Do(_ => _.DescType = Test.Done);
+            TType preDo = null;
+            var postDo = preDo.Do(_ => _.TDesc = Test.DONE);
             postDo.Should().Be(null);
         }
 
         [Test]
         public void Do_Action_SubjectField()
         {
-            var preDo = Test.T;
-            var postDo = preDo.Do(_ => _.DescType = Test.Done);
-            postDo.DescType.Should().Be(Test.Done);
-            postDo.Should().BeEquivalentTo(Test.TDone);            
+            var preDo = Test.NewT;
+            var postDo = preDo.Do(_ => _.TDesc = Test.DONE);
+            postDo.TDesc.Should().Be(Test.DONE);
+            postDo.Should().BeEquivalentTo(Test.NewTDone);            
             preDo.Should().BeSameAs(postDo);
         }
 
         [Test]
         public void Do_Actions_SubjectField()
         {
-            var preDo = Test.T;
-            var postDo = preDo.Do(_ => _.DescType = ".",
-                                  _ => _.DescType += ".",
-                                  _ => _.DescType += ".",
-                                  _ => _.DescType += ".");
-            postDo.DescType.Should().Be("....");            
+            var preDo = Test.NewT;
+            var postDo = preDo.Do(_ => _.TDesc = ".",
+                                  _ => _.TDesc += ".",
+                                  _ => _.TDesc += ".",
+                                  _ => _.TDesc += ".");
+            postDo.TDesc.Should().Be("....");            
             preDo.Should().BeSameAs(postDo);
         }
 

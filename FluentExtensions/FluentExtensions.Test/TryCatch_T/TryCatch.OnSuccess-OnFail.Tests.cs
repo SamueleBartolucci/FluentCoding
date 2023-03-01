@@ -16,17 +16,17 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void TryCatch_Success_OnSuccess()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.KRight);
-            var then = tryCatch.OnSuccess(_ => _.Do(_ => _.DescType = Test.Done));
-            then.Success.Should().BeEquivalentTo(Test.KDone);
+            var tryCatch = Test.NewTNotDone.Try(_ => Test.NewKRight);
+            var then = tryCatch.OnSuccess(_ => _.Do(_ => _.KDesc = Test.DONE));
+            then.Success.Should().BeEquivalentTo(Test.NewKDone);
             then.TryCatch.Should().BeSameAs(tryCatch);
         }
 
         [Test]
         public void TryCatch_Fail_OnSuccess()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.GetException<TypeK>());
-            var then = tryCatch.OnSuccess(_ => _.Do(_ => _.DescType = Test.Done));
+            var tryCatch = Test.NewTNotDone.Try(_ => Test.RaiseException<KType>());
+            var then = tryCatch.OnSuccess(_ => _.Do(_ => _.KDesc = Test.DONE));
 
             then.Success.Should().BeNull();
             then.TryCatch.Should().BeSameAs(tryCatch);
@@ -36,7 +36,7 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void TryCatch_Success_OnFail()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.KRight);
+            var tryCatch = Test.NewTNotDone.Try(_ => Test.NewKRight);
             var then = tryCatch.OnFail((s, e) => e);
             then.Fail.Should().BeNull();
             then.TryCatch.Should().BeSameAs(tryCatch);
@@ -46,7 +46,7 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void TryCatch_Fail_OnFail()
         {
-            var tryCatch = Test.TNotDone.Try(_ => Test.GetException<TypeK>());
+            var tryCatch = Test.NewTNotDone.Try(_ => Test.RaiseException<KType>());
             var then = tryCatch.OnFail((s, e) => e);
 
             then.Fail.Should().BeOfType<Exception>();

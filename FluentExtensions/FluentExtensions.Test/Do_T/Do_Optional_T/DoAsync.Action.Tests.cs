@@ -13,54 +13,57 @@ namespace FluentCodingTest.DoAsync_T
         [Test]
         public void DoWrapAsync_Action_ValueType()
         {
-            int startValue = 1;
-            var postDo = startValue
+            var startValue = 1.ToOptional();
+            var postDo = startValue                            
                             .ToTask()
                             .DoWrapAsync(_ => _.Subject++)
                             .Result;
-            startValue.Should().Be(1);
-            postDo.Should().Be(2);
+
+            startValue.Subject.Should().Be(1);
+            postDo.Subject.Should().Be(2);
         }
 
         [Test]
         public void DoAsync_Action_ValueType()
         {
-            int startValue = 1;
-            var postDo = startValue
+            var startValue = 1.ToOptional();
+            var postDo = startValue               
                             .ToTask()
-                            .DoAsync(_ => _++)
+                            .DoOptionalAsync(_ => _++)
                             .Result;
-            postDo.Should().Be(1);
+            
+            postDo.Subject.Should().Be(1);
         }
 
         [Test]
         public void DoAsync_Action_Null()
         {
-            TypeT preDo = null;
-            var postDo = preDo.ToTask().DoAsync(_ => _.DescType = Test.Done).Result;
-            postDo.Should().Be(null);
+            TType preDo = null;
+            var postDo = preDo.ToOptional().ToTask().DoOptionalAsync(_ => _.TDesc = Test.DONE).Result;
+            postDo.IsNone().Should().BeTrue();
+            postDo.Subject.Should().Be(null);
         }
 
         [Test]
         public void DoAsync_Action_SubjectField()
         {
-            var preDo = Test.T;
-            var postDo = preDo.ToTask().DoAsync(_ => _.DescType = Test.Done).Result;
-            postDo.DescType.Should().Be(Test.Done);
-            postDo.Should().BeEquivalentTo(Test.TDone);            
+            var preDo = Test.NewT.ToOptional();
+            var postDo = preDo.ToTask().DoOptionalAsync(_ => _.TDesc = Test.DONE).Result;
+            postDo.Subject.TDesc.Should().Be(Test.DONE);
+            postDo.Subject.Should().BeEquivalentTo(Test.NewTDone);            
             preDo.Should().BeSameAs(postDo);
         }
 
         [Test]
         public void DoAsync_Actions_SubjectField()
         {
-            var preDo = Test.T;
-            var postDo = preDo.ToTask().DoAsync(_ => _.DescType = ".",
-                                                  _ => _.DescType += ".",
-                                                  _ => _.DescType += ".",
-                                                  _ => _.DescType += ".")
+            var preDo = Test.NewT.ToOptional();
+            var postDo = preDo.ToTask().DoOptionalAsync(_ => _.TDesc = ".",
+                                                  _ => _.TDesc += ".",
+                                                  _ => _.TDesc += ".",
+                                                  _ => _.TDesc += ".")
                                         .Result;
-            postDo.DescType.Should().Be("....");            
+            postDo.Subject.TDesc.Should().Be("....");            
             preDo.Should().BeSameAs(postDo);
         }
 

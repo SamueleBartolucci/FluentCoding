@@ -11,15 +11,15 @@ namespace FluentCodingTest.Do_T
     public class DoForEach_Tests
     {
 
-        private TypeT UpdateDesc(TypeT t, string newDesc)
+        private TType UpdateDesc(TType t, string newDesc)
         {
-            t.DescType = newDesc;
+            t.TDesc = newDesc;
             return t;
         }
 
-        private TypeT MergeDesc(TypeT t, string newDescPart)
+        private TType MergeDesc(TType t, string newDescPart)
         {
-            t.DescType += newDescPart;
+            t.TDesc += newDescPart;
             return t;
         }
 
@@ -27,47 +27,47 @@ namespace FluentCodingTest.Do_T
         [Test]
         public void DoForEach_Action()
         {
-            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
+            TType[] original = { Test.NewT, Test.NewT, Test.NewT, Test.NewT };
             
-            var postDo = original.DoForEach(_ => _.DescType = Test.Done);
+            var postDo = original.DoForEach(_ => _.TDesc = Test.DONE);
             postDo.Should().HaveCount(4);
-            postDo.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
-            original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
+            postDo.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.NewTDone));
+            original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.NewTDone));
         }
 
         [Test]
         public void DoForEach_Actions()
         {
-            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
+            TType[] original = { Test.NewT, Test.NewT, Test.NewT, Test.NewT };
             
-            var postDo = original.DoForEach(_ => _.DescType = Test.Done,
-                                           _ => _.DescType += "." );
+            var postDo = original.DoForEach(_ => _.TDesc = Test.DONE,
+                                           _ => _.TDesc += "." );
             postDo.Should().HaveCount(4);
-            postDo.Should().AllSatisfy(_ => _.DescType.Should().Be(Test.TDone.DescType+"."));
-            original.Should().AllSatisfy(_ => _.DescType.Should().Be(Test.TDone.DescType + "."));
+            postDo.Should().AllSatisfy(_ => _.TDesc.Should().Be(Test.NewTDone.TDesc+"."));
+            original.Should().AllSatisfy(_ => _.TDesc.Should().Be(Test.NewTDone.TDesc + "."));
         }
 
 
         [Test]
         public void DoForEach_Func()
         {
-            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
-            var postDo = original.DoForEach(_ => UpdateDesc(_, Test.Done));
+            TType[] original = { Test.NewT, Test.NewT, Test.NewT, Test.NewT };
+            var postDo = original.DoForEach(_ => UpdateDesc(_, Test.DONE));
             postDo.Should().HaveCount(4);
-            postDo.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
-            original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.TDone));
+            postDo.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.NewTDone));
+            original.Should().AllSatisfy(_ => _.Should().BeEquivalentTo(Test.NewTDone));
         }
 
 
         [Test]
         public void DoForEach_Funcs()
         {
-            TypeT[] original = { Test.T, Test.T, Test.T, Test.T };
-            var postDo = original.DoForEach(_ => UpdateDesc(_, Test.Done),
+            TType[] original = { Test.NewT, Test.NewT, Test.NewT, Test.NewT };
+            var postDo = original.DoForEach(_ => UpdateDesc(_, Test.DONE),
                                            _ => MergeDesc(_, "."));
             postDo.Should().HaveCount(4);
-            postDo.Should().AllSatisfy(_ => _.DescType.Should().BeEquivalentTo(Test.Done + "."));
-            original.Should().AllSatisfy(_ => _.DescType.Should().BeEquivalentTo(Test.Done + "."));
+            postDo.Should().AllSatisfy(_ => _.TDesc.Should().BeEquivalentTo(Test.DONE + "."));
+            original.Should().AllSatisfy(_ => _.TDesc.Should().BeEquivalentTo(Test.DONE + "."));
         }
 
     }

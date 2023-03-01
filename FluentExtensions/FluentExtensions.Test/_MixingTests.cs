@@ -27,49 +27,49 @@ namespace FluentCodingTest
         [TestCase("not-ok")]
         public void When_OrWhen_Then_TryWrap(string subject)
         {
-            subject.When(_ => _.Equals(Test.Left))
-                .OrWhen(_ => _.Equals(Test.Right))
-                .Then(_ => Test.Done)
-                .TryTo(_ => _, (s, e) => Test.NotDone)
-                .Should().Be(subject.EqualsToAny(Test.Left, Test.Right) ? Test.Done : "not-ok");
+            subject.When(_ => _.Equals(Test.LEFT))
+                .OrWhen(_ => _.Equals(Test.RIGHT))
+                .Then(_ => Test.DONE)
+                .TryTo(_ => _, (s, e) => Test.NOT_DONE)
+                .Should().Be(subject.EqualsToAny(Test.LEFT, Test.RIGHT) ? Test.DONE : "not-ok");
         }
 
         [Test]
         public void When_OrWhen_Then_TryTo_Or_Exception()
         {
-            "".When(_ => _.Equals(Test.Left))
-                .AndWhen(_ => _.Equals(Test.Right))
-                .Then(_ => Test.Done)
-                .TryTo(_ => Test.Done.Or(Test.GetException<string>(), _.Equals(Test.Done)), (s, e) => Test.NotDone)
-                .Should().Be(Test.NotDone);
+            "".When(_ => _.Equals(Test.LEFT))
+                .AndWhen(_ => _.Equals(Test.RIGHT))
+                .Then(_ => Test.DONE)
+                .TryTo(_ => Test.DONE.Or(Test.RaiseException<string>(), _.Equals(Test.DONE)), (s, e) => Test.NOT_DONE)
+                .Should().Be(Test.NOT_DONE);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void Or_DoWhen_Func(bool isTrue)
         {
-            Test.GetDefault<TypeT>().Or(Test.T)
+            Test.GetDefault<TType>().Or(Test.NewT)
                 .When((_) => isTrue)
-                .Then(_ => _.DescType = Test.Done)
-                .Should().BeEquivalentTo(isTrue ? Test.TDone : Test.T);
+                .Then(_ => _.TDesc = Test.DONE)
+                .Should().BeEquivalentTo(isTrue ? Test.NewTDone : Test.NewT);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void Or_DoWhen_Bool(bool isTrue)
         {
-            Test.GetDefault<TypeT>().Or(Test.T)
+            Test.GetDefault<TType>().Or(Test.NewT)
                 .When(isTrue)
-                .Then(_ => _.DescType = Test.Done)
-                .Should().BeEquivalentTo(isTrue ? Test.TDone : Test.T);
+                .Then(_ => _.TDesc = Test.DONE)
+                .Should().BeEquivalentTo(isTrue ? Test.NewTDone : Test.NewT);
         }
 
         [Test]
         public void Or_DoWhen_Satisfy()
         {
-            Test.TRight.Or(Test.TLeft)
-                .When(_ => _.DescType == Test.Left).Then(_ => _.DescType = Test.Done)
-                .Is(_ => _.DescType == Test.Right)
+            Test.NewTRight.Or(Test.NewTLeft)
+                .When(_ => _.TDesc == Test.LEFT).Then(_ => _.TDesc = Test.DONE)
+                .Is(_ => _.TDesc == Test.RIGHT)
                 .IsSatisfied.Should().BeTrue();
         }
 
@@ -77,64 +77,64 @@ namespace FluentCodingTest
         public void Try_When_ThenMap_Map_When_Then_Do()
         {
             var outcome =
-                Test.TLeft.Try(_ => Test.TDone)
+                Test.NewTLeft.Try(_ => Test.NewTDone)
                 .When(_ => _.IsSuccessful)
                 .Then
                 (
                    _ => _.Map(_ => _.Result)
-                         .When(_ => _.DescType == Test.Done)
-                         .Then(_ => _.Do(_ => _.DescType = Test.Right),
-                               _ => _.Do(_ => _.DescType = Test.Left)),
-                   _ => Test.TNotDone
+                         .When(_ => _.TDesc == Test.DONE)
+                         .Then(_ => _.Do(_ => _.TDesc = Test.RIGHT),
+                               _ => _.Do(_ => _.TDesc = Test.LEFT)),
+                   _ => Test.NewTNotDone
                 )
-                .Should().BeEquivalentTo(Test.TRight);
+                .Should().BeEquivalentTo(Test.NewTRight);
         }
 
         [Test]
         public void Try_Then_Is_When_ThenMap_Map()
         {
             var outcome =
-                Test.TLeft.Try(_ => Test.TDone, (_, e) => e)
+                Test.NewTLeft.Try(_ => Test.NewTDone, (_, e) => e)
                 .Then
                 (
-                   _ => _.Is(__ => !__.IsNullOrEquivalent() && __.DescType == Test.NotDone)
+                   _ => _.Is(__ => !__.IsNullOrEquivalent() && __.TDesc == Test.NOT_DONE)
                             .When(_ => _.IsSatisfied)
-                            .Then(_ => Test.TDone, _ => Test.TNotDone),
+                            .Then(_ => Test.NewTDone, _ => Test.NewTNotDone),
                    (_, e) => Test.EException
                 )
-                .Map(_ => _.Success.Or(Test.TNotDone))
-                .Should().BeEquivalentTo(Test.TNotDone);
+                .Map(_ => _.Success.Or(Test.NewTNotDone))
+                .Should().BeEquivalentTo(Test.NewTNotDone);
         }
 
         [Test]
         public void Map_Do_SwitchMap_EqualsToAny1()
         {
-            Test.K
+            Test.NewK
                 .Map(_ => Test.EException)
-                .Do(_ => _.Source = Test.Done)
+                .Do(_ => _.Source = Test.DONE)
                 .Switch
                 (
                     _ => _.Source,
-                    (_ => _.Source == Test.NotDone, _ => Test.NotDone),
-                    (_ => _.Source == Test.Left, _ => Test.Left)
+                    (_ => _.Source == Test.NOT_DONE, _ => Test.NOT_DONE),
+                    (_ => _.Source == Test.LEFT, _ => Test.LEFT)
                 )
-                .EqualsToAny(Test.Left, Test.NotDone, Test.Done)
+                .EqualsToAny(Test.LEFT, Test.NOT_DONE, Test.DONE)
                 .Should().BeTrue();
         }
 
         [Test]
         public void Map_Do_SwitchMap_EqualsToAny2()
         {
-            Test.K
+            Test.NewK
                 .Map(_ => Test.EException)
-                .Do(_ => _.Source = Test.Done)
+                .Do(_ => _.Source = Test.DONE)
                 .Switch
                 (
                     _ => _.Source,
-                    (_ => _.Source == Test.NotDone, _ => Test.NotDone),
-                    (_ => _.Source == Test.Left, _ => Test.Left)
+                    (_ => _.Source == Test.NOT_DONE, _ => Test.NOT_DONE),
+                    (_ => _.Source == Test.LEFT, _ => Test.LEFT)
                 )
-                .EqualsToAny(Test.Left, Test.NotDone, Test.Right)
+                .EqualsToAny(Test.LEFT, Test.NOT_DONE, Test.RIGHT)
                 .Should().BeFalse();
         }
 
@@ -142,29 +142,29 @@ namespace FluentCodingTest
         [Test]
         public void Switch_Do_Map()
         {
-            (result: Test.T, time: DateTime.Now)
+            (result: Test.NewT, time: DateTime.Now)
             .Switch
             (
-                _ => _.Do(_ => _.result.DescType = "PRESENT"),
-                (_ => _.time > DateTime.Now.AddDays(12), _ => _.Do(_ => _.result.DescType = "FUTURE")),
-                (_ => _.time < DateTime.Now.AddDays(-12), _ => _.Do(_ => _.result.DescType = "PAST"))
+                _ => _.Do(_ => _.result.TDesc = "PRESENT"),
+                (_ => _.time > DateTime.Now.AddDays(12), _ => _.Do(_ => _.result.TDesc = "FUTURE")),
+                (_ => _.time < DateTime.Now.AddDays(-12), _ => _.Do(_ => _.result.TDesc = "PAST"))
             )
-            .Map(_ => "BACK TO THE: " + _.result.DescType)
+            .Map(_ => "BACK TO THE: " + _.result.TDesc)
             .Should().Be("BACK TO THE: PRESENT");
         }
 
         [Test]
         public void WhenThenCascade()
         {
-            Test.GetDefault<TypeK>().Or(Test.K)
-                  .When(_ => _.DescType == "XXX")
-                  .Then(_ => _.DescType = Test.NotDone)
-                  .When(_ => _ is TypeK)
-                  .Then(_ => _.DescType = Test.Done)
+            Test.GetDefault<KType>().Or(Test.NewK)
+                  .When(_ => _.KDesc == "XXX")
+                  .Then(_ => _.KDesc = Test.NOT_DONE)
+                  .When(_ => _ is KType)
+                  .Then(_ => _.KDesc = Test.DONE)
                   .When(_ => !_.IsNullOrEquivalent())
-                  .Then(_ => _.DescType += " NOT NULL")
-                  .Map(_ => _.DescType)
-                  .Should().Be(Test.Done + " NOT NULL");
+                  .Then(_ => _.KDesc += " NOT NULL")
+                  .Map(_ => _.KDesc)
+                  .Should().Be(Test.DONE + " NOT NULL");
         }
 
         [Test]

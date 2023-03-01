@@ -12,29 +12,29 @@ namespace FluentCodingTest.Or_T
     { 
         [Test]
         public void OrIsEmptyAsync_String_Left1()
-            => Test.Left.ToTask().OrIsEmptyAsync(Test.Right, (l, r) => false)
-                .Result.Should().Be(Test.Left);
+            => Test.LEFT.ToTask().OrIsEmptyAsync(Test.RIGHT, (l, r) => false)
+                .Result.Should().Be(Test.LEFT);
 
         [Test]
         public void OrIsEmptyAsync_String_Left2()
-            => Test.Left.ToTask().OrIsEmptyAsync(null, (l, r) => false)
-                .Result.Should().Be(Test.Left);
+            => Test.LEFT.ToTask().OrIsEmptyAsync(null, (l, r) => false)
+                .Result.Should().Be(Test.LEFT);
 
         [Test]
         public void OrIsEmptyAsync_StringEmpty_Right()
-            => string.Empty.ToTask().OrIsEmptyAsync(Test.Right, (l, r) => false)
-                .Result.Should().Be(Test.Right);
+            => string.Empty.ToTask().OrIsEmptyAsync(Test.RIGHT, (l, r) => false)
+                .Result.Should().Be(Test.RIGHT);
 
         [Test]
         public void OrIsEmptyAsync_StringSpaces_Right()
-            => " ".ToTask().OrIsEmptyAsync(Test.Right, (l, r) => false)
+            => " ".ToTask().OrIsEmptyAsync(Test.RIGHT, (l, r) => false)
                 .Result.Should().Be(" ");
 
         [Test]
         public void OrIsEmptyAsync_Null_Right()
             => (null as string)
-                .ToTask().OrIsEmptyAsync(Test.Right, (l, r) => false)
-                .Result.Should().Be(Test.Right);
+                .ToTask().OrIsEmptyAsync(Test.RIGHT, (l, r) => false)
+                .Result.Should().Be(Test.RIGHT);
 
     }
 }

@@ -9,39 +9,47 @@ using System.Diagnostics.CodeAnalysis;
 namespace FluentCodingTest.MapAsync_T
 {
     [ExcludeFromCodeCoverage]
-    public class MapAsync_Tests
+    public class MapAsync_Optional_Tests
     {
         [Test]
         public void MapAsync_Null() =>
             Test.GetDefault<TType>()
+            .ToOptional()
             .ToTask()
-            .MapAsync((_) => _.TDesc)
+            .MapOptionalAsync((_) => _.TDesc)
             .Result
-            .Should().BeNull();
+            .IsNone()
+            .Should().BeTrue();
 
 
         [Test]
         public void MapAsync_Strings() =>
             Test.NewTLeft
+            .ToOptional()
             .ToTask()
-            .MapAsync((_) => _.TDesc)
+            .MapOptionalAsync(_ => _.TDesc)
             .Result
+            .Subject
             .Should().Be(Test.LEFT);
 
         [Test]
         public void MapAsync_Object() =>
             Test.NewT
+            .ToOptional()
             .ToTask()
-            .MapAsync((_) => new KType())
+            .MapOptionalAsync<TType, KType>(_ => new KType())
             .Result
+            .Subject
             .Should().BeEquivalentTo(new KType());
 
         [Test]
         public void MapAsync_Struct() =>
             DateTime.Now
+            .ToOptional()
             .ToTask()
             .MapAsync((_) => new KType())
             .Result
+            .Subject
             .Should().BeEquivalentTo(new KType());
 
     }

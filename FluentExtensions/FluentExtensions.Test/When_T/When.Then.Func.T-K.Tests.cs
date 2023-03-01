@@ -15,19 +15,19 @@ namespace FluentCodingTest.When_T
         [TestCase(false)]
         public void ThenMap_T_K(bool trueCondition)
         {
-            var when = WhenContext(Test.T, trueCondition)
-                  .ThenMap((_) => Test.KDone);
-            when.OnTrue.Should().BeEquivalentTo(trueCondition ? Test.KDone : null);
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            var when = WhenContext(Test.NewT, trueCondition)
+                  .ThenMap((_) => Test.NewKDone);
+            when.OnTrue.Should().BeEquivalentTo(trueCondition ? Test.NewKDone : null);
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
 
         [TestCase(true)]
         [TestCase(false)]
         public void ThenWhenTrue(bool trueCondition)
         {
-            WhenContext(Test.T, trueCondition)
-                .Then((_) => Test.KDone, (_) => Test.KNotDone)
-                .Should().BeEquivalentTo(trueCondition ? Test.KDone : Test.KNotDone);
+            WhenContext(Test.NewT, trueCondition)
+                .Then((_) => Test.NewKDone, (_) => Test.NewKNotDone)
+                .Should().BeEquivalentTo(trueCondition ? Test.NewKDone : Test.NewKNotDone);
         }
 
     }

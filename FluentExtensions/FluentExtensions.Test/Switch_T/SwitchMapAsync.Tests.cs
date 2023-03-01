@@ -11,94 +11,94 @@ namespace FluentCodingTest.Switch_T
 
         [Test]
         public void SwitchMapAsync_Func_T_Bool_Default() =>
-            Test.T.ToTask().SwitchAsync
+            Test.NewT.ToTask().SwitchAsync
             (
-                (_) => Test.KRight,
-                (_ => false, _ => Test.KNotDone),
-                (_ => false, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (_ => false, _ => Test.NewKNotDone),
+                (_ => false, _ => Test.NewKLeft)
              )
-            .Result.Should().BeEquivalentTo(Test.KRight);
+            .Result.Should().BeEquivalentTo(Test.NewKRight);
 
         [Test]
         public void SwitchMapAsync_Func_T_Bool_NotDefault1() =>
-            Test.T.ToTask().SwitchAsync
+            Test.NewT.ToTask().SwitchAsync
             (
-                (_) => Test.KRight,
-                (_ => true, _ => Test.KNotDone),
-                (_ => false, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (_ => true, _ => Test.NewKNotDone),
+                (_ => false, _ => Test.NewKLeft)
              )
-            .Result.Should().BeEquivalentTo(Test.KNotDone);
+            .Result.Should().BeEquivalentTo(Test.NewKNotDone);
 
         [Test]
         public void SwitchMapAsync_Func_T_Bool_NotDefault2() =>
-            Test.T.ToTask().SwitchAsync
+            Test.NewT.ToTask().SwitchAsync
             (
-                (_) => Test.KRight,
-                (_ => false, _ => Test.KNotDone),
-                (_ => true, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (_ => false, _ => Test.NewKNotDone),
+                (_ => true, _ => Test.NewKLeft)
              )
-            .Result.Should().BeEquivalentTo(Test.KLeft);
+            .Result.Should().BeEquivalentTo(Test.NewKLeft);
 
 
         [Test]
         public void SwitchMapAsync_Func_Bool_Default() =>
-           Test.T.ToTask().SwitchAsync
+           Test.NewT.ToTask().SwitchAsync
            (
-               (_) => Test.KRight,
-               (() => false, _ => Test.KNotDone),
-               (() => false, _ => Test.KLeft)
+               (_) => Test.NewKRight,
+               (() => false, _ => Test.NewKNotDone),
+               (() => false, _ => Test.NewKLeft)
             )
-           .Result.Should().BeEquivalentTo(Test.KRight);
+           .Result.Should().BeEquivalentTo(Test.NewKRight);
 
         [Test]
         public void SwitchMapAsync_Func_Bool_NotDefault1() =>
-            Test.T.ToTask().SwitchAsync
+            Test.NewT.ToTask().SwitchAsync
             (
-                (_) => Test.KRight,
-                (() => true, _ => Test.KNotDone),
-                (() => false, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (() => true, _ => Test.NewKNotDone),
+                (() => false, _ => Test.NewKLeft)
              )
-            .Result.Should().BeEquivalentTo(Test.KNotDone);
+            .Result.Should().BeEquivalentTo(Test.NewKNotDone);
 
         [Test]
         public void SwitchMapAsync_Func_Bool_NotDefault2() =>
-            Test.T.ToTask().SwitchAsync
+            Test.NewT.ToTask().SwitchAsync
             (
-                (_) => Test.KRight,
-                (() => false, _ => Test.KNotDone),
-                (() => true, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (() => false, _ => Test.NewKNotDone),
+                (() => true, _ => Test.NewKLeft)
              )
-            .Result.Should().BeEquivalentTo(Test.KLeft);
+            .Result.Should().BeEquivalentTo(Test.NewKLeft);
 
 
         [Test]
         public void SwitchMapAsync_Bool_Default() =>
-          Test.T.ToTask().SwitchAsync
+          Test.NewT.ToTask().SwitchAsync
           (
-              (_) => Test.KRight,
-              (false, _ => Test.KNotDone),
-              (false, _ => Test.KLeft)
+              (_) => Test.NewKRight,
+              (false, _ => Test.NewKNotDone),
+              (false, _ => Test.NewKLeft)
            )
-          .Result.Should().BeEquivalentTo(Test.KRight);
+          .Result.Should().BeEquivalentTo(Test.NewKRight);
 
         [Test]
         public void SwitchMapAsync_Bool_NotDefault1() =>
-            Test.T.ToTask().SwitchAsync
+            Test.NewT.ToTask().SwitchAsync
             (
-                (_) => Test.KRight,
-                (true, _ => Test.KNotDone),
-                (false, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (true, _ => Test.NewKNotDone),
+                (false, _ => Test.NewKLeft)
              )
-            .Result.Should().BeEquivalentTo(Test.KNotDone);
+            .Result.Should().BeEquivalentTo(Test.NewKNotDone);
 
         [Test]
         public void SwitchMapAsync_Bool_NotDefault2() =>
-            Test.T.ToTask().SwitchAsync
+            Test.NewT.ToTask().SwitchAsync
             (
-                (_) => Test.KRight,
-                (false, _ => Test.KNotDone),
-                (true, _ => Test.KLeft)
+                (_) => Test.NewKRight,
+                (false, _ => Test.NewKNotDone),
+                (true, _ => Test.NewKLeft)
              )
-            .Result.Should().BeEquivalentTo(Test.KLeft);
+            .Result.Should().BeEquivalentTo(Test.NewKLeft);
     }
 }

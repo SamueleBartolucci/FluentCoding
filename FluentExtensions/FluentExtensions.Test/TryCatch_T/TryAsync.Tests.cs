@@ -14,21 +14,21 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void TryAsync_Success()
         {
-            var tryCatch = Test.TNotDone.ToTask().TryAsync(_ => Test.KRight).Result;
+            var tryCatch = Test.NewTNotDone.ToTask().TryAsync(_ => Test.NewKRight).Result;
 
             tryCatch.IsSuccessful.Should().BeTrue();
-            tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
-            tryCatch.Result.Should().BeEquivalentTo(Test.KRight);
+            tryCatch.Subject.Should().BeEquivalentTo(Test.NewTNotDone);
+            tryCatch.Result.Should().BeEquivalentTo(Test.NewKRight);
             tryCatch.Error.Should().BeNull();
         }
 
         [Test]
         public void TryAsync_Fail()
         {
-            var tryCatch = Test.TNotDone.ToTask().TryAsync(_ => Test.GetException<TypeK>()).Result;
+            var tryCatch = Test.NewTNotDone.ToTask().TryAsync(_ => Test.RaiseException<KType>()).Result;
 
             tryCatch.IsSuccessful.Should().BeFalse();
-            tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
+            tryCatch.Subject.Should().BeEquivalentTo(Test.NewTNotDone);
             tryCatch.Result.Should().BeNull();
             tryCatch.Error.Should().NotBeNull();
         }
@@ -36,36 +36,36 @@ namespace FluentCodingTest.TryCatch_T
         [Test]
         public void TryOnError_Success()
         {
-            var tryCatch = Test.TNotDone.ToTask().TryAsync(_ => Test.KRight, (s, e) => string.Concat(s.DescType, "_", e.Message)).Result;
+            var tryCatch = Test.NewTNotDone.ToTask().TryAsync(_ => Test.NewKRight, (s, e) => string.Concat(s.TDesc, "_", e.Message)).Result;
 
-            tryCatch.Result.Should().BeEquivalentTo(Test.KRight);
+            tryCatch.Result.Should().BeEquivalentTo(Test.NewKRight);
             tryCatch.Error.Should().BeNull();
-            tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
+            tryCatch.Subject.Should().BeEquivalentTo(Test.NewTNotDone);
         }
 
         [Test]
         public void TryOnError_Fail()
         {
-            var tryCatch = Test.TNotDone.ToTask().TryAsync(_ => Test.GetException<TypeK>(),
-                                             (s, e) => string.Concat(s.DescType, "_", e.Message)).Result;
+            var tryCatch = Test.NewTNotDone.ToTask().TryAsync(_ => Test.RaiseException<KType>(),
+                                             (s, e) => string.Concat(s.TDesc, "_", e.Message)).Result;
 
             tryCatch.Result.Should().BeNull();
-            tryCatch.Error.Should().StartWith(Test.TNotDone.DescType + "_Exception");
-            tryCatch.Subject.Should().BeEquivalentTo(Test.TNotDone);
+            tryCatch.Error.Should().StartWith(Test.NewTNotDone.TDesc + "_Exception");
+            tryCatch.Subject.Should().BeEquivalentTo(Test.NewTNotDone);
         }
 
         [Test]
         public void TryTo_Success()
         {
-            var result = Test.TNotDone.ToTask().TryToAsync(_ => Test.Right, (s, e) => Test.Left).Result;
-            result.Should().Be(Test.Right);
+            var result = Test.NewTNotDone.ToTask().TryToAsync(_ => Test.RIGHT, (s, e) => Test.LEFT).Result;
+            result.Should().Be(Test.RIGHT);
         }
 
         [Test]
         public void TryTo_Fail()
         {
-            var result = Test.TNotDone.ToTask().TryToAsync(_ => Test.GetException<string>(), (s, e) => Test.Left).Result;
-            result.Should().Be(Test.Left);
+            var result = Test.NewTNotDone.ToTask().TryToAsync(_ => Test.RaiseException<string>(), (s, e) => Test.LEFT).Result;
+            result.Should().Be(Test.LEFT);
         }
     }
 }

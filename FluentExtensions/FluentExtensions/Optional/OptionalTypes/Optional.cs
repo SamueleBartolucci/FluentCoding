@@ -11,7 +11,7 @@ namespace FluentCoding
     /// Wrapper to safe manage nullable/default values
     /// </summary>
     /// <typeparam name="O">optional type</typeparam>
-    public class Optional<O> : FluentContext<O>
+    public partial class Optional<O> : FluentContext<O>
     {
         private Optional(O optionalValue, bool isSomething) : base(optionalValue) { IsSuccessful = isSomething; }
 

@@ -8,7 +8,7 @@ using System.Linq;
 namespace FluentCodingTest.MapForEach_T
 {
     [ExcludeFromCodeCoverage]
-    public class MapForEach_Tests
+    public class MapForEach_Optional_Tests
     {
         [Test]
         public void MapForEach_NullEnumerable()

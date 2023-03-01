@@ -22,13 +22,13 @@ namespace FluentCodingTest.When_T
         [TestCase(false, false, true)]
         public void WhenOrAnd(bool baseCondition, bool orCondition, bool andCondition)
         {
-            var when = WhenContext(Test.T, baseCondition)
+            var when = WhenContext(Test.NewT, baseCondition)
                         .OrWhen(orCondition)
                         .AndWhen(andCondition);
 
             when.IsSuccessful.Should().Be((baseCondition || orCondition) && andCondition);
-            when.Should().BeOfType(typeof(WhenAnd<TypeT>));
-            when.Subject.Should().BeEquivalentTo(Test.T);
+            when.Should().BeOfType(typeof(WhenAnd<TType>));
+            when.Subject.Should().BeEquivalentTo(Test.NewT);
         }
     }
 }

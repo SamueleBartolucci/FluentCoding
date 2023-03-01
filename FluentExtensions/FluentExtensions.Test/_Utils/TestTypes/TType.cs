@@ -8,11 +8,10 @@ using System.Threading.Tasks;
 namespace FluentCodingTest
 {
     [ExcludeFromCodeCoverage]
-    internal class TypeK
+    internal class TType
     {
-        public TypeK() { }
-
-        public object K = new object();
-        public string DescType { get; set; } = nameof(TypeK);
+        public TType() { }
+            
+        public string TDesc { get; set; } = nameof(TType);
     }
 }

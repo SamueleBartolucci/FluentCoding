@@ -13,24 +13,24 @@ namespace FluentCodingTest.Map_T
     {
         [Test]
         public void Map_Null() =>
-            Test.GetDefault<TypeT>().Map((_) => _.DescType)
+            Test.GetDefault<TType>().Map((_) => _.TDesc)
             .Should().BeNull();
 
 
         [Test]
         public void Map_Strings() =>
-            Test.TLeft.Map((_) => _.DescType)
-            .Should().Be(Test.Left);
+            Test.NewTLeft.Map((_) => _.TDesc)
+            .Should().Be(Test.LEFT);
 
         [Test]
         public void Map_Object() =>
-            Test.T.Map((_) => new TypeK())
-            .Should().BeEquivalentTo(new TypeK());
+            Test.NewT.Map((_) => new KType())
+            .Should().BeEquivalentTo(new KType());
 
         [Test]
         public void Map_Struct() =>
-            DateTime.Now.Map((_) => new TypeK())
-            .Should().BeEquivalentTo(new TypeK());
+            DateTime.Now.Map((_) => new KType())
+            .Should().BeEquivalentTo(new KType());
 
     }
 }

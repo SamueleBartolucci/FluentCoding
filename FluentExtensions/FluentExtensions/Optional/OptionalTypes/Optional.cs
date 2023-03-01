@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +16,7 @@ namespace FluentCoding
         private Optional(O optionalValue, bool isSomething) : base(optionalValue) { IsSuccessful = isSomething; }
 
 
+        public static explicit operator O(Optional<O> input) => input.IsSome() ? input.Subject : default(O);
         public static implicit operator Optional<O>(O input) => input.IsNullOrEquivalent()? None() : Some(input);
         public static implicit operator bool(Optional<O> input) => input.IsSome();
         public static bool operator true(Optional<O> input) => input.IsSome();

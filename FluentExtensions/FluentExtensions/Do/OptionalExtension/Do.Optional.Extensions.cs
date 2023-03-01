@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace FluentCoding
 {
-    public static partial class DoExtensions
+    public static partial class DoOptionalExtensions
     {
         /// <summary>
         /// Apply a set of actions to the Subject (when this is not null) wrapped inside and Context&lt;T&gt;.Subject field.

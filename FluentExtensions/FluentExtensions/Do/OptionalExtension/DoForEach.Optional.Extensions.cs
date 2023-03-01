@@ -4,7 +4,7 @@ using System.Xml.Linq;
 
 namespace FluentCoding
 {
-    public static partial class DoForEachExtensions
+    public static partial class DoOptionalExtensions
     {
         /// <summary>
         /// Apply a set of actions to the subject when this is not null then return the subject

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace FluentCoding
 {
@@ -14,8 +15,9 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRight"></param>
         /// <returns></returns>
-        public static T Or<T>(this Optional<T> leftValue, T orRightValue, bool chooseRight = false)
-            => (leftValue == null || leftValue.IsNone() || chooseRight) ? orRightValue : leftValue.Subject;
+        public static async Task<T> OrAsync<T>(this Task<Optional<T>> leftValue, T orRightValue, bool chooseRight = false)
+            => (await leftValue).Or(orRightValue, chooseRight);
+
 
         /// <summary>
         /// Choose between the left or the right value.
@@ -27,8 +29,8 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static T Or<T>(this Optional<T> leftValue, T orRightValue, Func<bool> chooseRightWhen)
-            => leftValue.Or(orRightValue, chooseRightWhen());
+        public static async Task<T> OrAsync<T>(this Task<Optional<T>> leftValue, T orRightValue, Func<bool> chooseRightWhen)
+            => (await leftValue).Or(orRightValue, chooseRightWhen);
 
         /// <summary>
         /// Choose between the left or the right value.
@@ -40,8 +42,8 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static T Or<T>(this Optional<T> leftValue, T orRightValue, Func<T, bool> chooseRightWhen)
-            => leftValue.Or(orRightValue, leftValue.IsNone() || chooseRightWhen(leftValue.Subject));
+        public static async Task<T> OrAsync<T>(this Task<Optional<T>> leftValue, T orRightValue, Func<T, bool> chooseRightWhen)
+            => (await leftValue).Or(orRightValue, chooseRightWhen);
 
         /// <summary>
         /// Choose between the left or the right value.
@@ -53,10 +55,11 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static T Or<T>(this Optional<T> leftValue, T orRightValue, Func<T, T, bool> chooseRightWhen)
-            => leftValue.Or(orRightValue, leftValue.IsNone() || chooseRightWhen(leftValue.Subject, orRightValue));
+        public static async Task<T> OrAsync<T>(this Task<Optional<T>> leftValue, T orRightValue, Func<T, T, bool> chooseRightWhen)
+            => (await leftValue).Or(orRightValue, chooseRightWhen);
 
-       
+
+
 
     }
 }

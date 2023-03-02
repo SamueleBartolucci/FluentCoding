@@ -29,7 +29,7 @@ namespace FluentCodingTest.Do_T
         {
             IEnumerable<Optional<TType>> original = new[] { Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional() };
             
-            var postDo = original.ToTask().DoOptionalForEachAsync(_ => _.TDesc = Test.DONE).Result;
+            var postDo = original.ToTask().DoOptnForEachAsync(_ => _.TDesc = Test.DONE).Result;
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
             original.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
@@ -40,7 +40,7 @@ namespace FluentCodingTest.Do_T
         {
             IEnumerable<Optional<TType>> original = new[] { Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional() };
 
-            var postDo = original.ToTask().DoOptionalForEachAsync(_ => _.TDesc = Test.DONE,
+            var postDo = original.ToTask().DoOptnForEachAsync(_ => _.TDesc = Test.DONE,
                                                          _ => _.TDesc += "." )
                                           .Result;
             postDo.Should().HaveCount(4);
@@ -54,7 +54,7 @@ namespace FluentCodingTest.Do_T
         {
 
             IEnumerable<Optional<TType>> original = new[] { Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional(), Test.NewT.ToOptional() };
-            var postDo = original.ToTask().DoOptionalForEachAsync(_ => UpdateDesc(_, Test.DONE)).Result;
+            var postDo = original.ToTask().DoOptnForEachAsync(_ => UpdateDesc(_, Test.DONE)).Result;
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
             original.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
@@ -68,7 +68,7 @@ namespace FluentCodingTest.Do_T
 
             var postDo = original
                             .ToTask()
-                            .DoOptionalForEachAsync(originalItem        => UpdateDesc(originalItem, Test.DONE),
+                            .DoOptnForEachAsync(originalItem        => UpdateDesc(originalItem, Test.DONE),
                                             itemWihtUpdatedDesc => MergeDesc(itemWihtUpdatedDesc, "."))
                             .Result;
 

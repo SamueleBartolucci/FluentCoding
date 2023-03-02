@@ -35,7 +35,7 @@ namespace FluentCodingTest.Do_T
                     Test.NewT.ToOptional()
                 };
             
-            var postDo = original.DoOptionalForEach(_ => _.TDesc = Test.DONE);
+            var postDo = original.DoOptnForEach(_ => _.TDesc = Test.DONE);
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
             original.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
@@ -52,7 +52,7 @@ namespace FluentCodingTest.Do_T
                     Test.NewT.ToOptional()
                 };
 
-            var postDo = original.DoOptionalForEach(_ => _.TDesc = Test.DONE,
+            var postDo = original.DoOptnForEach(_ => _.TDesc = Test.DONE,
                                            _ => _.TDesc += "." );
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.Subject.TDesc.Should().Be(Test.NewTDone.TDesc+"."));
@@ -71,7 +71,7 @@ namespace FluentCodingTest.Do_T
                     Test.NewT.ToOptional()
                 };
 
-            var postDo = original.DoOptionalForEach(_ => UpdateDesc(_, Test.DONE));
+            var postDo = original.DoOptnForEach(_ => UpdateDesc(_, Test.DONE));
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
             original.Should().AllSatisfy(_ => _.Subject.Should().BeEquivalentTo(Test.NewTDone));
@@ -89,7 +89,7 @@ namespace FluentCodingTest.Do_T
                     Test.NewT.ToOptional()
                 };
 
-            var postDo = original.DoOptionalForEach(_ => UpdateDesc(_, Test.DONE),
+            var postDo = original.DoOptnForEach(_ => UpdateDesc(_, Test.DONE),
                                            _ => MergeDesc(_, "."));
             postDo.Should().HaveCount(4);
             postDo.Should().AllSatisfy(_ => _.Subject.TDesc.Should().BeEquivalentTo(Test.DONE + "."));

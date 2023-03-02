@@ -27,7 +27,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Func_Null()
         {
             TType preDo = null;
-            var postDo = preDo.ToOptional().DoOptional(_ => Update(_, "."));
+            var postDo = preDo.ToOptional().DoOptn(_ => Update(_, "."));
             postDo.IsNone().Should().BeTrue();
             postDo.Subject.Should().BeNull();
         }
@@ -37,7 +37,7 @@ namespace FluentCodingTest.Do_T
         {
             TType newData = null;
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.DoOptional(_ => newData = CopyFrom(_));
+            var postDo = preDo.DoOptn(_ => newData = CopyFrom(_));
             postDo.Should().BeSameAs(preDo);
             preDo.Subject.Should().BeEquivalentTo(Test.NewT);
             newData.Should().NotBeNull();
@@ -49,7 +49,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Func_UpdateSubject()
         {
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.DoOptional(_ => Update(_, "."));
+            var postDo = preDo.DoOptn(_ => Update(_, "."));
             postDo.Should().BeSameAs(preDo);
             postDo.Subject.TDesc.Should().Be(Test.NewT.TDesc + ".");
             preDo.Subject.TDesc.Should().Be(Test.NewT.TDesc + ".");
@@ -60,7 +60,7 @@ namespace FluentCodingTest.Do_T
         {
             TType newData = null;
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.DoOptional(_ => newData = CopyFrom(_),
+            var postDo = preDo.DoOptn(_ => newData = CopyFrom(_),
                                   _ => Update(_, "."));
             postDo.Should().BeSameAs(preDo);
             preDo.Subject.TDesc.Should().Be(Test.NewT.TDesc + ".");

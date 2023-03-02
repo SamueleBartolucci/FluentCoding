@@ -2,10 +2,12 @@
 
 namespace FluentCoding
 {
-    public partial class Optional<O> : FluentContext<O>
+    //public partial class Optional<O> : FluentContext<O>
+    public static partial class MapExtensions
     {
         /// <summary>
-        /// Apply the mapping function on the subject and return the result
+        /// Apply the mapping function on the subject when IsSome and return the result
+        /// Otherwise return None
         /// </summary>
         /// <typeparam name="O"></typeparam>
         /// <typeparam name="K"></typeparam>

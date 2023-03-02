@@ -22,7 +22,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_ValueType()
         {
             int startValue = 1;
-            var postDo = startValue.ToOptional().DoOptional(_ => _++);
+            var postDo = startValue.ToOptional().DoOptn(_ => _++);
             postDo.Subject.Should().Be(1);
         }
 
@@ -30,7 +30,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_Null()
         {
             var preDo = ((TType)null).ToOptional();
-            var postDo = preDo.DoOptional(_ => _.TDesc = Test.DONE);
+            var postDo = preDo.DoOptn(_ => _.TDesc = Test.DONE);
             postDo.Subject.Should().Be(null);
         }
 
@@ -38,7 +38,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Action_SubjectField()
         {
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.DoOptional(_ => _.TDesc = Test.DONE);
+            var postDo = preDo.DoOptn(_ => _.TDesc = Test.DONE);
             postDo.Subject.TDesc.Should().Be(Test.DONE);
             postDo.Subject.Should().BeEquivalentTo(Test.NewTDone);            
             preDo.Should().BeSameAs(postDo);
@@ -48,7 +48,7 @@ namespace FluentCodingTest.Do_T
         public void Do_Actions_SubjectField()
         {
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.DoOptional(_ => _.TDesc = ".",
+            var postDo = preDo.DoOptn(_ => _.TDesc = ".",
                                   _ => _.TDesc += ".",
                                   _ => _.TDesc += ".",
                                   _ => _.TDesc += ".");
@@ -64,7 +64,7 @@ namespace FluentCodingTest.Do_T
             Optional<string> preDo = Optional<string>.Some("notDone");
             List<string> output = new List<string>();
             
-            var postDo = preDo.DoOptional(_ => output.Add(_ +"1"),
+            var postDo = preDo.DoOptn(_ => output.Add(_ +"1"),
                                   _ => output.Add(_ + "2"),
                                   _ => output.Add(_ + "3"));
 

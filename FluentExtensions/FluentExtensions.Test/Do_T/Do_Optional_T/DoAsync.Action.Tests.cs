@@ -29,7 +29,7 @@ namespace FluentCodingTest.DoAsync_T
             var startValue = 1.ToOptional();
             var postDo = startValue               
                             .ToTask()
-                            .DoOptionalAsync(_ => _++)
+                            .DoOptnAsync(_ => _++)
                             .Result;
             
             postDo.Subject.Should().Be(1);
@@ -39,7 +39,7 @@ namespace FluentCodingTest.DoAsync_T
         public void DoAsync_Action_Null()
         {
             TType preDo = null;
-            var postDo = preDo.ToOptional().ToTask().DoOptionalAsync(_ => _.TDesc = Test.DONE).Result;
+            var postDo = preDo.ToOptional().ToTask().DoOptnAsync(_ => _.TDesc = Test.DONE).Result;
             postDo.IsNone().Should().BeTrue();
             postDo.Subject.Should().Be(null);
         }
@@ -48,7 +48,7 @@ namespace FluentCodingTest.DoAsync_T
         public void DoAsync_Action_SubjectField()
         {
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.ToTask().DoOptionalAsync(_ => _.TDesc = Test.DONE).Result;
+            var postDo = preDo.ToTask().DoOptnAsync(_ => _.TDesc = Test.DONE).Result;
             postDo.Subject.TDesc.Should().Be(Test.DONE);
             postDo.Subject.Should().BeEquivalentTo(Test.NewTDone);            
             preDo.Should().BeSameAs(postDo);
@@ -58,7 +58,7 @@ namespace FluentCodingTest.DoAsync_T
         public void DoAsync_Actions_SubjectField()
         {
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.ToTask().DoOptionalAsync(_ => _.TDesc = ".",
+            var postDo = preDo.ToTask().DoOptnAsync(_ => _.TDesc = ".",
                                                   _ => _.TDesc += ".",
                                                   _ => _.TDesc += ".",
                                                   _ => _.TDesc += ".")

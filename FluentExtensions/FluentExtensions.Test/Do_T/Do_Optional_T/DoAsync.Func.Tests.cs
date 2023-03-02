@@ -27,7 +27,7 @@ namespace FluentCodingTest.DoAsync_T
         public void DoAsync_Func_Null()
         {
             TType preDo = null;
-            var postDo = preDo.ToOptional().ToTask().DoOptionalAsync(_ => Update(_, ".")).Result;
+            var postDo = preDo.ToOptional().ToTask().DoOptnAsync(_ => Update(_, ".")).Result;
             postDo.IsNone().Should().BeTrue();
             postDo.Subject.Should().BeNull();
         }
@@ -37,7 +37,7 @@ namespace FluentCodingTest.DoAsync_T
         {
             TType newData = null;
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.ToTask().DoOptionalAsync(_ => newData = CopyFrom(_)).Result;
+            var postDo = preDo.ToTask().DoOptnAsync(_ => newData = CopyFrom(_)).Result;
             postDo.Should().BeSameAs(preDo);
             preDo.Subject.Should().BeEquivalentTo(Test.NewT);
             newData.Should().NotBeNull();
@@ -49,7 +49,7 @@ namespace FluentCodingTest.DoAsync_T
         public void DoAsync_Func_UpdateSubject()
         {
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.ToTask().DoOptionalAsync(_ => Update(_, ".")).Result;
+            var postDo = preDo.ToTask().DoOptnAsync(_ => Update(_, ".")).Result;
             postDo.Should().BeSameAs(preDo);
             postDo.Subject.TDesc.Should().Be(Test.NewT.TDesc + ".");
             preDo.Subject.TDesc.Should().Be(Test.NewT.TDesc + ".");
@@ -60,7 +60,7 @@ namespace FluentCodingTest.DoAsync_T
         {
             TType newData = null;
             var preDo = Test.NewT.ToOptional();
-            var postDo = preDo.ToTask().DoOptionalAsync(_ => newData = CopyFrom(_),
+            var postDo = preDo.ToTask().DoOptnAsync(_ => newData = CopyFrom(_),
                                                 _ => Update(_, "."))
                                        .Result;
             postDo.Should().BeSameAs(preDo);

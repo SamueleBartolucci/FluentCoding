@@ -13,7 +13,7 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="mapSubject"></param>
         /// <returns></returns>
-        public static async Task<Optional<K>> MapOptionalAsync<T, K>(this Task<Optional<T>> subject, Func<T, K> mapSubject) 
-            => (await subject).MapOptional(mapSubject);
+        public static async Task<Optional<K>> MapOptnAsync<T, K>(this Task<Optional<T>> subject, Func<T, K> mapSubject) 
+            => (await subject).MapOptn(mapSubject);
     }
 }

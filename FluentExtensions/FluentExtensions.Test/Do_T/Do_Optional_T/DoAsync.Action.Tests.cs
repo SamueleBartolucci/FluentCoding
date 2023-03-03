@@ -10,18 +10,6 @@ namespace FluentCodingTest.DoAsync_T
     [ExcludeFromCodeCoverage]
     public class DoAsync_Optional_Action_Tests
     {
-        [Test]
-        public void DoWrapAsync_Action_ValueType()
-        {
-            var startValue = 1.ToOptional();
-            var postDo = startValue                            
-                            .ToTask()
-                            .DoWrapAsync(_ => _.Subject++)
-                            .Result;
-
-            startValue.Subject.Should().Be(1);
-            postDo.Subject.Should().Be(2);
-        }
 
         [Test]
         public void DoAsync_Action_ValueType()

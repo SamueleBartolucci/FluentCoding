@@ -14,6 +14,53 @@ namespace FluentCodingTest.Outcome_S_F
 
 
         [Test]
+        public void Outcome_ToOutcome_bool_Success()
+        {
+            Test.NewT.ToOutcome(() => false, Test.NewK)
+                .IsSuccessful.Should().BeTrue();
+        }
+
+        [Test]
+        public void Outcome_ToOutcome_T_bool_Success()
+        {
+            Test.NewT.ToOutcome(_ => _.IsNullOrEquivalent(), Test.NewK)
+                .IsSuccessful.Should().BeTrue();
+        }
+
+        [Test]
+        public void Outcome_ToOutcome_bool_Failure()
+        {
+            Test.NewT.ToOutcome(() => true, Test.NewK)
+                .IsSuccessful.Should().BeFalse();
+        }
+
+        [Test]
+        public void Outcome_ToOutcome_T_bool_Failure()
+        {
+            Test.NewT.ToOutcome(_ => !_.IsNullOrEquivalent(), Test.NewK)
+                .IsSuccessful.Should().BeFalse();
+        }
+
+        [Test]
+        public void Outcome_Success_Match()
+        {
+            Test.NewT.ToSuccessOutcome<TType, KType>()
+                .Match(t => t.TDesc,
+                       k => k.KDesc)
+                .Should().Be(Test.NewT.TDesc);
+        }
+
+        [Test]
+        public void Outcome_Failure_Match()
+        {
+            Test.NewK.ToFailureOutcome<TType, KType>()
+                .Match(t => t.TDesc,
+                       k => k.KDesc)
+                .Should().Be(Test.NewK.KDesc);
+        }
+
+
+        [Test]
         public void Outcome_Success_Istrue()
         {
             if(Test.NewT.ToSuccessOutcome<TType, KType>())

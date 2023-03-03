@@ -1,5 +1,6 @@
 using FluentAssertions;
 using FluentCoding;
+
 using FluentCodingTest;
 
 using System.Diagnostics.CodeAnalysis;

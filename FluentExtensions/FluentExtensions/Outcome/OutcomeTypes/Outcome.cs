@@ -34,6 +34,26 @@ namespace FluentCoding
 
 
         /// <summary>
+        /// Create a success/failure outcome based on the predicate whenIsFailure
+        /// </summary>
+        /// <param name="successValue"></param>
+        /// <param name="isFailureWhen"></param>
+        /// <param name="failureValue"></param>
+        /// <returns></returns>
+        public static Outcome<S, F> ToOutcome(S successValue, Func<bool> isFailureWhen, F failureValue)
+            => isFailureWhen() ? ToFailure(failureValue) : ToSuccess(successValue);
+
+        /// <summary>
+        /// Create a success/failure outcome based on the predicate whenIsFailure
+        /// </summary>
+        /// <param name="successValue"></param>
+        /// <param name="isFailureWhen"></param>
+        /// <param name="failureValue"></param>
+        /// <returns></returns>
+        public static Outcome<S, F> ToOutcome(S successValue, Func<S, bool> isFailureWhen, F failureValue)
+            => isFailureWhen(successValue) ? ToFailure(failureValue) : ToSuccess(successValue);
+
+        /// <summary>
         /// Return a successful outcome
         /// </summary>
         /// <param name="successValue"></param>
@@ -140,5 +160,15 @@ namespace FluentCoding
         public Outcome<S, F> WhenSuccess<S1>(Action<S> doWhenSuccess)
             => this.When(IsSuccessful)
                    .Then(successOutcome => doWhenSuccess(successOutcome.Success));
+
+        /// <summary>
+        /// Unwrap the Outcome using the Map success/fail based on the IsSuccessful status
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="mapOnSuccess"></param>
+        /// <param name="mapOnFail"></param>
+        /// <returns></returns>
+        public T Match<T>(Func<S, T> mapOnSuccess, Func<F, T> mapOnFail)
+           => IsSuccessful ? mapOnSuccess(Success) : mapOnFail(Failure);
     }
 }

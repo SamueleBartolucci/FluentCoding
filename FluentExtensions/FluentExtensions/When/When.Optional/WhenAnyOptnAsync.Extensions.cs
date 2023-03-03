@@ -16,7 +16,7 @@ namespace FluentCoding
         /// <param name="whenSubject"></param>
         /// <param name="whenCondition"></param>
         /// <returns></returns>
-        public static async Task<WhenOr<IEnumerable<Optional<T>>>> WhenAnyAsync<T>(this Task<IEnumerable<Optional<T>>> whenSubject, Func<T, bool> whenCondition)
-            => (await whenSubject).WhenAny(whenCondition);
+        public static async Task<WhenOr<IEnumerable<Optional<T>>>> WhenAnyOptnAsync<T>(this Task<IEnumerable<Optional<T>>> whenSubject, Func<T, bool> whenCondition)
+            => (await whenSubject).WhenAnyOpt(whenCondition);
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 
 namespace FluentCoding
 {
@@ -15,8 +14,8 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRight"></param>
         /// <returns></returns>
-        public static async Task<string> OrIsEmptyAsync(this Task<Optional<string>> leftValue, string orRightValue, bool chooseRight = false)
-            => (await leftValue).OrIsEmpty(orRightValue, chooseRight);
+        public static string OrOptnIsEmpty(this Optional<string> leftValue, string orRightValue, bool chooseRight = false)
+            => leftValue.IsNone() || string.IsNullOrEmpty(leftValue.Subject) || chooseRight ? orRightValue : leftValue.Subject;
 
         /// <summary>
         /// Choose between the left or the right value.
@@ -28,8 +27,8 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static async Task<string> OrIsEmptyAsync(this Task<Optional<string>> leftValue, string orRightValue, Func<string, string, bool> chooseRightWhen)
-           => (await leftValue).OrIsEmpty(orRightValue, chooseRightWhen);
+        public static string OrOptnIsEmpty(this Optional<string> leftValue, string orRightValue, Func<string, string, bool> chooseRightWhen)
+           => leftValue.OrOptnIsEmpty(orRightValue, leftValue.IsNone() || chooseRightWhen(leftValue.Subject, orRightValue));
 
         /// <summary>
         /// Choose between the left or the right value.
@@ -41,8 +40,8 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static async Task<string> OrIsEmptyAsync(this Task<Optional<string>> leftValue, string orRightValue, Func<string, bool> chooseRightWhen)
-            => (await leftValue).OrIsEmpty(orRightValue, chooseRightWhen);
+        public static string OrOptnIsEmpty(this Optional<string> leftValue, string orRightValue, Func<string, bool> chooseRightWhen)
+            => leftValue.OrOptnIsEmpty(orRightValue, leftValue.IsNone() || chooseRightWhen(leftValue.Subject));
 
         /// <summary>
         /// Choose between the left or the right value.
@@ -54,7 +53,7 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static async Task<string> OrIsEmptyAsync(this Task<Optional<string>> leftValue, string orRightValue, Func<bool> chooseRightWhen)
-           => (await leftValue).OrIsEmpty(orRightValue, chooseRightWhen);
+        public static string OrOptnIsEmpty(this Optional<string> leftValue, string orRightValue, Func<bool> chooseRightWhen)
+           => leftValue.OrOptnIsEmpty(orRightValue, chooseRightWhen());
     }
 }

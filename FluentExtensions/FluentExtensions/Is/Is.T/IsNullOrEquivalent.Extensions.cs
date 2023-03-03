@@ -13,7 +13,7 @@ namespace FluentCoding
         /// <param name="setupCustomOptions"></param>
         /// <returns></returns>
         public static bool IsNullOrEquivalent<T>(this T @this, Action<IsNullOptions> setupCustomOptions = null)
-        {
+        {            
             //Temporary IF to speed up the check.
             //Currently only the string type has custom options for null check            
             if (typeof(T).IsEquivalentTo(typeof(string)))

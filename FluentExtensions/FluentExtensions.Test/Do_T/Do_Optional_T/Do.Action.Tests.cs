@@ -11,14 +11,6 @@ namespace FluentCodingTest.Do_T
     public class Do_Optional_Action_Tests
     {
         [Test]
-        public void DoWrap_Action_ValueType()
-        {
-            int startValue = 1;
-            var postDo = startValue.ToOptional().DoWrap(_ => _.Subject++);
-            postDo.Subject.Should().Be(2);
-        }
-
-        [Test]
         public void Do_Action_ValueType()
         {
             int startValue = 1;

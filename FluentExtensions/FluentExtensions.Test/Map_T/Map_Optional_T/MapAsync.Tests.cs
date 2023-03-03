@@ -16,7 +16,7 @@ namespace FluentCodingTest.MapAsync_T
             Test.GetDefault<TType>()
             .ToOptional()
             .ToTask()
-            .MapOptionalAsync((_) => _.TDesc)
+            .MapOptnAsync((_) => _.TDesc)
             .Result
             .IsNone()
             .Should().BeTrue();
@@ -27,7 +27,7 @@ namespace FluentCodingTest.MapAsync_T
             Test.NewTLeft
             .ToOptional()
             .ToTask()
-            .MapOptionalAsync(_ => _.TDesc)
+            .MapOptnAsync(_ => _.TDesc)
             .Result
             .Subject
             .Should().Be(Test.LEFT);
@@ -37,7 +37,7 @@ namespace FluentCodingTest.MapAsync_T
             Test.NewT
             .ToOptional()
             .ToTask()
-            .MapOptionalAsync<TType, KType>(_ => new KType())
+            .MapOptnAsync<TType, KType>(_ => new KType())
             .Result
             .Subject
             .Should().BeEquivalentTo(new KType());
@@ -47,7 +47,7 @@ namespace FluentCodingTest.MapAsync_T
             DateTime.Now
             .ToOptional()
             .ToTask()
-            .MapAsync((_) => new KType())
+            .MapOptnAsync((_) => new KType())
             .Result
             .Subject
             .Should().BeEquivalentTo(new KType());

@@ -14,7 +14,7 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRight"></param>
         /// <returns></returns>
-        public static T Or<T>(this Optional<T> leftValue, T orRightValue, bool chooseRight = false)
+        public static T OrOptn<T>(this Optional<T> leftValue, T orRightValue, bool chooseRight = false)
             => (leftValue == null || leftValue.IsNone() || chooseRight) ? orRightValue : leftValue.Subject;
 
         /// <summary>
@@ -27,8 +27,8 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static T Or<T>(this Optional<T> leftValue, T orRightValue, Func<bool> chooseRightWhen)
-            => leftValue.Or(orRightValue, chooseRightWhen());
+        public static T OrOptn<T>(this Optional<T> leftValue, T orRightValue, Func<bool> chooseRightWhen)
+            => leftValue.OrOptn(orRightValue, chooseRightWhen());
 
         /// <summary>
         /// Choose between the left or the right value.
@@ -40,8 +40,8 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static T Or<T>(this Optional<T> leftValue, T orRightValue, Func<T, bool> chooseRightWhen)
-            => leftValue.Or(orRightValue, leftValue.IsNone() || chooseRightWhen(leftValue.Subject));
+        public static T OrOptn<T>(this Optional<T> leftValue, T orRightValue, Func<T, bool> chooseRightWhen)
+            => leftValue.OrOptn(orRightValue, leftValue.IsNone() || chooseRightWhen(leftValue.Subject));
 
         /// <summary>
         /// Choose between the left or the right value.
@@ -53,8 +53,8 @@ namespace FluentCoding
         /// <param name="orRightValue"></param>
         /// <param name="chooseRightWhen"></param>
         /// <returns></returns>
-        public static T Or<T>(this Optional<T> leftValue, T orRightValue, Func<T, T, bool> chooseRightWhen)
-            => leftValue.Or(orRightValue, leftValue.IsNone() || chooseRightWhen(leftValue.Subject, orRightValue));
+        public static T OrOptn<T>(this Optional<T> leftValue, T orRightValue, Func<T, T, bool> chooseRightWhen)
+            => leftValue.OrOptn(orRightValue, leftValue.IsNone() || chooseRightWhen(leftValue.Subject, orRightValue));
 
        
 

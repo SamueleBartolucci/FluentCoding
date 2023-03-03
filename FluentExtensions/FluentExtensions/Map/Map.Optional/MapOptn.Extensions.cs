@@ -2,8 +2,9 @@
 
 namespace FluentCoding
 {
+
     //public partial class Optional<O> : FluentContext<O>
-    public static partial class MapExtensions
+    public static partial class MapExtensions    
     {
         /// <summary>
         /// Apply the mapping function on the subject when IsSome and return the result
@@ -14,10 +15,10 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="mapSubject"></param>
         /// <returns></returns>
-        public Optional<K> MapOptional<K>(Func<O, K> mapSubject) 
-            => IsNone() ?
-                Optional<K>.None() : 
-                Subject.Map(mapSubject).ToOptional();
+        public static Optional<K> MapOptn<O, K>(this Optional<O> subject,Func<O, K> mapSubject) 
+            => subject.IsNone() ?
+                Optional<K>.None() :
+                subject.Subject.Map(mapSubject).ToOptional();
 
     }
 }

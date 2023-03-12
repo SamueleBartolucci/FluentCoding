@@ -1,4 +1,9 @@
 
+# What's NEW 2.1.1
+- Added `Option` FluentType plus all of its FluentExtensions
+- Added `Nothing` as base value, to use instead of nothing
+- Added `Or` with Func as right parameter
+
 # What's NEW 2.1.0
 - Fixed `Outcome.Succes` typo
 - Fixed `FluentContext.IsSuccesful` typo. 
@@ -29,9 +34,16 @@ This change impacts: `TryCatch.IsSuccesful`, `When.IsSuccesful`, `Outcome.IsSucc
 Set of functionalities to extend linq with more fluent capabilities
 These functionalities can be combined together to fluently manipulate an object:
 
-####  `Outcome`, `Do`,`Equals`,`Is`, `Map`, `Or`, `Switch`,`Try`, `When`
+### FluentExtension:
+Methods that use extensions of generics type (T, Task, Enumerable) to bring new functionalities
+####  `Do`,`Equals`,`Is`,`Map`,`Or`,`Switch`,
 
-Almost all the fluent extensions expose the `*Async` version that can be used with a `Task<T>`.
+### FluentExtension:
+Classes that implement new functionalities, and (when usefull) are extended with the functionalites by FluentExtension
+####  `Outcome`, `Optional`,`Try`, `When`
+
+
+# FOLLOWS THE EXPLANATION OF EACH Fluent Extension/Type
 
 # Outcome
 Mimics [railway oriented programming](https://fsharpforfunandprofit.com/rop/) concept of  functional programming.

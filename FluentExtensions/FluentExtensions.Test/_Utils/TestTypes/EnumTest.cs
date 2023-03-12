@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentCodingTest
+namespace FluentCoding.Test
 {
     public enum TestEnum { Enum1, Enum2 }
 }

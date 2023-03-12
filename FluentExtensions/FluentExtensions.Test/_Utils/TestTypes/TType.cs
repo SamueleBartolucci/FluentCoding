@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentCodingTest
+namespace FluentCoding.Test
 {
     [ExcludeFromCodeCoverage]
     internal class TType

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace FluentCodingTest
+namespace FluentCoding.Test
 {
     [ExcludeFromCodeCoverage]
     public class MixingTests

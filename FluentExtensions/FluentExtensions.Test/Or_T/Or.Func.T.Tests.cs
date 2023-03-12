@@ -18,7 +18,7 @@ namespace FluentCodingTest.Or_T
 
         [Test]
         public void Or_String_Left2()
-            => Test.LEFT.Or(null, (s) => false)
+            => Test.LEFT.Or(Test.GetDefault<string>(), (s) => false)
                 .Should().Be(Test.LEFT);
 
         [Test]

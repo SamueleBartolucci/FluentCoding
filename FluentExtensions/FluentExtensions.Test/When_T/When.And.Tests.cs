@@ -28,7 +28,8 @@ namespace FluentCodingTest.When_T
         public void AndWhen_Func_Bool(bool trueCondition)
         {
             var when = WhenContext(Test.NewT, trueCondition)
-                        .AndWhen(() => trueCondition);
+                        .AndWhen(() =>
+                        trueCondition);
 
             when.IsSuccessful.Should().Be(trueCondition);
             when.Should().BeOfType(typeof(WhenAnd<TType>));

@@ -1,6 +1,6 @@
 using FluentAssertions;
 using FluentCoding;
-
+using FluentCoding._BaseTypes._IsTypes;
 using FluentCoding.String;
 
 namespace FluentExtensions.String.Test

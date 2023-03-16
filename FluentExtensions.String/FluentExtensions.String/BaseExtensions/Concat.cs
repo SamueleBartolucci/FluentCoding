@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace FluentCoding.String
 {
-    
+
     public static class Concat
     {
         /// <summary>        

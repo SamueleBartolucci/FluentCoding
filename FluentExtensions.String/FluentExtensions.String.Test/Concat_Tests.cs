@@ -1,5 +1,7 @@
 using FluentAssertions;
 using FluentCoding;
+
+
 using FluentCoding.String;
 
 namespace FluentExtensions.String.Test

@@ -4,14 +4,11 @@
 		<TargetFrameworks>net6.0;net48;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<Version>2.1.0</Version>
+		<Version>2.1.1</Version>
 		<Title>Expand linq fluent methods with some useful constructs specific for String type</Title>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Samuele Bartolucci</Authors>
-		<Description>Add new Linq style functionalities to String to help the develop process
-Updated with latest FluentCoding changes
-Shortened some functions names
-		</Description>
+		<Description>Updated to match last signed version of FluentCoding</Description>
 		<PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
 		<PackageReleaseNotes>Update to match last signed version of FluentCoding</PackageReleaseNotes>

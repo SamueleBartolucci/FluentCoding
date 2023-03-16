@@ -32,19 +32,19 @@ namespace FluentCoding.Test
         public static KType NewK => GetKType();
 
 
-        public static IEnumerable<EnumType> GetEnumerable<EnumType>(int howMany) where EnumType : new()
+        public static IEnumerable<EnumOfType> GetEnumerable<EnumOfType>(int howMany) where EnumOfType : new()
         { 
-            var list = new List<EnumType>();
+            var list = new List<EnumOfType>();
             while (list.Count < howMany)
             {
-                if (typeof(EnumType) == typeof(TType))
-                    list.Add(NewT.As<EnumType>());
-                else if (typeof(EnumType) == typeof(KType))
-                    list.Add(NewK.As<EnumType>());
-                else if (typeof(EnumType) == typeof(DateTime))
-                    list.Add(DateTime.Now.As<EnumType>());
+                if (typeof(EnumOfType) == typeof(TType))
+                    list.Add(NewT.As<EnumOfType>());
+                else if (typeof(EnumOfType) == typeof(KType))
+                    list.Add(NewK.As<EnumOfType>());
+                else if (typeof(EnumOfType) == typeof(DateTime))
+                    list.Add(DateTime.Now.As<EnumOfType>());
                 else
-                    list.Add(new EnumType());
+                    list.Add(new EnumOfType());
             }
 
             return list;

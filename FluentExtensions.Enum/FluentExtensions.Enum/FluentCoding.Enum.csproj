@@ -8,10 +8,10 @@
 		<Title>Expand linq fluent methods with some useful constructs specific for Enum type</Title>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Samuele Bartolucci</Authors>
-		<Description>Add new Linq style functionalities to Enum to help the develop process</Description>
+		<Description>Updated to match last signed version of FluentCoding</Description>
 		<PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
-		<PackageReleaseNotes>Update to match last signed version of FluentCoding</PackageReleaseNotes>
+		<PackageReleaseNotes>Updated to match last signed version of FluentCoding</PackageReleaseNotes>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
 		<AssemblyOriginatorKeyFile>..\..\fluent.snk</AssemblyOriginatorKeyFile>

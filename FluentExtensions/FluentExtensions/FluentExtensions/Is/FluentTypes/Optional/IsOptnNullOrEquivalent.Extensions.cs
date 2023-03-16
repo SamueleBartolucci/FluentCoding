@@ -5,7 +5,7 @@ namespace FluentCoding
     public static class IsNullOrEquivalentOptionalExtensions
     {
         /// <summary>
-        /// Check if an object is null or an equivalent state
+        /// Check if an object is null, IsNone, or an equivalent state
         /// By default String.Empty is equivalent to null
         /// </summary>
         /// <typeparam name="T"></typeparam>

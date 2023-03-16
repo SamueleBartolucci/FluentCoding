@@ -1,13 +1,10 @@
 using FluentAssertions;
-using FluentCoding;
-
-
 using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace FluentCoding.Test.FluentExtensions.Map
+namespace FluentCoding.Test.FluentExtensions.Map.Generics
 {
     [ExcludeFromCodeCoverage]
     public class MapAsync_Tests

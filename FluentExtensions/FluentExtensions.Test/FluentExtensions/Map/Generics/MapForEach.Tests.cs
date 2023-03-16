@@ -1,12 +1,11 @@
 using FluentAssertions;
-using FluentCoding;
 
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
-namespace FluentCoding.Test.FluentExtensions.Map
+namespace FluentCoding.Test.FluentExtensions.Map.Generics
 {
     [ExcludeFromCodeCoverage]
     public class MapForEach_Tests

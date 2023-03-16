@@ -1,8 +1,8 @@
 
 # What's NEW 2.1.1
-- Added `Option` FluentType plus all of its FluentExtensions
-- Added `Nothing` as base value, to use instead of nothing
-- Added `Or` with Func as right parameter
+- Added `Option` FluentType plus all of its FluentExtensions  (DoOptn, DoOptnForEach, OrOptn, MapOptn...)
+- Added `Nothing` as base value, it can be used instead of void
+- Added `Or` with Func as right parameter (evaluated only when the result is required)
 
 # What's NEW 2.1.0
 - Fixed `Outcome.Succes` typo

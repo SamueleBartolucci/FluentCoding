@@ -1,14 +1,19 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net48;netstandard2.0;netstandard2.1;net48</TargetFrameworks>
+		<TargetFrameworks>net6.0;net48;netstandard2.0;netstandard2.1</TargetFrameworks>
 		<ImplicitUsings>disable</ImplicitUsings>
 		<Nullable>disable</Nullable>
-		<Version>2.1.1</Version>
+		<Version>2.1.2</Version>
 		<Title>Expand linq fluent methods with some useful constructs for developing code</Title>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Samuele Bartolucci</Authors>
-		<Description>Add new Linq style functionalities to help the develop process
+		<Description>Add new Linq style functionalities to help the develop process    
+# What's NEW 2.1.2
+- Added `SwitchOptn` and `OrOptn` 
+- Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`
+- Added `WhenIsNullOrEquivalent`, `WhenIsNotNullOrEquivalent`, `WhenEqualsTo`, `WhenAny`, `WhenEmptyOrNull`
+
 # What's NEW 2.1.1
 - Added new types Optional&lt;T&gt; and Unit
 - Updated base extensions to manage Optional&lt;T&gt; (Do, Or, Outcome, When)
@@ -42,11 +47,18 @@
 		<PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
 		<PackageReleaseNotes>
+# What's NEW 2.1.2
+- Added `SwitchOptn` and `OrOptn` 
+- Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`
+- Added `WhenIsNullOrEquivalent`, `WhenIsNotNullOrEquivalent`, `WhenEqualsTo`, `WhenAny`, `WhenEmptyOrNull`
+
 # What's NEW 2.1.1
 - Added new types Optional&lt;T&gt; and Unit
 - Updated base extensions to manage Optional&lt;T&gt; (Do, Or, Outcome, When)
 - Updated Outcome wrong base class extension to remove .Subject field (never intended to be part of it)
 - Added implicit operators true/false/!
+- Renamed Context internal class to SubjectContext
+- Added RsultContext, SubjectContextReadonly,
 
 # What's NEW 2.1.0
 - Fixed `Outcome.Succes` typo

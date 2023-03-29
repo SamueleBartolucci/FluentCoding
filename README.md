@@ -53,7 +53,7 @@ Extensions for Optional type:
 
 
 # Do 
-## [Extension of generic type T]
+### [Extension of generic type T]
 
 Do something with/to an object and then returns the object itself:
  `Do`, `DoForEach`,`DoAsync`, `DoForEachAsync` 
@@ -139,7 +139,7 @@ itentities.DoForEachAsync(_ => _.LastUpdate = DateTime.Now,
 
 
 # Equals 
-## [Extension of generic type T]
+### [Extension of generic type T]
 
 Expands the equality functions: `EqualsToAny`, `EquivalentTo`, `EquivalentToAny`
 
@@ -178,11 +178,11 @@ tesla.EquivalentToAny((t, f) => t.PlateNumber == f.PlateNumber, ferrari, ferrari
 
 
 # Is 
-## [Extension of generic type T]
+### [Extension of generic type T]
 
-Functionalities: `Is`, `IsNullOrEquivalent`
+Functionalities: `Is`, `IsNullOrEquivalent`, `IsNotNullOrEquivalent`,
 
-`IsNullOrEquivalent` is **Null Safe**, when the subject is null returns true  \
+`IsNullOrEquivalent` and `IsNotaNullOrEquivalent` are **Null Safe**, when the subject is null returns true  \
 `Is` is partially safe, the function/action is always executed so its logic must manage the subject being potentially `null`
 
 ### IsNullOrEquivalent
@@ -242,7 +242,7 @@ if(result.IsSatisfied)
 
 
 # Map 
-## [Extension of generic type T]
+### [Extension of generic type T]
 Converts a type into another one: `Map`, `MapForEach`,`MapAsync`, `MapForEachAsync`
 
 **Null Safe:** when the subject is null, `default(T)` is returned  \
@@ -282,7 +282,7 @@ var carsSoftware = cars.MapForEach(ExtractSoftware);
 carsSoftware.Where(_ => _.Version >= 1.4).[...];
 ```
 # Or 
-## [Extension of generic type T]
+### [Extension of generic type T]
 
 Chooses whether to pick the object on the right or on the left, based on a predicate.
 By default returns ***Left***  when not `null`  \
@@ -383,7 +383,7 @@ people.Switch
 
 
 # When 
-## [Extension of generic type T]
+### [Extension of generic type T]
 Applies one or more checks on the Subject and then applies an Action or Function only when all the checks are satisfied
 
 ## When (initialize When base class)
@@ -392,6 +392,9 @@ The when predicate can be:
 - **bool**: `subject.When(bool boolValueFromContext)` 
 - **Func\<bool\>**: `subject.When(Func<bool> predicateToEvaluate)` 
 - **Func\<T, bool\>**: `subject.When(Func<T, bool> predicateToEvaluateOnSubject)` 
+- **NullCheck**: `subject.WhenIsNullOrEquivalent()` 
+- **NotNullCheck**: `subject.WhenIsNotNullOrEquivalent()` 
+- **Equality**: `subject.WhenEqualsTo(comparable)` 
 
 The `result` is `When<T>`:
 - result.IsSuccessful: `true`/`false` based on the predicate result
@@ -403,6 +406,28 @@ var car = LoadCarData(...);
 When<Car> result = car.When(c => c.Type == "Ferrari");
 result.IsSuccess; // the predicate result
 result.Subject; //the predicate subject
+
+When<Car> result = car.WhenIsNullOrEquivalent();
+result.IsSuccess; // false the predicate result
+result.Subject; // car the predicate subject
+```
+
+### [Extension of generic type IEnumerable\<T\>]
+## WhenAny (initialize When base class)
+- **Func\<T, bool\>**: `subject.WhenAny(Func<T, bool> whenCondition)` 
+- **Null or Empty Check**: `subject.WhenEmptyOrNull()` 
+- **NotNullCheck**: `subject.WhenAny()` 
+
+```csharp
+var cars = LoadCarsData(...);
+
+When<Car> result = cars.WhenAny();
+result.IsSuccess; // the predicate result
+result.Subject; //the predicate subject
+
+When<Car> result = cars.WhenEmptyOrNull();
+result.IsSuccess; // the predicate result
+result.Subject; // the predicate subject
 ```
 
 ## When.Then
@@ -495,7 +520,7 @@ result.Subject; //is the input car
 
 
 # TryCatch 
-## [Extension of generic type T]
+### [Extension of generic type T]
 Inline wraps methods for the Try{}Catch{}:  `Try`, `TryTo`, `TryAsync`, `TryToAsync`
 
 ## Try (initialize TryCatch base class)
@@ -752,3 +777,44 @@ var outcome = ReadUserFromDataBase(123)
 Same logic of  `Outcome.BindSuccess` but applied to the Failure part of the outcome.
 Usually, only one is called at the bottom of a BindSuccess chain
 
+
+
+# Optional
+Wraps an object in Some when not null or None when null.
+Similar to `Option` of **F#**, this class avoid to use null references.
+
+
+
+## Initialize Optional type
+
+``` csharp
+var opt = Optional<Car>.Some(car);
+var opt = car.ToOptional();
+```
+
+## IsSome or IsNone
+Check if the optional value is null or not
+
+``` csharp
+var something = new Something();
+var optSomething = something.ToOptional();
+
+optSomething.IsSome(); //true the object is not null
+optSomething.IsNone(); //false the object is not null
+optSomething.Subject; //something
+
+var something = null;
+var optSomething = something.ToOptional();
+optSomething.IsSome(); //false the object is null
+optSomething.IsNone(); //true the object is null
+optSomething.Subject; // null
+```
+
+## WhenSome or WhenNone
+`WhenSome` Apply an action to the Option subject when IsSome()
+`WheNone` Apply a generic action when the subject IsNone()
+
+## Optional and Do, Map, Is, Or, Switch FluentExtensions
+Inherit almost all the Fluent extensions with the specific Opt suffix.
+`DoOptn`, `MapOptn`, `SwitchOptn`...
+All the extension check when Optional\<T\>.None() and manage it properly with the context

@@ -5,6 +5,17 @@ namespace FluentCoding
     public static class IsNullOrEquivalentExtensions
     {
         /// <summary>
+        /// Check if an object is not null or an equivalent state
+        /// By default String.Empty is equivalent to null
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="this"></param>
+        /// <param name="setupCustomOptions"></param>
+        /// <returns></returns>
+        public static bool IsNotNullOrEquivalent<T>(this T @this, Action<IsNullOptions> setupCustomOptions = null)
+            => !@this.IsNullOrEquivalent(setupCustomOptions);
+
+        /// <summary>
         /// Check if an object is null or an equivalent state
         /// By default String.Empty is equivalent to null
         /// </summary>
@@ -28,6 +39,16 @@ namespace FluentCoding
             //all the other is a direct  check
             return @this == null;
         }
+
+        /// <summary>
+        /// Check if an object is not null or an equivalent state
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="this"></param>
+        /// <param name="nullCheckOptions"></param>
+        /// <returns></returns>
+        public static bool IsNotNullOrEquivalent<T>(this T @this, IsNullOptions nullCheckOptions)
+            => @this.IsNotNullOrEquivalent(nullCheckOptions);
 
         /// <summary>
         /// Check if an object is null or an equivalent state

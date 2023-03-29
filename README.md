@@ -1,3 +1,7 @@
+# What's NEW 2.1.2
+- Added `SwitchOptn` and `OrOptn` 
+- Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`
+- Added `WhenIsNullOrEquivalent`, `WhenIsNotNullOrEquivalent`, `WhenEqualsTo`, `WhenAny`, `WhenEmptyOrNull`
 
 # What's NEW 2.1.1
 - Added `Option` FluentType plus all of its FluentExtensions  (DoOptn, DoOptnForEach, OrOptn, MapOptn...)

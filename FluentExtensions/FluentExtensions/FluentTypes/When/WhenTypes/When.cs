@@ -1,11 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FluentCoding
 {
@@ -24,8 +18,41 @@ namespace FluentCoding
         /// <param name="whenTrue"></param>
         /// <returns></returns>
         public T Then(Func<T, T> whenTrue)
+
+            /* Unmerged change from project 'FluentCoding (netstandard2.1)'
+            Before:
+                        => IsSuccessful ? whenTrue(Subject) : Subject;
+
+                    /// <summary>
+            After:
+                        => IsSuccessful ? whenTrue(Subject) : Subject;
+
+                    /// <summary>
+            */
+
+            /* Unmerged change from project 'FluentCoding (net48)'
+            Before:
+                        => IsSuccessful ? whenTrue(Subject) : Subject;
+
+                    /// <summary>
+            After:
+                        => IsSuccessful ? whenTrue(Subject) : Subject;
+
+                    /// <summary>
+            */
+
+            /* Unmerged change from project 'FluentCoding (netstandard2.0)'
+            Before:
+                        => IsSuccessful ? whenTrue(Subject) : Subject;
+
+                    /// <summary>
+            After:
+                        => IsSuccessful ? whenTrue(Subject) : Subject;
+
+                    /// <summary>
+            */
             => IsSuccessful ? whenTrue(Subject) : Subject;
-        
+
         /// <summary>
         /// If condition is true apply whenTrue() and return the result 
         /// Otherwise return the subject
@@ -115,7 +142,7 @@ namespace FluentCoding
                 whenTrue(Subject);
 
             return this;
-        }       
+        }
 
         /// <summary>
         /// If condition is true, run mapWhenTrue(subject) 

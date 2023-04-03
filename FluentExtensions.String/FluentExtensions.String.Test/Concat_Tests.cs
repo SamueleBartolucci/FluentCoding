@@ -30,7 +30,7 @@ namespace FluentExtensions.String.Test
             result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.Null);
             result.Should().Be(expectedResult);
 
-            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmpty); 
+            result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmpty);
             result.Should().Be(expectedResult);
 
             result = input.ConcatWhenWithValue(leftValue, rightValue, StringIsNullWhenEnum.NullOrEmptyOrWhiteSpaces);

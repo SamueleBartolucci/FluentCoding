@@ -1,10 +1,5 @@
 using FluentAssertions;
-using FluentCoding;
-
-
-using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
-using System.Runtime.Intrinsics.X86;
 
 
 namespace FluentCoding.Test.FluentTypes.Outcome

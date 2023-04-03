@@ -1,7 +1,29 @@
 ﻿using System;
 using System.Threading.Tasks;
+/* Unmerged change from project 'FluentCoding (netstandard2.1)'
+Before:
 using System.Xml.Linq;
 using FluentCoding;
+After:
+using System.Xml.Linq;
+*/
+
+/* Unmerged change from project 'FluentCoding (net48)'
+Before:
+using System.Xml.Linq;
+using FluentCoding;
+After:
+using System.Xml.Linq;
+*/
+
+/* Unmerged change from project 'FluentCoding (netstandard2.0)'
+Before:
+using System.Xml.Linq;
+using FluentCoding;
+After:
+using System.Xml.Linq;
+*/
+
 
 namespace FluentCoding
 {
@@ -68,5 +90,25 @@ namespace FluentCoding
         /// <returns></returns>
         public static async Task<WhenOr<T>> WhenEqualsToAsync<T>(this Task<T> whenSubject, T comparable) where T : IComparable
              => (await whenSubject).WhenEqualsTo(comparable);
+
+
+        /// <summary>
+        /// Create a When context and set IsSuccessful to the value of the subject
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whenSubject"></param>
+        /// <returns></returns>
+        public static async Task<WhenOr<bool>> WhenIsTrueAsync(this Task<bool> whenSubject)
+           => (await whenSubject).WhenIsTrue();
+
+
+        /// <summary>
+        /// Create a When context and set IsSuccessful = true when subject is false
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whenSubject"></param>
+        /// <returns></returns>
+        public static async Task<WhenOr<bool>> WhenIsFalseAsync(this Task<bool> whenSubject)
+            => (await whenSubject).WhenIsFalse();
     }
 }

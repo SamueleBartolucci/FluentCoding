@@ -8,7 +8,15 @@
 		<Title>Expand linq fluent methods with some useful constructs for developing code</Title>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 		<Authors>Samuele Bartolucci</Authors>
-		<Description>Add new Linq style functionalities to help the develop process    
+		<Description>Add new Linq style functionalities to help the develop process  
+# What's NEW 2.1.3
+- Added `WhenIsTrue`,`WhenIsFalse`,`WhenAll`,`WhenAllAsync`,`WhenIsTrueAsync`,`WhenIsFalseAsync`,`ThenForAll`
+
+# What's NEW 2.1.2
+- Added `SwitchOptn` and `OrOptn` 
+- Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`
+- Added `WhenIsNullOrEquivalent`, `WhenIsNotNullOrEquivalent`, `WhenEqualsTo`, `WhenAny`, `WhenEmptyOrNull`
+
 # What's NEW 2.1.2
 - Added `SwitchOptn` and `OrOptn` 
 - Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`
@@ -47,6 +55,9 @@
 		<PackageProjectUrl>https://github.com/SamueleBartolucci/FluentCoding</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
 		<PackageReleaseNotes>
+# What's NEW 2.1.3
+- Added `WhenIsTrue`,`WhenIsFalse`,`WhenAll`,`WhenAllAsync`,`WhenIsTrueAsync`,`WhenIsFalseAsync`,`ThenForAll`
+
 # What's NEW 2.1.2
 - Added `SwitchOptn` and `OrOptn` 
 - Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`

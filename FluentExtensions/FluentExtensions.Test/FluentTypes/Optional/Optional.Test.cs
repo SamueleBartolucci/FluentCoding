@@ -1,11 +1,7 @@
 ﻿using FluentAssertions;
-using FluentCoding;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FluentCoding.Test.FluentTypes.Optional
 {
@@ -37,7 +33,7 @@ namespace FluentCoding.Test.FluentTypes.Optional
                 optnT.IsNone().Should().BeFalse();
                 optnT.Subject.Should().BeEquivalentTo(Test.NewT);
                 optnT.IsSuccessful.Should().BeTrue();
-            });               
+            });
         }
 
 
@@ -82,13 +78,13 @@ namespace FluentCoding.Test.FluentTypes.Optional
         [Test]
         public void ToOptional_Null()
         {
-           Test.GetDefault<TType>().ToOptional().Do(optnT =>
-            {
-                optnT.IsNone().Should().BeTrue();
-                optnT.IsSome().Should().BeFalse();
-                optnT.Subject.Should().BeNull();
-                optnT.IsSuccessful.Should().BeFalse();
-            });
+            Test.GetDefault<TType>().ToOptional().Do(optnT =>
+             {
+                 optnT.IsNone().Should().BeTrue();
+                 optnT.IsSome().Should().BeFalse();
+                 optnT.Subject.Should().BeNull();
+                 optnT.IsSuccessful.Should().BeFalse();
+             });
         }
 
 

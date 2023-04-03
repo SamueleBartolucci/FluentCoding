@@ -1,5 +1,4 @@
 ﻿using FluentAssertions;
-using FluentCoding;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -33,7 +32,7 @@ namespace FluentCoding.Test
 
 
         public static IEnumerable<EnumOfType> GetEnumerable<EnumOfType>(int howMany) where EnumOfType : new()
-        { 
+        {
             var list = new List<EnumOfType>();
             while (list.Count < howMany)
             {
@@ -49,7 +48,7 @@ namespace FluentCoding.Test
 
             return list;
         }
-        public static T GetDefault<T>() => default;        
+        public static T GetDefault<T>() => default;
         public static T RaiseException<T>() => throw new Exception();
         public static Task<T> ToTask<T>(this T input) => Task.FromResult(input);
 

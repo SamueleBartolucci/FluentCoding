@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FluentCoding
 {
@@ -79,7 +74,7 @@ namespace FluentCoding
         /// <param name="doWhenSuccess"></param>
         /// <param name="doWhenFailure"></param>
         /// <returns></returns>
-        public Outcome<S1, F1> Bind<S1, F1>(Func<S, Outcome<S1, F1>> doWhenSuccess, Func<F, Outcome<S1, F1>> doWhenFailure) 
+        public Outcome<S1, F1> Bind<S1, F1>(Func<S, Outcome<S1, F1>> doWhenSuccess, Func<F, Outcome<S1, F1>> doWhenFailure)
             => IsSuccessful ? doWhenSuccess(Success) : doWhenFailure(Failure);
 
 
@@ -102,7 +97,7 @@ namespace FluentCoding
         /// <param name="doWhenFail"></param>
         /// <returns></returns>
         public Outcome<S, F1> BindFailure<F1>(Func<F, Outcome<S, F1>> doWhenFail)
-            => !IsSuccessful ? doWhenFail(Failure) : 
+            => !IsSuccessful ? doWhenFail(Failure) :
                               Outcome<S, F1>.ToSuccess(Success);
 
         /// <summary>
@@ -126,7 +121,7 @@ namespace FluentCoding
         /// <param name="doWhenFail"></param>
         /// <returns></returns>
         public Outcome<S, F1> MapFailure<F1>(Func<F, F1> doWhenFail)
-            => !IsSuccessful ? Outcome<S, F1>.ToFailure(doWhenFail(Failure)) : 
+            => !IsSuccessful ? Outcome<S, F1>.ToFailure(doWhenFail(Failure)) :
                               Outcome<S, F1>.ToSuccess(Success);
 
         /// <summary>

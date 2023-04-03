@@ -12,7 +12,7 @@ namespace FluentExtensions.String.Test
         [TestCase(false)]
         public void PrependWhen_bool(bool doPrepend)
         {
-            var testList = new List<string>() { "1", "2", "3" };    
+            var testList = new List<string>() { "1", "2", "3" };
             var result = testList.PrependWhen("0", doPrepend).ToList();
 
             testList.First().Should().Be("1");

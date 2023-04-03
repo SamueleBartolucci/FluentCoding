@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentCoding
+﻿namespace FluentCoding
 {
     public class SubjectContext<T>
     {
@@ -14,9 +8,9 @@ namespace FluentCoding
         /// <summary>
         /// Subject from which the fluent operation started
         /// </summary>
-        public T Subject 
+        public T Subject
         {
-            get { return _subject; } 
+            get { return _subject; }
             set { _subject = value; }
         }
     }

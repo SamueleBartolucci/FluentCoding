@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
+﻿using System.Collections.Generic;
 
 namespace FluentCoding
 {
@@ -13,9 +11,9 @@ namespace FluentCoding
         /// <typeparam name="T"></typeparam>
         /// <param name="subject"></param>
         /// <returns></returns>
-        public static Optional<T> ToOptional<T>(this T subject) 
-            => subject != null? 
-                Optional<T>.Some(subject) : 
+        public static Optional<T> ToOptional<T>(this T subject)
+            => subject != null ?
+                Optional<T>.Some(subject) :
                 Optional<T>.None();
 
         /// <summary>

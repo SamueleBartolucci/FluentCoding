@@ -1,3 +1,6 @@
+# What's NEW 2.1.3
+- Added: `WhenIsTrue`,`WhenIsFalse`,`WhenAll`,`WhenAllAsync`,`WhenIsTrueAsync`,`WhenIsFalseAsync`,`ThenForAll`
+
 # What's NEW 2.1.2
 - Added `SwitchOptn` and `OrOptn` 
 - Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`

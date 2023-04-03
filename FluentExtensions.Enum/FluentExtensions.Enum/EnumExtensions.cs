@@ -26,9 +26,10 @@ namespace FluentCoding.Enum_
 
             return enumValue.GetType()
                             .GetField(description)
-                            .GetCustomAttributes(typeof(DescriptionAttribute), true)                                                                         
+                            .GetCustomAttributes(typeof(DescriptionAttribute), true)
                             .When(_ => _.Any())
                             .Then(_ => ((DescriptionAttribute)_.First()).Description,
-                                     _ => description);        }
+                                     _ => description);
+        }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace FluentCoding
 {
@@ -14,10 +12,10 @@ namespace FluentCoding
         /// <param name="optionalSubject"></param>
         /// <param name="onNone"></param>
         /// <returns></returns>
-        public static Outcome<S, F> ToOutcome<S, F>(this Optional<S> optionalSubject, F onNone) 
-            =>  optionalSubject.WhenOptn(optionalSubject.IsSome())
+        public static Outcome<S, F> ToOutcome<S, F>(this Optional<S> optionalSubject, F onNone)
+            => optionalSubject.WhenOptn(optionalSubject.IsSome())
                 .Then(someValue => someValue.Subject.ToSuccessOutcome<S, F>(),
-                      nome      => onNone.ToFailureOutcome<S, F>());
+                      nome => onNone.ToFailureOutcome<S, F>());
 
         /// <summary>
         /// Convert the subject into an Outcome
@@ -30,7 +28,7 @@ namespace FluentCoding
         public static Outcome<S, F> ToOutcome<S, F>(this Optional<S> optionalSubjectect, Func<F> onNone)
             => optionalSubjectect.WhenOptn(optionalSubjectect.IsSome())
                 .Then(someValue => someValue.Subject.ToSuccessOutcome<S, F>(),
-                      nome      => onNone().ToFailureOutcome<S, F>());
+                      nome => onNone().ToFailureOutcome<S, F>());
 
 
     }

@@ -1,8 +1,4 @@
 using FluentAssertions;
-using FluentCoding;
-using FluentCoding;
-using Microsoft.VisualStudio.TestPlatform.Utilities;
-using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
 
 
@@ -102,6 +98,28 @@ namespace FluentCoding.Test.FluentTypes.When
             when.IsSuccessful.Should().Be(false);
             when.Should().BeOfType(typeof(WhenOr<TestEnum>));
             when.Subject.Should().Be(TestEnum.Enum1);
+        }
+
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenIsTrue_enum(bool subject)
+        {
+            var when = subject.WhenIsTrue();
+            when.IsSuccessful.Should().Be(subject);
+            when.Should().BeOfType(typeof(WhenOr<bool>));
+            when.Subject.Should().Be(subject);
+        }
+
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenIsFalse_enum(bool subject)
+        {
+            var when = subject.WhenIsFalse();
+            when.IsSuccessful.Should().Be(!subject);
+            when.Should().BeOfType(typeof(WhenOr<bool>));
+            when.Subject.Should().Be(subject);
         }
     }
 }

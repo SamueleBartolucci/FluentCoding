@@ -57,7 +57,7 @@ namespace FluentCoding
         public static T Or<T>(this T leftValue, T orRightValue, Func<T, T, bool> chooseRightWhen)
             => leftValue.Or(orRightValue, chooseRightWhen(leftValue, orRightValue));
 
-       
+
 
     }
 }

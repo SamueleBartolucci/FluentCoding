@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Xml.Linq;
 
 namespace FluentCoding
 {
@@ -39,9 +38,9 @@ namespace FluentCoding
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static IEnumerable<T> DoForEach<T>(this IEnumerable<T> enumeratorSubject, params Func<T, T>[] doOnItemActions)
-        {            
+        {
             if (enumeratorSubject != null)
-            {         
+            {
                 foreach (var currentItem in enumeratorSubject)
                     foreach (var actionToApply in doOnItemActions)
                         actionToApply(currentItem);

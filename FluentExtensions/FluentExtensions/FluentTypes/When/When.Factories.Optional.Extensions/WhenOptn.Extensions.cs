@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Xml.Linq;
 
 
 namespace FluentCoding
@@ -14,7 +13,7 @@ namespace FluentCoding
         /// <param name="whenSubject"></param>
         /// <param name="whenCondition"></param>
         /// <returns></returns>
-        public static WhenOr<Optional<T>> WhenOptn<T>(this Optional<T> whenSubject, Func<T, bool> whenCondition) 
+        public static WhenOr<Optional<T>> WhenOptn<T>(this Optional<T> whenSubject, Func<T, bool> whenCondition)
             => new WhenOr<Optional<T>>(whenSubject) { IsSuccessful = whenSubject.IsSome() && whenCondition(whenSubject.Subject) };
 
         /// <summary>

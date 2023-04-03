@@ -1,10 +1,8 @@
 using FluentAssertions;
-using FluentCoding;
-using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
 using System.Diagnostics.CodeAnalysis;
 
 
-namespace FluentCoding.Test.FluentExtensions.Switch
+namespace FluentCoding.Test.FluentExtensions.Switch.Generics
 {
     [ExcludeFromCodeCoverage]
     public class Switch_Tests

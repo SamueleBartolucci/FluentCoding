@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Security.Cryptography;
 
 namespace FluentCoding
 {
@@ -15,7 +13,7 @@ namespace FluentCoding
         /// <param name="tryTo"></param>
         /// <returns></returns>
         public static TryCatch<S, R, Exception> Try<S, R>(this S _, Func<S, R> tryTo) =>
-            new TryCatch<S, R, Exception>(_) {}
+            new TryCatch<S, R, Exception>(_) { }
             .Try(tryTo, (s, e) => e);
 
         /// <summary>

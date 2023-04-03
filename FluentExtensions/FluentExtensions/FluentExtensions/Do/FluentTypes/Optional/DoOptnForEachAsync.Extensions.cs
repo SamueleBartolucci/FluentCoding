@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FluentCoding
 {
@@ -31,6 +30,6 @@ namespace FluentCoding
         /// <returns></returns>
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static async Task<IEnumerable<Optional<T>>> DoOptnForEachAsync<T>(this Task<IEnumerable<Optional<T>>> subject, params Func<T, T>[] doOnItem)
-            => (await subject).DoOptnForEach(doOnItem);       
+            => (await subject).DoOptnForEach(doOnItem);
     }
 }

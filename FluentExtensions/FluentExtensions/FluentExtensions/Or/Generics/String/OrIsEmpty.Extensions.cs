@@ -15,7 +15,7 @@ namespace FluentCoding
         /// <param name="chooseRight"></param>
         /// <returns></returns>
         public static string OrIsEmpty(this string leftValue, string orRightValue, bool chooseRight = false)
-            =>  string.IsNullOrEmpty(leftValue) || chooseRight ? orRightValue : leftValue;
+            => string.IsNullOrEmpty(leftValue) || chooseRight ? orRightValue : leftValue;
 
         /// <summary>
         /// Choose between the left or the right value.

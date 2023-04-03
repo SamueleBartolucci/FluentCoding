@@ -1,11 +1,5 @@
 using FluentAssertions;
-using FluentCoding;
-
-
-using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
-using System;
 using System.Diagnostics.CodeAnalysis;
-using System.Security.Principal;
 
 
 namespace FluentCoding.Test.FluentExtensions.Equals.Generics

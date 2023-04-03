@@ -1,5 +1,5 @@
 using FluentAssertions;
-using FluentCoding;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
 
@@ -28,6 +28,32 @@ namespace FluentCoding.Test.FluentTypes.When
             WhenContext(Test.NewT, trueCondition)
                 .Then((_) => Test.NewKDone, (_) => Test.NewKNotDone)
                 .Should().BeEquivalentTo(trueCondition ? Test.NewKDone : Test.NewKNotDone);
+        }
+
+
+        [Test]
+        public void ThenForAll_whenTrue()
+        {
+            IEnumerable<string> input = new[] { Test.DONE, Test.NOT_DONE, Test.LEFT, Test.RIGHT };
+            input.WhenAny().ThenForAll(_ => _ + 1, _ => _ + 2)
+                .Should().AllSatisfy(x =>
+                {
+                    x.Should().NotStartWith("1");
+                    x.Should().EndWith("1");
+                });
+        }
+
+
+        [Test]
+        public void ThenForAll_WhenFalse()
+        {
+            IEnumerable<string> input = new[] { Test.DONE, Test.NOT_DONE, Test.LEFT, Test.RIGHT };
+            input.WhenAny(_ => _.StartsWith("XXX")).ThenForAll(_ => _ + 1, _ => _ + 2)
+                .Should().AllSatisfy(x =>
+                {
+                    x.Should().NotStartWith("2");
+                    x.Should().EndWith("2");
+                });
         }
 
     }

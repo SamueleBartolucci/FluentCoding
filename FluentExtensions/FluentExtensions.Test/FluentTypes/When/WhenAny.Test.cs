@@ -1,7 +1,4 @@
 using FluentAssertions;
-using FluentCoding;
-using FluentCoding;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -74,5 +71,25 @@ namespace FluentCoding.Test.FluentTypes.When
             when.Should().BeOfType(typeof(WhenOr<IEnumerable<string>>));
             when.Subject.Should().BeEquivalentTo(new List<string>());
         }
+
+
+        [Test]
+        public void WhenAll_true()
+        {
+            var when = new[] { 1, 2, 3, 4, 5, 6 }.WhenAll(v => v <= 6);
+            when.IsSuccessful.Should().BeTrue();
+            when.Should().BeOfType(typeof(WhenOr<IEnumerable<int>>));
+            when.Subject.Should().BeEquivalentTo(new[] { 1, 2, 3, 4, 5, 6 });
+        }
+
+        [Test]
+        public void WhenAll_false()
+        {
+            var when = new[] { 1, 2, 3, 4, 5, 6 }.WhenAll(v => v <= 4);
+            when.IsSuccessful.Should().BeFalse();
+            when.Should().BeOfType(typeof(WhenOr<IEnumerable<int>>));
+            when.Subject.Should().BeEquivalentTo(new[] { 1, 2, 3, 4, 5, 6 });
+        }
     }
+
 }

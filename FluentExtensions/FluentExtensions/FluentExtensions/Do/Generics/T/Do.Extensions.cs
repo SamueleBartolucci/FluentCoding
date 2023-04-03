@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 
 namespace FluentCoding
@@ -58,7 +57,7 @@ namespace FluentCoding
         public static T Do<T>(this T _, params Func<T, T>[] doOnSubject)
         {
             if (_ != null)
-            {                
+            {
                 foreach (var doOnSbj in doOnSubject)
                     doOnSbj(_);
             }

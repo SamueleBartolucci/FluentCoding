@@ -13,7 +13,7 @@ namespace FluentCoding
         /// <param name="subject"></param>
         /// <param name="mapSubject"></param>
         /// <returns></returns>
-        public static async Task<K> MapAsync<T, K>(this Task<T> subject, Func<T, K> mapSubject) 
+        public static async Task<K> MapAsync<T, K>(this Task<T> subject, Func<T, K> mapSubject)
             => (await subject).Map(mapSubject);
     }
 }

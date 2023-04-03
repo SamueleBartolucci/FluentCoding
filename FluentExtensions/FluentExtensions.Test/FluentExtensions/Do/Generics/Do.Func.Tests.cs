@@ -1,6 +1,4 @@
 using FluentAssertions;
-
-using NUnit.Framework.Internal;
 using System.Diagnostics.CodeAnalysis;
 
 

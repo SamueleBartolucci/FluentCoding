@@ -1,10 +1,5 @@
 ﻿
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
 
 namespace FluentCoding
 {
@@ -17,7 +12,7 @@ namespace FluentCoding
         internal WhenAnd(T subject) : base(subject) { }
         internal WhenAnd(WhenAnd<T> whenOr) : base(whenOr.Subject)
         {
-            IsSuccessful = whenOr.IsSuccessful;            
+            IsSuccessful = whenOr.IsSuccessful;
         }
 
         /// <summary>

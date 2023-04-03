@@ -1,5 +1,4 @@
 using FluentAssertions;
-using Microsoft.VisualStudio.TestPlatform.CrossPlatEngine;
 using System;
 using System.Diagnostics.CodeAnalysis;
 

@@ -15,11 +15,11 @@ namespace FluentCoding
         /// <param name="whenSubject"></param>
         /// <param name="whenCondition"></param>
         /// <returns></returns>
-        public static WhenOr<IEnumerable<Optional<T>>> WhenAnyOpt<T>(this IEnumerable<Optional<T>> whenSubject, Func<T, bool> whenCondition) 
-            =>  
+        public static WhenOr<IEnumerable<Optional<T>>> WhenAnyOpt<T>(this IEnumerable<Optional<T>> whenSubject, Func<T, bool> whenCondition)
+            =>
             new WhenOr<IEnumerable<Optional<T>>>(whenSubject)
             {
-                IsSuccessful = whenSubject != null &&                               
+                IsSuccessful = whenSubject != null &&
                                whenSubject.Any(i => i.IsSome() && whenCondition(i.Subject))
             };
     }

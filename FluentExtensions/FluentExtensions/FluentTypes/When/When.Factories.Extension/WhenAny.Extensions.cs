@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentCoding;
 
 namespace FluentCoding
 {
@@ -16,6 +15,16 @@ namespace FluentCoding
         /// <returns></returns>
         public static WhenOr<IEnumerable<T>> WhenAny<T>(this IEnumerable<T> whenSubject, Func<T, bool> whenCondition) =>
             new WhenOr<IEnumerable<T>>(whenSubject) { IsSuccessful = whenSubject != null && whenSubject.Any(i => whenCondition(i)) };
+
+        /// <summary>
+        /// Create a When contest and set IsSuccessful status true if all the items satisfy the whenContition(item)
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="whenSubject"></param>
+        /// <param name="whenCondition"></param>
+        /// <returns></returns>
+        public static WhenOr<IEnumerable<T>> WhenAll<T>(this IEnumerable<T> whenSubject, Func<T, bool> whenCondition) =>
+            new WhenOr<IEnumerable<T>>(whenSubject) { IsSuccessful = whenSubject != null && whenSubject.All(i => whenCondition(i)) };
 
         /// <summary>
         /// Create a When contest and set IsSuccessful status true if exists at least one element        

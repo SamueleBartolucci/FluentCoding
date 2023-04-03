@@ -1,5 +1,4 @@
 using FluentAssertions;
-using FluentCoding;
 
 using System.Diagnostics.CodeAnalysis;
 
@@ -42,7 +41,7 @@ namespace FluentCoding.Test.FluentTypes.When
         }
 
         [Test]
-        public void When_IsNullOrEquivalent()
+        public void WhenIsNullOrEquivalentAsync()
         {
             var when = Test.NewT.ToTask().WhenIsNullOrEquivalentAsync().Result;
             when.IsSuccessful.Should().Be(false);
@@ -57,7 +56,7 @@ namespace FluentCoding.Test.FluentTypes.When
         }
 
         [Test]
-        public void When_IsNotNullOrEquivalent()
+        public void WhenIsNotNullOrEquivalentAsync()
         {
             var when = Test.NewT.ToTask().WhenIsNotNullOrEquivalentAsync().Result;
             when.IsSuccessful.Should().Be(true);
@@ -72,7 +71,7 @@ namespace FluentCoding.Test.FluentTypes.When
         }
 
         [Test]
-        public void When_IsEqualsTo_string()
+        public void WhenEqualsToAsync_string()
         {
             var when = Test.NewT.TDesc.ToTask().WhenEqualsToAsync(Test.NewT.TDesc).Result;
             when.IsSuccessful.Should().Be(true);
@@ -87,7 +86,7 @@ namespace FluentCoding.Test.FluentTypes.When
         }
 
         [Test]
-        public void When_IsEqualsTo_enum()
+        public void WhenEqualsToAsync_enum()
         {
             var when = TestEnum.Enum1.ToTask().WhenEqualsToAsync(TestEnum.Enum1).Result;
             when.IsSuccessful.Should().Be(true);
@@ -99,6 +98,27 @@ namespace FluentCoding.Test.FluentTypes.When
             when.IsSuccessful.Should().Be(false);
             when.Should().BeOfType(typeof(WhenOr<TestEnum>));
             when.Subject.Should().Be(TestEnum.Enum1);
+        }
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenIsTrueAsync(bool subject)
+        {
+            var when = subject.ToTask().WhenIsTrueAsync().Result;
+            when.IsSuccessful.Should().Be(subject);
+            when.Should().BeOfType(typeof(WhenOr<bool>));
+            when.Subject.Should().Be(subject);
+        }
+
+
+        [TestCase(true)]
+        [TestCase(false)]
+        public void WhenIsFalse_enum(bool subject)
+        {
+            var when = subject.ToTask().WhenIsFalseAsync().Result;
+            when.IsSuccessful.Should().Be(!subject);
+            when.Should().BeOfType(typeof(WhenOr<bool>));
+            when.Subject.Should().Be(subject);
         }
     }
 }

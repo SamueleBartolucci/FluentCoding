@@ -1,4 +1,30 @@
-﻿using System.Diagnostics.Contracts;
+﻿
+/* Unmerged change from project 'FluentCoding (netstandard2.1)'
+Before:
+using System.Diagnostics.Contracts;
+using System;
+After:
+using System;
+using System.Diagnostics.Contracts;
+*/
+
+/* Unmerged change from project 'FluentCoding (net48)'
+Before:
+using System.Diagnostics.Contracts;
+using System;
+After:
+using System;
+using System.Diagnostics.Contracts;
+*/
+
+/* Unmerged change from project 'FluentCoding (netstandard2.0)'
+Before:
+using System.Diagnostics.Contracts;
+using System;
+After:
+using System;
+using System.Diagnostics.Contracts;
+*/
 using System;
 
 
@@ -13,7 +39,7 @@ namespace FluentCoding
         private Optional(O optionalValue, bool isSomething) : base(optionalValue) { IsSuccessful = isSomething; }
 
         public static explicit operator O(Optional<O> input) => input.IsSome() ? input.Subject : default(O);
-        public static implicit operator Optional<O>(O input) => input.IsNullOrEquivalent()? None() : Some(input);
+        public static implicit operator Optional<O>(O input) => input.IsNullOrEquivalent() ? None() : Some(input);
         public static implicit operator bool(Optional<O> input) => input.IsSome();
         public static bool operator true(Optional<O> input) => input.IsSome();
         public static bool operator false(Optional<O> input) => input.IsNone();
@@ -26,14 +52,14 @@ namespace FluentCoding
         /// <typeparam name="O"></typeparam>
         /// <param name="value"></param>
         /// <returns></returns>
-        public static Optional<O> Some(O value) 
+        public static Optional<O> Some(O value)
             => value == null ? None() : new Optional<O>(value, true);
 
         /// <summary>
         /// Return None
         /// </summary>
         /// <returns></returns>
-        public static Optional<O> None() 
+        public static Optional<O> None()
             => new Optional<O>(default, false);
 
         /// <summary>
@@ -65,6 +91,6 @@ namespace FluentCoding
         /// <returns></returns>
         public Optional<O> WhenNone(Action action)
             => this.When(IsNone()).Then(_ => action());
-                 
+
     }
 }

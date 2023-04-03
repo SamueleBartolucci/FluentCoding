@@ -139,20 +139,18 @@ namespace FluentCoding
         /// <summary>
         /// Apply an action on the Failure field when the status IsSuccessful = false
         /// </summary>
-        /// <typeparam name="F1"></typeparam>
         /// <param name="doWhenFail"></param>
         /// <returns></returns>
-        public Outcome<S, F> WhenFailure<F1>(Action<F> doWhenFail)
+        public Outcome<S, F> WhenFailure(Action<F> doWhenFail)
             => this.When(!IsSuccessful)
                    .Then(failureOutcome => doWhenFail(failureOutcome.Failure));
 
         /// <summary>
         /// Apply an action on the Success field when the status IsSuccessful = true
         /// </summary>
-        /// <typeparam name="S1"></typeparam>
         /// <param name="doWhenSuccess"></param>
         /// <returns></returns>
-        public Outcome<S, F> WhenSuccess<S1>(Action<S> doWhenSuccess)
+        public Outcome<S, F> WhenSuccess(Action<S> doWhenSuccess)
             => this.When(IsSuccessful)
                    .Then(successOutcome => doWhenSuccess(successOutcome.Success));
 

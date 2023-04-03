@@ -17,6 +17,19 @@ namespace FluentCoding
             .Try(tryTo, (s, e) => e);
 
         /// <summary>
+        /// Execute a Function and then return the TryCatch context
+        /// </summary>
+        /// <typeparam name="S"></typeparam>
+        /// <typeparam name="R"></typeparam>
+        /// <param name="_"></param>
+        /// <param name="tryTo"></param>
+        /// <returns></returns>
+        public static TryCatch<S, S, Exception> Try<S>(this S _, Action<S> tryTo) =>
+            new TryCatch<S, S, Exception>(_) { }
+            .Try(tryTo, (s, e) => e);
+
+
+        /// <summary>
         /// Execute a Function and (when raised) manage the exception, Then return the TryCatch context
         /// </summary>
         /// <typeparam name="S"></typeparam>

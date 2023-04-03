@@ -73,8 +73,7 @@ namespace FluentCoding
         /// </summary>
         /// <returns></returns>
         public bool IsNone() => !this.IsSuccessful;
-
-
+        
         /// <summary>
         /// Apply an action on the Subject when IsSome
         /// Same as Subject.DoOptn(action)

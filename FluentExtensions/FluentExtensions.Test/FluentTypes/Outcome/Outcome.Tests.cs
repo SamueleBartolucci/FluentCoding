@@ -1,6 +1,7 @@
 using FluentAssertions;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-
+using System.Linq;
 
 namespace FluentCoding.Test.FluentTypes.Outcome
 {
@@ -8,18 +9,60 @@ namespace FluentCoding.Test.FluentTypes.Outcome
     public class Outcome_Tests
     {
 
+        [Test]
+        public void Outcome_WhenSuccessWhenFailure_Success()
+        {
+            var listEmpty = new List<string>();
+
+            var result = Test.NewT.ToOutcome(() => false, Test.NewK)
+                .WhenSuccess(_ => listEmpty.Add(_.TDesc))
+                .WhenFailure(_ => listEmpty.Add(_.KDesc))
+                .IsSuccessful.Should().BeTrue();
+
+            listEmpty.Count.Should().Be(1);
+            listEmpty.First().Should().BeEquivalentTo(Test.NewT.TDesc);
+        }
 
         [Test]
-        public void Outcome_ToOutcome_bool_Success()
+        public void Outcome_WhenSuccessWhenFailure_Failure()
+        {
+            var listEmpty = new List<string>();
+
+            var result = Test.NewT.ToOutcome(() => true, Test.NewK)
+                .WhenSuccess(_ => listEmpty.Add(_.TDesc))
+                .WhenFailure(_ => listEmpty.Add(_.KDesc))
+                .IsSuccessful.Should().BeFalse();
+
+            listEmpty.Count.Should().Be(1);
+            listEmpty.First().Should().BeEquivalentTo(Test.NewK.KDesc);
+        }
+
+
+        [Test]
+        public void Outcome_ToOutcome1_bool_Success()
+        {
+            Outcome<TType, KType>.ToOutcome(Test.NewT, () => false, Test.NewK)
+                .IsSuccessful.Should().BeTrue();
+
+        }
+        [Test]
+        public void Outcome_ToOutcome2_bool_Success()
         {
             Test.NewT.ToOutcome(() => false, Test.NewK)
                 .IsSuccessful.Should().BeTrue();
         }
 
         [Test]
-        public void Outcome_ToOutcome_T_bool_Success()
+        public void Outcome_ToOutcome1_T_bool_Success()
         {
             Test.NewT.ToOutcome(_ => _.IsNullOrEquivalent(), Test.NewK)
+                .IsSuccessful.Should().BeTrue();
+        }
+
+        [Test]
+        public void Outcome_ToOutcome2_T_bool_Success()
+        {
+            Outcome<TType, KType>.ToOutcome(Test.NewT, _ => _.IsNullOrEquivalent(), Test.NewK)
                 .IsSuccessful.Should().BeTrue();
         }
 

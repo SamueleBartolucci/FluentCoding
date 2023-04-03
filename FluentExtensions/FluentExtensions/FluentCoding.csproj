@@ -10,12 +10,16 @@
 		<Authors>Samuele Bartolucci</Authors>
 		<Description>Add new Linq style functionalities to help the develop process  
 # What's NEW 2.1.3
-- Added `WhenIsTrue`,`WhenIsFalse`,`WhenAll`,`WhenAllAsync`,`WhenIsTrueAsync`,`WhenIsFalseAsync`,`ThenForAll`
+- Added: `WhenIsTrue`,`WhenIsFalse`,`WhenAll`,`WhenAllAsync`,`WhenIsTrueAsync`,`WhenIsFalseAsync`,`ThenForAll`
+- Added: `T.TryTo(Action(T))` (without explicit error managemer)
+- Fixed: `Outcome.WhenSuccess`, `Outcome.WhenFailure`, `Optional&lt;T&gt;.OrOptn(Optional&lt;T&gt;, Func&lt;T,T bool&gt;)`
+
 
 # What's NEW 2.1.2
 - Added `SwitchOptn` and `OrOptn` 
 - Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`
 - Added `WhenIsNullOrEquivalent`, `WhenIsNotNullOrEquivalent`, `WhenEqualsTo`, `WhenAny`, `WhenEmptyOrNull`
+- Added  `Outcome.WhenSuccess`, `Outcome.WhenFailure`
 
 # What's NEW 2.1.2
 - Added `SwitchOptn` and `OrOptn` 
@@ -36,7 +40,7 @@
 
 # What's NEW 2.0.1
 - Added DoWrap and DoWrapAsync to quickly manage value types
-- Added `Outcome&lt;R,L&gt;;` to mimic the F# `Result&lt;'T,'TFailure&gt;` (with Map and Bind functionalities) [railway oriented programing (https://fsharpforfunandprofit.com/rop/]
+- Added `Outcome&lt;R,L&gt;` to mimic the F# `Result&lt;'T,'TFailure&gt;` (with Map and Bind functionalities) [railway oriented programing (https://fsharpforfunandprofit.com/rop/]
 
 # What's NEW 2.0.0
 - Do now ALWAYS return the subject (even when called with a Func)
@@ -56,12 +60,15 @@
 		<RepositoryUrl>https://github.com/SamueleBartolucci/FluentCoding</RepositoryUrl>
 		<PackageReleaseNotes>
 # What's NEW 2.1.3
-- Added `WhenIsTrue`,`WhenIsFalse`,`WhenAll`,`WhenAllAsync`,`WhenIsTrueAsync`,`WhenIsFalseAsync`,`ThenForAll`
+- Added: `WhenIsTrue`,`WhenIsFalse`,`WhenAll`,`WhenAllAsync`,`WhenIsTrueAsync`,`WhenIsFalseAsync`,`ThenForAll`
+- Added: `T.TryTo(Action(T))` (without explicit error managemer)
+- Fixed: `Outcome.WhenSuccess`, `Outcome.WhenFailure`, `Optional&lt;T&gt;.OrOptn(Optional&lt;T&gt;, Func&lt;T,T bool&gt;)`
 
 # What's NEW 2.1.2
 - Added `SwitchOptn` and `OrOptn` 
 - Added `IsNotNullOrEquivalent`, `IsNullOrEquivalent`
 - Added `WhenIsNullOrEquivalent`, `WhenIsNotNullOrEquivalent`, `WhenEqualsTo`, `WhenAny`, `WhenEmptyOrNull`
+- Added  `Outcome.WhenSuccess`, `Outcome.WhenFailure`
 
 # What's NEW 2.1.1
 - Added new types Optional&lt;T&gt; and Unit

@@ -8,6 +8,31 @@ namespace FluentCoding.Test.FluentTypes.Optional
     [ExcludeFromCodeCoverage]
     public class Optional_Tests
     {
+        [Test]
+        public void WhenSome()
+        {
+            var emptyList = new List<string>();
+            var whenResult = "some".ToOptional()
+                    .WhenSome(_ => emptyList.Add(_))
+                    .WhenNone(() => emptyList.Add("none"));
+            whenResult.IsSome().Should().BeTrue();
+            emptyList.Count.Should().Be(1);
+            emptyList.First().Should().Be(whenResult.Subject);
+        }
+
+        [Test]
+        public void WhenNone()
+        {
+            var emptyList = new List<string>();
+            var whenResult =Test.GetDefault<string>().ToOptional()
+                    .WhenSome(_ => emptyList.Add("some"))
+                    .WhenNone(() => emptyList.Add("none"));
+            whenResult.IsNone().Should().BeTrue();
+            emptyList.Count.Should().Be(1);
+            emptyList.First().Should().Be("none");
+        }
+
+
 
         [Test]
         public void Some_BangOperator()

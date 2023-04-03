@@ -110,7 +110,7 @@ namespace FluentCoding
         public static Optional<T> OrOptn<T>(this Optional<T> leftValue, Optional<T> orRightValue, Func<T, T, bool> chooseRightWhen)
             => leftValue.OrOptn(orRightValue, leftValue.IsNone() || orRightValue.When(v => v.IsSome())
                                                                                 .Then(v => chooseRightWhen(leftValue.Subject, orRightValue.Subject),
-                                                                                      _ => true));
+                                                                                      _ => false));
 
 
     }

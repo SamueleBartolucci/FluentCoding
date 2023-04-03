@@ -1,5 +1,7 @@
 # What's NEW 2.1.3
 - Added: `WhenIsTrue`,`WhenIsFalse`,`WhenAll`,`WhenAllAsync`,`WhenIsTrueAsync`,`WhenIsFalseAsync`,`ThenForAll`
+- Added: `T.TryTo(Action(T))` (without explicit error managemer)
+- Fixed: `Outcome.WhenSuccess`, `Outcome.WhenFailure`, `Optional<T>.OrOptn(Optional<T>, Func<T,T bool>)`
 
 # What's NEW 2.1.2
 - Added `SwitchOptn` and `OrOptn` 
@@ -633,9 +635,30 @@ var date = "2022-12-29".TryTo(DateTime.Parse, (subject, ex) => DateTime.MinValue
 Mimics [railway oriented programming](https://fsharpforfunandprofit.com/rop/) concept of  functional programming.
 Similar to `Result<L,R>` of **F#**
 
+### initialize a new Outcome using Outcome constructor Extensions
+``` csharp
+public Outcome<Order, string> SaveOrder(Order o) 
+{
+	int databaseId =  /*...save into database ...*/;	
+	return o.ToOutcome(() => databaseId > 0, "storing failed");
+};
+
+//OR
+
+public Outcome<Order, string> SaveOrder2(Order o) 
+{
+	o.Id =  /*...save into database ...*/;	
+	return o.ToOutcome(order => order.Id > 0, "storing failed");
+};
+
+
+var saveOutcome = SaveOrder(customerOrder);
+var saveOutcome2 = SaveOrder2(customerOrder);
+```
+
 ### Outcome.Map
 `Outcome<R, F>.Map` takes two Functions: 
-- **A**  `Func<R, R1>`
+- **A** `Func<R, R1>`
 - **B** `Func<F, F1>` 
 
 If **Outcome**  is successful applies **A** to `Outcome.Succes` field and returns a new `Outcome<R1, F>` 
@@ -783,6 +806,21 @@ var outcome = ReadUserFromDataBase(123)
 ### Outcome.BindFailure
 Same logic of  `Outcome.BindSuccess` but applied to the Failure part of the outcome.
 Usually, only one is called at the bottom of a BindSuccess chain
+
+### Outcome.WhenSuccess, Outcome.WhenFailure
+Apply and action that takes the Success or the Failure value as input based on the Outcome status
+
+```
+var confirmedOrders = new List<Order>();
+var toRetryOrders = new List<int>();
+
+Outcome<Order, int> ConfirmOrder(Order o) { ... return OrderOrFailedOrderId }
+
+ConfirmOrder(customerOrder)
+	.WhenSuccess(confirmedOrder => confirmedOrders.Add(confirmedOrders))
+	.WhenFailure(failedOrderId =>  toRetryOrders.Add(failedORderId));
+
+```
 
 
 

@@ -24,7 +24,7 @@ namespace FluentCoding
                     doOnSbj(optionalValue.Subject);
             }
 
-            return optionalValue;
+            return optionalValue ?? Optional<O>.None();
         }
 
         //public Optional<O> DoOptn(params Action<O>[] doOnSubject)
@@ -55,7 +55,7 @@ namespace FluentCoding
                     doOnSbj(optionalValue.Subject);
             }
 
-            return optionalValue;
+            return optionalValue ?? Optional<O>.None();
         }
 
         //public Optional<O> DoOptn(params Func<O, O>[] doOnSubject)
